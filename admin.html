@@ -643,11 +643,23 @@
           </button>
         </div>`
       : isConfirmed
-      ? `<a class="btn-whatsapp" href="https://wa.me/${waPhone}?text=${confirmMsg}" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.52-5.188-1.424l-.371-.22-3.762.896.948-3.658-.242-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
-          Send Confirmation
-        </a>`
-      : `<span style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#6b6b8a;font-style:italic;">Booking declined</span>`;
+      ? `<div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
+          <a class="btn-whatsapp" href="https://wa.me/${waPhone}?text=${confirmMsg}" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.52-5.188-1.424l-.371-.22-3.762.896.948-3.658-.242-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+            Send Confirmation
+          </a>
+          <button onclick="deleteBooking('${b.id}')" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#6b6b8a;background:transparent;border:1.5px solid rgba(26,40,112,0.12);border-radius:0.5rem;padding:0.45rem 0.75rem;cursor:pointer;transition:color 0.18s ease,border-color 0.18s ease;" onmouseover="this.style.color='#ef4444';this.style.borderColor='rgba(239,68,68,0.35)'" onmouseout="this.style.color='#6b6b8a';this.style.borderColor='rgba(26,40,112,0.12)'">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+            Delete
+          </button>
+        </div>`
+      : `<div style="display:flex;align-items:center;gap:0.6rem;">
+          <span style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#6b6b8a;font-style:italic;">Booking declined</span>
+          <button onclick="deleteBooking('${b.id}')" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#6b6b8a;background:transparent;border:1.5px solid rgba(26,40,112,0.12);border-radius:0.5rem;padding:0.45rem 0.75rem;cursor:pointer;transition:color 0.18s ease,border-color 0.18s ease;" onmouseover="this.style.color='#ef4444';this.style.borderColor='rgba(239,68,68,0.35)'" onmouseout="this.style.color='#6b6b8a';this.style.borderColor='rgba(26,40,112,0.12)'">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+            Delete
+          </button>
+        </div>`;
 
     return `
       <div class="booking-card ${b.status}" style="padding-left:1.75rem;">
@@ -809,6 +821,22 @@
     }
 
     renderBookings();
+  }
+
+  // ── Delete single booking ──────────────────────────────────────────────────
+  async function deleteBooking(id) {
+    if (!confirm('Delete this booking permanently?')) return;
+    const res = await fetch('/api/update-booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'delete', id }),
+    });
+    if (res.ok) {
+      showToast('Booking deleted', 'reject');
+      renderBookings();
+    } else {
+      showToast('Delete failed', 'error');
+    }
   }
 
   // ── Clear rejected ─────────────────────────────────────────────────────────

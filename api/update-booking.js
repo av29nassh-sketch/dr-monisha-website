@@ -11,6 +11,27 @@ module.exports = async (req, res) => {
 
   const { id, status, action } = req.body || {};
 
+  // Handle single booking delete
+  if (action === 'delete') {
+    if (!id) return res.status(400).json({ error: 'Missing id' });
+    const response = await fetch(
+      `${SUPABASE_URL}/rest/v1/bookings?id=eq.${encodeURIComponent(id)}`,
+      {
+        method: 'DELETE',
+        headers: {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Prefer': 'return=minimal',
+        },
+      }
+    );
+    if (!response.ok) {
+      const text = await response.text();
+      return res.status(500).json({ error: text });
+    }
+    return res.status(200).json({ ok: true });
+  }
+
   // Handle clear-rejected bulk delete
   if (action === 'clear-rejected') {
     const response = await fetch(
