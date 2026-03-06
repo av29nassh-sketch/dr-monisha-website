@@ -275,13 +275,7 @@
     <!-- Right: Date + website link -->
     <div style="display:flex;align-items:center;gap:1rem;">
       <span id="header-date" style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#6b6b8a;"></span>
-      <button id="test-notif-btn" onclick="testNotification()"
-        style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#c17b6e;background:rgba(193,123,110,0.1);border:none;cursor:pointer;padding:0.4rem 0.9rem;border-radius:9999px;transition:background 0.18s ease;"
-        onmouseover="this.style.background='rgba(193,123,110,0.18)'" onmouseout="this.style.background='rgba(193,123,110,0.1)'">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-        Test Notif
-      </button>
-      <a href="index.html" target="_blank"
+<a href="index.html" target="_blank"
         style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#1a2870;text-decoration:none;background:rgba(26,40,112,0.07);padding:0.4rem 0.9rem;border-radius:9999px;transition:background 0.18s ease;"
         onmouseover="this.style.background='rgba(26,40,112,0.13)'" onmouseout="this.style.background='rgba(26,40,112,0.07)'">
         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
@@ -471,29 +465,7 @@
     }
   }
 
-  async function testNotification() {
-    const btn = document.getElementById('test-notif-btn');
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-    try {
-      const res = await fetch('/api/send-push', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          record: { name: 'Test Patient', type: 'online', date: 'Today', time: '12:00 PM' }
-        }),
-      });
-      const data = await res.json();
-      btn.textContent = res.ok ? `Sent (${data.sent ?? '?'} devices)` : `Error: ${data.error || res.status}`;
-      console.log('Test push result:', data);
-    } catch (err) {
-      btn.textContent = 'Failed';
-      console.error('Test push error:', err);
-    }
-    setTimeout(() => { btn.textContent = 'Test Notif'; btn.disabled = false; }, 3000);
-  }
-
-  // ── State ──────────────────────────────────────────────────────────────────
+// ── State ──────────────────────────────────────────────────────────────────
   let currentFilter = 'all';
   let pendingAction = null; // { type: 'confirm'|'reject', id: string }
 
