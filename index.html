@@ -489,7 +489,7 @@
     <!-- Header -->
     <div style="padding:2rem 2rem 0;display:flex;align-items:flex-start;justify-content:space-between;">
       <div>
-        <p style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#c17b6e;margin-bottom:0.4rem;">Online Consultation</p>
+        <p id="modal-type-label" style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:#c17b6e;margin-bottom:0.4rem;">Online Consultation</p>
         <h2 style="font-family:'Playfair Display',serif;font-size:1.55rem;font-weight:700;letter-spacing:-0.02em;color:#1a1a2e;line-height:1.2;">Book an Appointment</h2>
         <p style="font-family:'DM Sans',sans-serif;font-size:0.82rem;color:#6b6b8a;margin-top:0.35rem;">Mon – Sat &nbsp;·&nbsp; 7:00 PM – 8:30 PM</p>
       </div>
@@ -503,6 +503,23 @@
 
     <!-- Form -->
     <form id="booking-form" onsubmit="submitBooking(event)" style="padding:1.5rem 2rem 2rem;">
+
+      <!-- Consultation Type Toggle -->
+      <div style="margin-bottom:1.25rem;">
+        <label style="display:block;font-family:'DM Sans',sans-serif;font-size:0.8rem;font-weight:600;color:#1a1a2e;margin-bottom:0.5rem;">Consultation Type</label>
+        <div style="display:flex;gap:0.5rem;">
+          <button type="button" id="type-online" onclick="setConsultationType('online')"
+            style="flex:1;padding:0.6rem 1rem;border-radius:0.5rem;border:1.5px solid #1a2870;background:#1a2870;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.18s ease;display:flex;align-items:center;justify-content:center;gap:0.4rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+            Online
+          </button>
+          <button type="button" id="type-offline" onclick="setConsultationType('offline')"
+            style="flex:1;padding:0.6rem 1rem;border-radius:0.5rem;border:1.5px solid rgba(26,40,112,0.2);background:transparent;color:#6b6b8a;font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.18s ease;display:flex;align-items:center;justify-content:center;gap:0.4rem;">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            In-Person
+          </button>
+        </div>
+      </div>
 
       <!-- Name -->
       <div style="margin-bottom:1.1rem;">
@@ -588,6 +605,32 @@
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xenV2YWZ2cnNkbW12Y2FiZ2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MDcyNjIsImV4cCI6MjA4ODI4MzI2Mn0.3VLd4pMzvNlJWVCF2ZNtFwhaPDgY1TA0pDPd8cOZac4'
   );
 
+  window._consultationType = 'online';
+
+  function setConsultationType(type) {
+    window._consultationType = type;
+    const onlineBtn  = document.getElementById('type-online');
+    const offlineBtn = document.getElementById('type-offline');
+    const label      = document.getElementById('modal-type-label');
+    if (type === 'online') {
+      onlineBtn.style.background = '#1a2870';
+      onlineBtn.style.borderColor = '#1a2870';
+      onlineBtn.style.color = '#fff';
+      offlineBtn.style.background = 'transparent';
+      offlineBtn.style.borderColor = 'rgba(26,40,112,0.2)';
+      offlineBtn.style.color = '#6b6b8a';
+      label.textContent = 'Online Consultation';
+    } else {
+      offlineBtn.style.background = '#1a2870';
+      offlineBtn.style.borderColor = '#1a2870';
+      offlineBtn.style.color = '#fff';
+      onlineBtn.style.background = 'transparent';
+      onlineBtn.style.borderColor = 'rgba(26,40,112,0.2)';
+      onlineBtn.style.color = '#6b6b8a';
+      label.textContent = 'In-Person Consultation';
+    }
+  }
+
   function openBookingModal() {
     const overlay = document.getElementById('booking-overlay');
     const dateInput = document.getElementById('b-date');
@@ -612,6 +655,7 @@
       document.getElementById('b-submit-text').textContent = 'Submit Booking';
       document.getElementById('b-spinner').style.display = 'none';
       document.getElementById('b-submit').disabled = false;
+      setConsultationType('online');
     }, 300);
   }
 
@@ -656,6 +700,7 @@
     const name  = document.getElementById('b-name').value;
     const phone = document.getElementById('b-phone').value;
     const time  = document.getElementById('b-time').value;
+    const type  = window._consultationType || 'online';
 
     // Save booking to Supabase
     const booking = {
@@ -663,6 +708,7 @@
       name, phone,
       date: rawDate,
       time,
+      type,
       status: 'pending',
       submitted_at: new Date().toISOString()
     };
@@ -676,6 +722,7 @@
       `---------------------------\n` +
       `Name: ${name}\n` +
       `Phone: ${phone}\n` +
+      `Type: ${type === 'offline' ? 'In-Person' : 'Online'}\n` +
       `Date: ${formatted}\n` +
       `Time: ${time}\n` +
       `---------------------------\n` +

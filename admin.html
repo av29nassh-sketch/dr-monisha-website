@@ -443,6 +443,7 @@
       date: b.date,
       formattedDate: formatDate(b.date),
       time: b.time,
+      type: b.type || 'online',
       status: b.status,
       submittedAt: b.submitted_at,
     }));
@@ -563,8 +564,9 @@
     }[b.status];
 
     // WhatsApp confirmation message
+    const consultType = b.type === 'offline' ? 'in-person' : 'online';
     const confirmMsg = encodeURIComponent(
-      `Hi ${b.name}, your consultation with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
+      `Hi ${b.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
     );
 
     const actionButtons = isPending
@@ -615,6 +617,16 @@
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
             ${escHtml(b.time)}
           </span>
+          ${b.type === 'offline'
+            ? `<span style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(16,185,129,0.1);color:#065f46;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;padding:0.3rem 0.75rem;border-radius:9999px;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                In-Person
+              </span>`
+            : `<span style="display:inline-flex;align-items:center;gap:0.35rem;background:rgba(26,40,112,0.07);color:#1a2870;font-family:'DM Sans',sans-serif;font-size:0.75rem;font-weight:500;padding:0.3rem 0.75rem;border-radius:9999px;">
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                Online
+              </span>`
+          }
         </div>
 
         <!-- Divider -->
