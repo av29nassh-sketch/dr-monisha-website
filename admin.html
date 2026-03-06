@@ -641,34 +641,10 @@
     return `${t.getFullYear()}-${String(t.getMonth()+1).padStart(2,'0')}-${String(t.getDate()).padStart(2,'0')}`;
   }
 
-  // ── Audio ──────────────────────────────────────────────────────────────────
-  const _ac = new (window.AudioContext || window.webkitAudioContext)();
-  function playTone(freq1, freq2, duration, type = 'sine', gain = 0.08) {
-    try {
-      const osc = _ac.createOscillator();
-      const vol = _ac.createGain();
-      osc.connect(vol); vol.connect(_ac.destination);
-      osc.type = type; osc.frequency.setValueAtTime(freq1, _ac.currentTime);
-      if (freq2) osc.frequency.linearRampToValueAtTime(freq2, _ac.currentTime + duration * 0.6);
-      vol.gain.setValueAtTime(0, _ac.currentTime);
-      vol.gain.linearRampToValueAtTime(gain, _ac.currentTime + 0.02);
-      vol.gain.exponentialRampToValueAtTime(0.001, _ac.currentTime + duration);
-      osc.start(); osc.stop(_ac.currentTime + duration);
-    } catch {}
-  }
-  function soundConfirm() {
-    playTone(523, 784, 0.35, 'sine', 0.07); // C5 → G5 ascending
-    setTimeout(() => playTone(784, 1046, 0.25, 'sine', 0.05), 200);
-  }
-  function soundReject() {
-    playTone(440, 330, 0.3, 'sine', 0.06); // A4 → E4 descending
-  }
-  function soundDelete() {
-    playTone(330, 220, 0.25, 'sine', 0.05);
-  }
-  function soundNotify() {
-    playTone(880, 1046, 0.2, 'sine', 0.06);
-  }
+  function soundConfirm() {}
+  function soundReject() {}
+  function soundDelete() {}
+  function soundNotify() {}
 
   // ── Stats ──────────────────────────────────────────────────────────────────
   function animateCount(el, target) {
