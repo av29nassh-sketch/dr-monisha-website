@@ -466,8 +466,14 @@
 
   function openWa(phone, text) {
     if (waApp === 'business') {
-      // Android intent URL — targets WhatsApp Business by package name (com.whatsapp.w4b)
-      window.location.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
+      const isAndroid = /android/i.test(navigator.userAgent);
+      if (isAndroid) {
+        // Intent URL targets WhatsApp Business directly by package name
+        window.location.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
+      } else {
+        // No WhatsApp Business web — fall back to regular WhatsApp on PC/iOS
+        window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
+      }
     } else {
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
