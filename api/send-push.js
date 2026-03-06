@@ -48,15 +48,16 @@ module.exports = async (req, res) => {
   const dateStr     = booking.date || '';
   const timeStr     = booking.time || '';
 
+  // Data-only message — forces delivery through the service worker push event
+  // (notification field bypasses SW on Android, so we omit it)
   const message = {
-    notification: {
-      title: `New ${consultType} Booking`,
-      body:  `${booking.name} — ${dateStr} at ${timeStr}`,
-    },
     data: {
       title: `New ${consultType} Booking`,
       body:  `${booking.name} — ${dateStr} at ${timeStr}`,
       url:   '/admin.html',
+    },
+    webpush: {
+      headers: { Urgency: 'high' },
     },
     tokens,
   };
