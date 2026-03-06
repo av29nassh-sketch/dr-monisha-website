@@ -466,8 +466,7 @@
 
   function openWa(phone, text) {
     if (waApp === 'business') {
-      // whatsappbusiness:// scheme opens WA Business directly; wa.me fallback for PC/iOS
-      window.location.href = `whatsappbusiness://send?phone=${phone}&text=${text}`;
+      window.open(`whatsappbusiness://send?phone=${phone}&text=${text}`, '_blank');
     } else {
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
