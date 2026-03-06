@@ -448,6 +448,7 @@
       });
 
       // Show notifications when admin page is in the foreground
+      // Must use registration.showNotification() — new Notification() is blocked on Android
       messaging.onMessage(payload => {
         const n     = payload.notification || {};
         const d     = payload.data         || {};
@@ -455,9 +456,10 @@
         const body  = n.body  || d.body    || '';
         const url   = d.url                || '/admin.html';
         if (Notification.permission === 'granted') {
-          new Notification(title, {
+          reg.showNotification(title, {
             body,
             icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-192x192.png',
             data: { url },
           });
         }
