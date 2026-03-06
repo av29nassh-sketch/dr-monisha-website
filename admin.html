@@ -16,6 +16,22 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <!-- Firebase SDK (FCM) -->
+  <!-- TODO: Replace the config below with your actual Firebase web app config -->
+  <!-- Get it from: Firebase Console → Project Settings → General → Your apps -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey:            'AIzaSyDfr_KCpQcyYsaqt0NBkybYpYwBYZj1mkY',
+      authDomain:        'dr-monisha-dashboard.firebaseapp.com',
+      projectId:         'dr-monisha-dashboard',
+      storageBucket:     'dr-monisha-dashboard.firebasestorage.app',
+      messagingSenderId: '427008771102',
+      appId:             '1:427008771102:web:a955eede505fcdf7eb9a0f',
+    });
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -389,42 +405,45 @@
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xenV2YWZ2cnNkbW12Y2FiZ2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MDcyNjIsImV4cCI6MjA4ODI4MzI2Mn0.3VLd4pMzvNlJWVCF2ZNtFwhaPDgY1TA0pDPd8cOZac4';
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-  // ── Push Notifications ─────────────────────────────────────────────────────
-  const VAPID_PUBLIC_KEY = 'BLH2JCtpWCyI-o4k4wCxHRuGVbkQkNMKXVgCSy6D1Za4Tj1mIlzfFdgxeC-SWzNocD6pWv2dzwP857zdGSITbu0';
-
-  function urlBase64ToUint8Array(base64String) {
-    const padding = '='.repeat((4 - base64String.length % 4) % 4);
-    const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-    const rawData = atob(base64);
-    return Uint8Array.from([...rawData].map(c => c.charCodeAt(0)));
-  }
+  // ── FCM Push Notifications ─────────────────────────────────────────────────
+  // TODO: Replace with your FCM VAPID key
+  // Get it from: Firebase Console → Project Settings → Cloud Messaging → Web Push certificates
+  const FCM_VAPID_KEY = 'BCkgwNPhhcJwlpGqS2p6p4QLxwlPqAMAb5Hzb2T4rMRHsPpy74TmwwVtAGCkWxE1Bvtg3k8eRNvM9ILbs-DIUAA';
 
   async function setupPushNotifications() {
-    if (!('serviceWorker' in navigator) || !('PushManager' in window)) return;
+    if (!('serviceWorker' in navigator) || !('Notification' in window)) return;
 
     try {
       const permission = await Notification.requestPermission();
-      if (permission !== 'granted') return;
-
-      const reg = await navigator.serviceWorker.ready;
-      let sub = await reg.pushManager.getSubscription();
-
-      if (!sub) {
-        sub = await reg.pushManager.subscribe({
-          userVisibleOnly: true,
-          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
-        });
+      if (permission !== 'granted') {
+        console.log('Notification permission denied.');
+        return;
       }
 
-      // Save subscription to Supabase (upsert by endpoint)
-      await db.from('push_subscriptions').upsert(
-        { endpoint: sub.endpoint, subscription: sub.toJSON() },
-        { onConflict: 'endpoint' }
-      );
+      const reg = await navigator.serviceWorker.ready;
+      const messaging = firebase.messaging();
 
-      console.log('Push notifications enabled.');
+      // Get FCM token, passing our existing service worker registration
+      const token = await messaging.getToken({
+        vapidKey: FCM_VAPID_KEY,
+        serviceWorkerRegistration: reg,
+      });
+
+      if (!token) {
+        console.warn('FCM: no token returned — check VAPID key and Firebase config.');
+        return;
+      }
+
+      // Save token to Supabase via server API (uses service role key)
+      await fetch('/api/save-fcm-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token }),
+      });
+
+      console.log('FCM push notifications enabled.');
     } catch (err) {
-      console.warn('Push setup failed:', err);
+      console.warn('FCM setup failed:', err);
     }
   }
 
@@ -675,7 +694,7 @@
   async function openConfirmDialog(id) {
     const b = (await getBookings()).find(x => String(x.id) === String(id));
     if (!b) return;
-    pendingAction = { type: 'confirm', id };
+    pendingAction = { type: 'confirm', id, booking: b };
 
     // Set dialog to confirm mode
     document.getElementById('dialog-icon').style.background = 'rgba(16,185,129,0.1)';
@@ -708,7 +727,7 @@
   async function openRejectDialog(id) {
     const b = (await getBookings()).find(x => String(x.id) === String(id));
     if (!b) return;
-    pendingAction = { type: 'reject', id };
+    pendingAction = { type: 'reject', id, booking: b };
 
     // Set dialog to reject mode
     document.getElementById('dialog-icon').style.background = 'rgba(239,68,68,0.1)';
@@ -749,9 +768,28 @@
 
   async function executeDialogAction() {
     if (!pendingAction) return;
-    const { type, id } = pendingAction;
+    const { type, id, booking } = pendingAction;
     closeDialog();
-    await updateBookingStatus(id, type === 'confirm' ? 'confirmed' : 'rejected');
+
+    const newStatus = type === 'confirm' ? 'confirmed' : 'rejected';
+    const success = await updateBookingStatus(id, newStatus);
+
+    // Auto-send WhatsApp confirmation when admin confirms a booking
+    if (success && type === 'confirm' && booking) {
+      const phoneClean = booking.phone.replace(/\D/g, '');
+      const waPhone    = phoneClean.startsWith('91') ? phoneClean : '91' + phoneClean;
+      const consultType = booking.type === 'offline' ? 'in-person' : 'online';
+      const note = (document.getElementById('dialog-note')?.value || '').trim();
+      const noteLine = note ? `\n\n📝 ${note}` : '';
+      const msg = encodeURIComponent(
+        `Hi ${booking.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${booking.formattedDate}* at *${booking.time}*.` +
+        `\n\nPlease be available 5 minutes before your appointment.` +
+        noteLine +
+        `\n\n— Dr. Monisha S Clinic`
+      );
+      window.open(`https://wa.me/${waPhone}?text=${msg}`, '_blank');
+    }
+
     renderBookings();
   }
 

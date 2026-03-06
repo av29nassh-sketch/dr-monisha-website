@@ -1,13 +1,19 @@
-const webpush = require('web-push');
+// FCM push notification sender — triggered by Supabase webhook on new booking
+// Requires env vars:
+//   FIREBASE_SERVICE_ACCOUNT  — Firebase Admin SDK service account JSON (stringified)
+//   SUPABASE_URL              — e.g. https://xxxx.supabase.co
+//   SUPABASE_SERVICE_KEY      — Supabase service role key
+
+const admin = require('firebase-admin');
+
+// Initialize Firebase Admin SDK once (Vercel keeps functions warm)
+if (!admin.apps.length) {
+  const serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  admin.initializeApp({ credential: admin.credential.cert(serviceAccount) });
+}
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
-
-webpush.setVapidDetails(
-  `mailto:${process.env.VAPID_EMAIL}`,
-  process.env.VAPID_PUBLIC_KEY,
-  process.env.VAPID_PRIVATE_KEY
-);
 
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
@@ -20,31 +26,61 @@ module.exports = async (req, res) => {
     return res.status(400).json({ error: 'No booking data' });
   }
 
-  // Fetch all push subscriptions from Supabase
-  const response = await fetch(`${SUPABASE_URL}/rest/v1/push_subscriptions?select=subscription`, {
+  // Fetch all FCM tokens from Supabase
+  const response = await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens?select=token`, {
     headers: {
-      'apikey': SUPABASE_KEY,
+      'apikey':        SUPABASE_KEY,
       'Authorization': `Bearer ${SUPABASE_KEY}`,
     },
   });
 
   const rows = await response.json();
   if (!rows || rows.length === 0) {
-    return res.status(200).json({ message: 'No subscribers' });
+    return res.status(200).json({ message: 'No FCM subscribers' });
   }
 
-  const payload = JSON.stringify({
-    title: 'New Booking Request',
-    body: `${booking.name} — ${booking.service || 'Consultation'} on ${booking.date || ''}`,
-    url: '/admin.html',
-  });
+  const tokens = rows.map(r => r.token).filter(Boolean);
+  if (tokens.length === 0) {
+    return res.status(200).json({ message: 'No valid tokens' });
+  }
 
-  const results = await Promise.allSettled(
-    rows.map(row => webpush.sendNotification(row.subscription, payload))
-  );
+  const consultType = booking.type === 'offline' ? 'In-person' : 'Online';
+  const dateStr     = booking.date || '';
+  const timeStr     = booking.time || '';
 
-  const sent = results.filter(r => r.status === 'fulfilled').length;
-  const failed = results.filter(r => r.status === 'rejected').length;
+  const message = {
+    notification: {
+      title: `New ${consultType} Booking`,
+      body:  `${booking.name} — ${dateStr} at ${timeStr}`,
+    },
+    data: {
+      title: `New ${consultType} Booking`,
+      body:  `${booking.name} — ${dateStr} at ${timeStr}`,
+      url:   '/admin.html',
+    },
+    tokens,
+  };
+
+  const result = await admin.messaging().sendEachForMulticast(message);
+
+  const sent   = result.responses.filter(r => r.success).length;
+  const failed = result.responses.filter(r => !r.success).length;
+
+  // Remove any expired/invalid tokens from Supabase
+  const invalidTokens = result.responses
+    .map((r, i) => (!r.success ? tokens[i] : null))
+    .filter(Boolean);
+
+  if (invalidTokens.length > 0) {
+    await fetch(`${SUPABASE_URL}/rest/v1/fcm_tokens?token=in.(${invalidTokens.map(t => `"${t}"`).join(',')})`, {
+      method: 'DELETE',
+      headers: {
+        'apikey':        SUPABASE_KEY,
+        'Authorization': `Bearer ${SUPABASE_KEY}`,
+        'Prefer':        'return=minimal',
+      },
+    });
+  }
 
   return res.status(200).json({ sent, failed });
 };
