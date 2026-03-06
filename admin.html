@@ -466,13 +466,8 @@
 
   function openWa(phone, text) {
     if (waApp === 'business') {
-      // Use hidden link click — prevents page blanking with custom URL schemes
-      const a = document.createElement('a');
-      a.href = `whatsappbusiness://send?phone=${phone}&text=${text}`;
-      a.style.display = 'none';
-      document.body.appendChild(a);
-      a.click();
-      setTimeout(() => document.body.removeChild(a), 500);
+      // Android intent URL — targets WhatsApp Business by package name (com.whatsapp.w4b)
+      window.location.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;end`;
     } else {
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
