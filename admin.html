@@ -508,6 +508,26 @@
         }
       });
 
+      // Auto-refresh token whenever Firebase rotates it
+      messaging.onTokenRefresh(async () => {
+        try {
+          const newToken = await messaging.getToken({
+            vapidKey: FCM_VAPID_KEY,
+            serviceWorkerRegistration: reg,
+          });
+          if (newToken) {
+            await fetch('/api/save-fcm-token', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ token: newToken }),
+            });
+            console.log('FCM token refreshed and saved.');
+          }
+        } catch (err) {
+          console.warn('FCM token refresh failed:', err);
+        }
+      });
+
       console.log('FCM push notifications enabled.');
     } catch (err) {
       console.warn('FCM setup failed:', err);
