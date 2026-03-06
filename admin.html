@@ -324,6 +324,13 @@
     <!-- Right: Date + website link -->
     <div style="display:flex;align-items:center;gap:1rem;">
       <span id="header-date" style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#6b6b8a;"></span>
+      <!-- WhatsApp app toggle -->
+      <button id="wa-toggle" onclick="toggleWaApp()"
+        style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#1a2870;background:rgba(26,40,112,0.07);border:none;padding:0.4rem 0.9rem;border-radius:9999px;cursor:pointer;transition:background 0.18s ease;"
+        onmouseover="this.style.background='rgba(26,40,112,0.13)'" onmouseout="this.style.background='rgba(26,40,112,0.07)'">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.52-5.188-1.424l-.371-.22-3.762.896.948-3.658-.242-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        <span id="wa-toggle-label">WA</span>
+      </button>
 <a href="index.html" target="_blank"
         style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#1a2870;text-decoration:none;background:rgba(26,40,112,0.07);padding:0.4rem 0.9rem;border-radius:9999px;transition:background 0.18s ease;"
         onmouseover="this.style.background='rgba(26,40,112,0.13)'" onmouseout="this.style.background='rgba(26,40,112,0.07)'">
@@ -453,6 +460,26 @@
   const SUPABASE_URL = 'https://nqzuvafvrsdmmvcabgiv.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xenV2YWZ2cnNkbW12Y2FiZ2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MDcyNjIsImV4cCI6MjA4ODI4MzI2Mn0.3VLd4pMzvNlJWVCF2ZNtFwhaPDgY1TA0pDPd8cOZac4';
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // ── WhatsApp app preference ────────────────────────────────────────────────
+  let waApp = localStorage.getItem('waApp') || 'regular'; // 'regular' | 'business'
+
+  function buildWaUrl(phone, text) {
+    if (waApp === 'business') {
+      return `whatsappbusiness://send?phone=${phone}&text=${text}`;
+    }
+    return `https://wa.me/${phone}?text=${text}`;
+  }
+
+  function toggleWaApp() {
+    waApp = waApp === 'regular' ? 'business' : 'regular';
+    localStorage.setItem('waApp', waApp);
+    updateWaToggleLabel();
+  }
+
+  function updateWaToggleLabel() {
+    document.getElementById('wa-toggle-label').textContent = waApp === 'business' ? 'WA Business' : 'WA';
+  }
 
   // ── FCM Push Notifications ─────────────────────────────────────────────────
   // TODO: Replace with your FCM VAPID key
@@ -771,7 +798,7 @@
         </div>`
       : isConfirmed
       ? `<div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
-          <a class="btn-whatsapp" href="https://wa.me/${waPhone}?text=${confirmMsg}" target="_blank" rel="noopener">
+          <a class="btn-whatsapp" href="#" onclick="event.preventDefault();window.open(buildWaUrl('${waPhone}','${confirmMsg}'),'_blank')" rel="noopener">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.52-5.188-1.424l-.371-.22-3.762.896.948-3.658-.242-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             Send Confirmation
           </a>
@@ -945,7 +972,7 @@
         noteLine +
         `\n\n— Dr. Monisha S Clinic`
       );
-      window.open(`https://wa.me/${waPhone}?text=${msg}`, '_blank');
+      window.open(buildWaUrl(waPhone, msg), '_blank');
     }
 
     renderBookings();
@@ -1005,6 +1032,7 @@
   });
 
   initHeader();
+  updateWaToggleLabel();
   renderBookings();
   setupPushNotifications();
 </script>
