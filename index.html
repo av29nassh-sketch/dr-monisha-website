@@ -397,7 +397,7 @@
         </div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:#1a1a2e;margin-bottom:0.6rem;">Online Consultations</h3>
         <p style="font-family:'DM Sans',sans-serif;font-size:0.875rem;line-height:1.7;color:#6b6b8a;margin-bottom:1.25rem;">Convenient, confidential video sessions from the comfort of your home. Access expert psychiatric care without travel.</p>
-        <button onclick="openBookingModal()" class="btn-primary" style="font-size:0.8rem;padding:0.6rem 1.2rem;cursor:pointer;border:none;">Book Online</button>
+        <button onclick="openBookingModal('online')" class="btn-primary" style="font-size:0.8rem;padding:0.6rem 1.2rem;cursor:pointer;border:none;">Book Online</button>
       </div>
 
       <div class="service-card">
@@ -406,7 +406,7 @@
         </div>
         <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:600;color:#1a1a2e;margin-bottom:0.6rem;">OP Consultations</h3>
         <p style="font-family:'DM Sans',sans-serif;font-size:0.875rem;line-height:1.7;color:#6b6b8a;margin-bottom:1.25rem;">In-person outpatient appointments in a calm, private, and welcoming clinical environment for comprehensive evaluation.</p>
-        <a href="#contact" class="btn-outline" style="font-size:0.8rem;padding:0.58rem 1.2rem;">Book Appointment</a>
+        <button onclick="openBookingModal('offline')" class="btn-outline" style="font-size:0.8rem;padding:0.58rem 1.2rem;cursor:pointer;border:none;">Book Appointment</button>
       </div>
 
       <div class="service-card">
@@ -631,7 +631,7 @@
     }
   }
 
-  function openBookingModal() {
+  function openBookingModal(type) {
     const overlay = document.getElementById('booking-overlay');
     const dateInput = document.getElementById('b-date');
     const today = new Date();
@@ -639,6 +639,7 @@
     const mm   = String(today.getMonth() + 1).padStart(2, '0');
     const dd   = String(today.getDate()).padStart(2, '0');
     dateInput.min = `${yyyy}-${mm}-${dd}`;
+    setConsultationType(type || 'online');
     overlay.style.display = 'flex';
     document.body.style.overflow = 'hidden';
   }

@@ -449,8 +449,15 @@
     }));
   }
   async function updateBookingStatus(id, status) {
-    const { error } = await db.from('bookings').update({ status }).eq('id', id);
-    if (error) console.error('Update error:', error);
+    const res = await fetch('/api/update-booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id, status }),
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      console.error('Update error:', err);
+    }
   }
 
   // ── Date helpers ───────────────────────────────────────────────────────────
@@ -732,7 +739,11 @@
 
   // ── Clear rejected ─────────────────────────────────────────────────────────
   async function clearRejected() {
-    await db.from('bookings').delete().eq('status', 'rejected');
+    await fetch('/api/update-booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ action: 'clear-rejected' }),
+    });
     renderBookings();
   }
 
