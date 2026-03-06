@@ -1,41 +1,7 @@
 // ─────────────────────────────────────────────────────────────────────────────
-// Firebase Messaging (FCM) — Background push support
-// ─────────────────────────────────────────────────────────────────────────────
-// TODO: Replace these placeholder values with your actual Firebase config
-// Get them from: Firebase Console → Project Settings → General → Your apps
-importScripts('https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js');
-importScripts('https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js');
-
-firebase.initializeApp({
-  apiKey:            'AIzaSyDfr_KCpQcyYsaqt0NBkybYpYwBYZj1mkY',
-  authDomain:        'dr-monisha-dashboard.firebaseapp.com',
-  projectId:         'dr-monisha-dashboard',
-  storageBucket:     'dr-monisha-dashboard.firebasestorage.app',
-  messagingSenderId: '427008771102',
-  appId:             '1:427008771102:web:a955eede505fcdf7eb9a0f',
-});
-
-const messaging = firebase.messaging();
-
-// Handle FCM push messages when app is in the background / closed
-messaging.onBackgroundMessage(payload => {
-  const data  = payload.data || payload.notification || {};
-  const title = data.title || 'New Booking';
-  const body  = data.body  || '';
-  const url   = data.url   || '/admin.html';
-
-  self.registration.showNotification(title, {
-    body,
-    icon:  '/icons/icon-192x192.png',
-    badge: '/icons/icon-192x192.png',
-    data:  { url },
-  });
-});
-
-// ─────────────────────────────────────────────────────────────────────────────
 // PWA Cache
 // ─────────────────────────────────────────────────────────────────────────────
-const CACHE_NAME = 'dr-monisha-v3';
+const CACHE_NAME = 'dr-monisha-v4';
 
 const PRECACHE_URLS = [
   '/',
@@ -92,6 +58,36 @@ self.addEventListener('fetch', event => {
         }
         return response;
       });
+    })
+  );
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Push notifications — raw handler (works with FCM web push)
+// ─────────────────────────────────────────────────────────────────────────────
+self.addEventListener('push', event => {
+  if (!event.data) return;
+
+  let payload;
+  try {
+    payload = event.data.json();
+  } catch {
+    payload = {};
+  }
+
+  // Firebase Admin SDK sends both notification and data fields
+  const n     = payload.notification || {};
+  const d     = payload.data         || {};
+  const title = n.title || d.title   || 'New Booking';
+  const body  = n.body  || d.body    || '';
+  const url   = d.url                || '/admin.html';
+
+  event.waitUntil(
+    self.registration.showNotification(title, {
+      body,
+      icon:  '/icons/icon-192x192.png',
+      badge: '/icons/icon-192x192.png',
+      data:  { url },
     })
   );
 });

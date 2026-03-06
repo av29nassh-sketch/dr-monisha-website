@@ -441,6 +441,22 @@
         body: JSON.stringify({ token }),
       });
 
+      // Show notifications when admin page is in the foreground
+      messaging.onMessage(payload => {
+        const n     = payload.notification || {};
+        const d     = payload.data         || {};
+        const title = n.title || d.title   || 'New Booking';
+        const body  = n.body  || d.body    || '';
+        const url   = d.url                || '/admin.html';
+        if (Notification.permission === 'granted') {
+          new Notification(title, {
+            body,
+            icon: '/icons/icon-192x192.png',
+            data: { url },
+          });
+        }
+      });
+
       console.log('FCM push notifications enabled.');
     } catch (err) {
       console.warn('FCM setup failed:', err);
