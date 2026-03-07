@@ -686,7 +686,11 @@
   }
 
   function handleOverlayClick(e) {
-    if (e.target === document.getElementById('booking-overlay')) closeBookingModal();
+    if (e.target !== document.getElementById('booking-overlay')) return;
+    // Don't close if an input is focused (keyboard is open on mobile — card may have shifted)
+    const tag = document.activeElement && document.activeElement.tagName;
+    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+    closeBookingModal();
   }
 
   function validateDate(input) {
