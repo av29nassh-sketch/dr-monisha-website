@@ -474,12 +474,12 @@
         onmouseover="this.style.borderColor='rgba(26,40,112,0.3)'" onmouseout="this.style.borderColor='rgba(26,40,112,0.15)'">
         Cancel
       </button>
-      <button id="dialog-confirm-btn" onclick="executeDialogAction()"
-        style="font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;color:#fff;background:#10b981;border:none;border-radius:0.5rem;padding:0.6rem 1.5rem;cursor:pointer;box-shadow:0 3px 10px rgba(16,185,129,0.3);transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s ease;"
+      <a id="dialog-confirm-btn" href="#" onclick="return executeDialogAction(event, this)"
+        style="font-family:'DM Sans',sans-serif;font-size:0.85rem;font-weight:600;color:#fff;background:#10b981;border:none;border-radius:0.5rem;padding:0.6rem 1.5rem;cursor:pointer;box-shadow:0 3px 10px rgba(16,185,129,0.3);transition:transform 0.2s cubic-bezier(0.34,1.56,0.64,1),box-shadow 0.2s ease;text-decoration:none;display:inline-flex;align-items:center;"
         onmouseover="this.style.transform='translateY(-1px)';this.style.boxShadow='0 6px 16px rgba(16,185,129,0.38)'"
         onmouseout="this.style.transform='';this.style.boxShadow='0 3px 10px rgba(16,185,129,0.3)'">
         Confirm Appointment
-      </button>
+      </a>
     </div>
   </div>
 </div>
@@ -493,49 +493,29 @@
   // ── WhatsApp app preference ────────────────────────────────────────────────
   let waApp = localStorage.getItem('waApp') || 'regular'; // 'regular' | 'business'
 
-  function openWa(phone, text) {
-    const a = document.createElement('a');
-    a.rel = 'noopener';
-
+  // Builds the correct WA href based on current waApp toggle
+  function buildWaHref(phone, text) {
     if (waApp === 'business') {
-      // target="_blank" prevents intent URL fallback from navigating the PWA window (blank screen fix)
       const fallback = encodeURIComponent(`https://wa.me/${phone}?text=${text}`);
-      a.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
-      a.target = '_blank';
-    } else {
-      a.href = `whatsapp://send?phone=${phone}&text=${text}`;
+      return `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
     }
-
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    // Fallback for regular WA: if the scheme didn't open the app (page never went hidden),
-    // navigate to wa.me after 1.5s so it never just does nothing.
-    if (waApp !== 'business') {
-      let appOpened = false;
-      const onHide = () => { appOpened = true; };
-      document.addEventListener('visibilitychange', onHide, { once: true });
-      setTimeout(() => {
-        document.removeEventListener('visibilitychange', onHide);
-        if (!appOpened) window.location.href = `https://wa.me/${phone}?text=${text}`;
-      }, 1500);
-    }
+    return `whatsapp://send?phone=${phone}&text=${text}`;
   }
 
-  function sendConfirmationWa(id) {
+  // Called by the "Send Confirmation" <a> on confirmed cards.
+  // Sets href at click time (so waApp toggle is current), updates DB in background.
+  function handleSendConfirmClick(anchor, id) {
     const b = (window._bookings || []).find(x => x.id === id);
-    if (!b) return;
+    if (!b) return false;
     const phoneClean = b.phone.replace(/\D/g, '');
     const waPhone = phoneClean.startsWith('91') ? phoneClean : '91' + phoneClean;
     const consultType = b.type === 'offline' ? 'in-person' : 'online';
     const msg = encodeURIComponent(
       `Hi ${b.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
     );
-    // Open WA first (must be synchronous — user gesture context lost after any await)
-    openWa(waPhone, msg);
-    // Update DB in background after WA opens
+    anchor.href = buildWaHref(waPhone, msg);
     updateBookingStatus(id, 'booked').then(() => renderBookings());
+    return true; // allow the anchor to navigate
   }
 
   function toggleWaApp() {
@@ -848,10 +828,10 @@
         </div>`
       : isConfirmed
       ? `<div style="display:flex;align-items:center;gap:0.6rem;flex-wrap:wrap;">
-          <button class="btn-whatsapp" onclick="sendConfirmationWa('${b.id}')">
+          <a class="btn-whatsapp" href="#" onclick="return handleSendConfirmClick(this, '${b.id}')">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.508A11.94 11.94 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.896 0-3.67-.52-5.188-1.424l-.371-.22-3.762.896.948-3.658-.242-.378A9.956 9.956 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
             Send Confirmation
-          </button>
+          </a>
           <button onclick="deleteBooking('${b.id}')" style="display:inline-flex;align-items:center;gap:0.35rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#6b6b8a;background:transparent;border:1.5px solid rgba(26,40,112,0.12);border-radius:0.5rem;padding:0.45rem 0.75rem;cursor:pointer;transition:color 0.18s ease,border-color 0.18s ease;" onmouseover="this.style.color='#ef4444';this.style.borderColor='rgba(239,68,68,0.35)'" onmouseout="this.style.color='#6b6b8a';this.style.borderColor='rgba(26,40,112,0.12)'">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
             Delete
@@ -1011,17 +991,16 @@
     if (e.target === document.getElementById('confirm-dialog-overlay')) closeDialog();
   }
 
-  async function executeDialogAction() {
-    if (!pendingAction) return;
+  // The confirm button is an <a> tag. For confirm: we set its href to the WA URL
+  // and let the browser navigate naturally (real anchor tap = reliable on Android).
+  // For reject: we prevent navigation and handle it in JS.
+  function executeDialogAction(e, anchor) {
+    if (!pendingAction) { e.preventDefault(); return false; }
     const { type, id, booking } = pendingAction;
 
     if (type === 'confirm' && booking) {
-      // Read note BEFORE closing dialog (element removed from view after close)
+      // Build WA message including optional note
       const note = (document.getElementById('dialog-note')?.value || '').trim();
-      closeDialog();
-      soundConfirm();
-
-      // Build WA message
       const phoneClean = booking.phone.replace(/\D/g, '');
       const waPhone = phoneClean.startsWith('91') ? phoneClean : '91' + phoneClean;
       const consultType = booking.type === 'offline' ? 'in-person' : 'online';
@@ -1032,17 +1011,19 @@
         noteLine +
         `\n\n— Dr. Monisha S Clinic`
       );
-
-      // Open WA synchronously (must happen before any await to preserve user gesture)
-      openWa(waPhone, msg);
-      // Update DB to booked in background — renders when done
+      // Set the real WA URL on the anchor BEFORE navigation happens
+      anchor.href = buildWaHref(waPhone, msg);
+      closeDialog();
+      soundConfirm();
       updateBookingStatus(id, 'booked').then(() => renderBookings());
+      return true; // let anchor navigate to WA
 
     } else {
+      e.preventDefault(); // reject has href="#", block navigation
       closeDialog();
       soundReject();
-      await updateBookingStatus(id, 'rejected');
-      renderBookings();
+      updateBookingStatus(id, 'rejected').then(() => renderBookings());
+      return false;
     }
   }
 
