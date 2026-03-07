@@ -990,12 +990,36 @@
   async function executeDialogAction() {
     if (!pendingAction) return;
     const { type, id, booking } = pendingAction;
-    closeDialog();
 
-    const newStatus = type === 'confirm' ? 'confirmed' : 'rejected';
-    if (type === 'confirm') soundConfirm(); else soundReject();
-    await updateBookingStatus(id, newStatus);
-    renderBookings();
+    if (type === 'confirm' && booking) {
+      // Read note BEFORE closing dialog (element removed from view after close)
+      const note = (document.getElementById('dialog-note')?.value || '').trim();
+      closeDialog();
+      soundConfirm();
+
+      // Build WA message
+      const phoneClean = booking.phone.replace(/\D/g, '');
+      const waPhone = phoneClean.startsWith('91') ? phoneClean : '91' + phoneClean;
+      const consultType = booking.type === 'offline' ? 'in-person' : 'online';
+      const noteLine = note ? `\n\n📝 ${note}` : '';
+      const msg = encodeURIComponent(
+        `Hi ${booking.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${booking.formattedDate}* at *${booking.time}*.` +
+        `\n\nPlease be available 5 minutes before your appointment.` +
+        noteLine +
+        `\n\n— Dr. Monisha S Clinic`
+      );
+
+      // Open WA synchronously (must happen before any await to preserve user gesture)
+      openWa(waPhone, msg);
+      // Update DB to booked in background — renders when done
+      updateBookingStatus(id, 'booked').then(() => renderBookings());
+
+    } else {
+      closeDialog();
+      soundReject();
+      await updateBookingStatus(id, 'rejected');
+      renderBookings();
+    }
   }
 
   // ── Delete single booking ──────────────────────────────────────────────────
