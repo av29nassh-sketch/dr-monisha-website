@@ -1017,11 +1017,16 @@
         noteLine +
         `\n\n— Dr. Monisha S Clinic`
       );
-      // Set the real WA URL on the anchor BEFORE navigation happens
-      anchor.href = buildWaHref(waPhone, msg);
+      const href = buildWaHref(waPhone, msg);
       closeDialog();
       soundConfirm();
       updateBookingStatus(id, 'booked').then(() => renderBookings());
+      if (waApp === 'business') {
+        // Chrome blocks intent:// URLs set dynamically on anchor href — use direct navigation
+        window.location.href = href;
+        return false;
+      }
+      anchor.href = href;
       return true; // let anchor navigate to WA
 
     } else {
