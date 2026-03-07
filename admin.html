@@ -494,12 +494,16 @@
   let waApp = localStorage.getItem('waApp') || 'regular'; // 'regular' | 'business'
 
   function openWa(phone, text) {
+    const a = document.createElement('a');
     if (waApp === 'business') {
       const fallback = encodeURIComponent(`https://wa.me/${phone}?text=${text}`);
-      window.location.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
+      a.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
     } else {
-      window.location.href = `whatsapp://send?phone=${phone}&text=${text}`;
+      a.href = `whatsapp://send?phone=${phone}&text=${text}`;
     }
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   }
 
   function sendConfirmationWa(id) {
