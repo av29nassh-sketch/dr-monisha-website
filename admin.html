@@ -513,8 +513,14 @@
     const msg = encodeURIComponent(
       `Hi ${b.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
     );
-    anchor.href = buildWaHref(waPhone, msg);
+    const href = buildWaHref(waPhone, msg);
     updateBookingStatus(id, 'booked').then(() => renderBookings());
+    if (waApp === 'business') {
+      // Chrome blocks intent:// URLs set dynamically on anchor href — use direct navigation instead
+      window.location.href = href;
+      return false;
+    }
+    anchor.href = href;
     return true; // allow the anchor to navigate
   }
 

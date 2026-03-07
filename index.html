@@ -509,7 +509,7 @@
 
 <!-- ─── BOOKING MODAL ─── -->
 <div id="booking-overlay" onclick="handleOverlayClick(event)" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,46,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;">
-  <div id="booking-card" style="background:#fff;border-radius:1.25rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(26,26,46,0.35),0 4px 16px rgba(26,40,112,0.15);position:relative;">
+  <div id="booking-card" onclick="event.stopPropagation()" style="background:#fff;border-radius:1.25rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(26,26,46,0.35),0 4px 16px rgba(26,40,112,0.15);position:relative;">
 
     <!-- Header -->
     <div style="padding:2rem 2rem 0;display:flex;align-items:flex-start;justify-content:space-between;">
