@@ -297,13 +297,40 @@
       transition: border-color 0.18s ease;
     }
     .note-area:focus { border-color: #1a2870; }
+
+    /* ── Mobile responsive ── */
+    @media (max-width: 640px) {
+      /* Header: auto-height, tighter padding, allow wrapping */
+      #header-inner {
+        height: auto !important;
+        padding: 0.6rem 1rem !important;
+        flex-wrap: wrap !important;
+        gap: 0.4rem 0.75rem !important;
+      }
+      /* Hide date on small screens — saves horizontal space */
+      #header-date { display: none !important; }
+      /* Make right-side buttons slightly smaller */
+      #wa-toggle { padding: 0.35rem 0.7rem !important; font-size: 0.72rem !important; }
+
+      /* Stats: 2×2 grid */
+      #stats-row { grid-template-columns: repeat(2, 1fr) !important; }
+
+      /* Main: tighter padding */
+      #main-content { padding: 1.25rem 0.875rem 4rem !important; }
+
+      /* Bookings grid: single column on very small screens */
+      #bookings-grid { grid-template-columns: 1fr !important; }
+
+      /* Toolbar: stack search full width */
+      #search-wrap { max-width: 100% !important; flex: 1 1 100% !important; }
+    }
   </style>
 </head>
 <body class="bg-canvas">
 
 <!-- ─── HEADER ─── -->
 <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(253,245,242,0.9);border-bottom:1px solid rgba(26,40,112,0.07);">
-  <div style="max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;">
+  <div id="header-inner" style="max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:68px;">
 
     <!-- Left: Logo + title -->
     <div style="display:flex;align-items:center;gap:1rem;">
@@ -343,10 +370,10 @@
 </header>
 
 <!-- ─── MAIN ─── -->
-<main style="max-width:1200px;margin:0 auto;padding:2.5rem 2rem 5rem;position:relative;z-index:1;">
+<main id="main-content" style="max-width:1200px;margin:0 auto;padding:2.5rem 2rem 5rem;position:relative;z-index:1;">
 
   <!-- Stats row -->
-  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:2.5rem;">
+  <div id="stats-row" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-bottom:2.5rem;">
 
     <div class="stat-card" style="animation-delay:0.05s;">
       <div style="font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:#6b6b8a;margin-bottom:0.5rem;">Total Bookings</div>
@@ -374,7 +401,7 @@
   <div style="display:flex;align-items:center;gap:1rem;flex-wrap:wrap;margin-bottom:2rem;">
 
     <!-- Search -->
-    <div style="position:relative;flex:1;min-width:220px;max-width:320px;">
+    <div id="search-wrap" style="position:relative;flex:1;min-width:220px;max-width:320px;">
       <svg style="position:absolute;left:0.85rem;top:50%;transform:translateY(-50%);pointer-events:none;" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#6b6b8a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
       <input id="search-input" class="search-input" type="text" placeholder="Search by name or phone…" oninput="renderBookings()" />
     </div>
