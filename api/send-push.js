@@ -62,7 +62,13 @@ module.exports = async (req, res) => {
     tokens,
   };
 
-  const result = await admin.messaging().sendEachForMulticast(message);
+  let result;
+  try {
+    result = await admin.messaging().sendEachForMulticast(message);
+  } catch (err) {
+    console.error('FCM sendEachForMulticast error:', err);
+    return res.status(500).json({ error: 'FCM send failed', detail: err.message });
+  }
 
   const sent   = result.responses.filter(r => r.success).length;
   const failed = result.responses.filter(r => !r.success).length;

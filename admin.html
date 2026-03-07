@@ -499,10 +499,6 @@
     }
   }
 
-  function buildWaUrl(phone, text) {
-    return `https://wa.me/${phone}?text=${text}`;
-  }
-
   function toggleWaApp() {
     waApp = waApp === 'regular' ? 'business' : 'regular';
     localStorage.setItem('waApp', waApp);
@@ -1005,11 +1001,16 @@
 
   // ── Clear rejected ─────────────────────────────────────────────────────────
   async function clearRejected() {
-    await fetch('/api/update-booking', {
+    const res = await fetch('/api/update-booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'clear-rejected' }),
     });
+    if (res.ok) {
+      showToast('Rejected bookings cleared', 'success');
+    } else {
+      showToast('Failed to clear rejected bookings', 'error');
+    }
     renderBookings();
   }
 
