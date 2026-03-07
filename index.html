@@ -508,7 +508,7 @@
 </footer>
 
 <!-- ─── BOOKING MODAL ─── -->
-<div id="booking-overlay" onclick="handleOverlayClick(event)" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,46,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;">
+<div id="booking-overlay" onclick="handleOverlayClick(event)" ontouchstart="window._bookingTouchInCard=(event.target!==this)" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,46,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;">
   <div id="booking-card" onclick="event.stopPropagation()" style="background:#fff;border-radius:1.25rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(26,26,46,0.35),0 4px 16px rgba(26,40,112,0.15);position:relative;">
 
     <!-- Header -->
@@ -687,9 +687,8 @@
 
   function handleOverlayClick(e) {
     if (e.target !== document.getElementById('booking-overlay')) return;
-    // Don't close if an input is focused (keyboard is open on mobile — card may have shifted)
-    const tag = document.activeElement && document.activeElement.tagName;
-    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') return;
+    // touchstart fires before keyboard opens/card repositions — if it started inside the card, don't close
+    if (window._bookingTouchInCard) { window._bookingTouchInCard = false; return; }
     closeBookingModal();
   }
 
