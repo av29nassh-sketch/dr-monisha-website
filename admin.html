@@ -508,9 +508,8 @@
     const msg = encodeURIComponent(
       `Hi ${b.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
     );
-    openWa(waPhone, msg);
     await updateBookingStatus(id, 'booked');
-    renderBookings();
+    openWa(waPhone, msg);
   }
 
   function toggleWaApp() {
@@ -752,7 +751,9 @@
     const query = (document.getElementById('search-input').value || '').toLowerCase().trim();
     const sort  = document.getElementById('sort-select').value;
 
-    if (currentFilter !== 'all') bookings = bookings.filter(b => b.status === currentFilter);
+    if (currentFilter !== 'all') bookings = bookings.filter(b =>
+      currentFilter === 'confirmed' ? (b.status === 'confirmed' || b.status === 'booked') : b.status === currentFilter
+    );
     if (query) bookings = bookings.filter(b =>
       b.name.toLowerCase().includes(query) || b.phone.toLowerCase().includes(query)
     );
