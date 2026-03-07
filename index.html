@@ -508,7 +508,7 @@
 </footer>
 
 <!-- ─── BOOKING MODAL ─── -->
-<div id="booking-overlay" onclick="handleOverlayClick(event)" ontouchstart="window._bookingTouchInCard=(event.target!==this)" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,46,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;">
+<div id="booking-overlay" onclick="handleOverlayClick(event)" style="display:none;position:fixed;inset:0;z-index:200;background:rgba(26,26,46,0.85);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem;">
   <div id="booking-card" onclick="event.stopPropagation()" style="background:#fff;border-radius:1.25rem;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;box-shadow:0 32px 80px rgba(26,26,46,0.35),0 4px 16px rgba(26,40,112,0.15);position:relative;">
 
     <!-- Header -->
@@ -670,6 +670,7 @@
   }
 
   function closeBookingModal() {
+    if (_autoCloseTimer) { clearTimeout(_autoCloseTimer); _autoCloseTimer = null; }
     document.getElementById('booking-overlay').style.display = 'none';
     document.body.style.overflow = '';
     setTimeout(() => {
@@ -685,10 +686,22 @@
     }, 300);
   }
 
+  // Track when any form field inside the modal last lost focus.
+  // On mobile, tapping the backdrop to dismiss the keyboard fires blur → then click on overlay.
+  // We block the overlay click for 500ms after any input blur to prevent accidental closes.
+  let _lastInputBlurTime = 0;
+  let _autoCloseTimer = null;
+  document.getElementById('booking-card').addEventListener('focusout', function(e) {
+    const tag = e.target && e.target.tagName;
+    if (tag === 'INPUT' || tag === 'SELECT' || tag === 'TEXTAREA') {
+      _lastInputBlurTime = Date.now();
+    }
+  });
+
   function handleOverlayClick(e) {
     if (e.target !== document.getElementById('booking-overlay')) return;
-    // touchstart fires before keyboard opens/card repositions — if it started inside the card, don't close
-    if (window._bookingTouchInCard) { window._bookingTouchInCard = false; return; }
+    // Ignore overlay clicks shortly after an input lost focus (keyboard dismiss on mobile).
+    if (Date.now() - _lastInputBlurTime < 500) return;
     closeBookingModal();
   }
 
@@ -772,7 +785,7 @@
       .then(() => {
         document.getElementById('booking-form').style.display = 'none';
         document.getElementById('booking-success').style.display = 'block';
-        setTimeout(closeBookingModal, 6000);
+        _autoCloseTimer = setTimeout(closeBookingModal, 6000);
       })
       .catch(() => {
         // no-cors fetch always resolves; this only fires on network failure
