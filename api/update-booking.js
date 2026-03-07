@@ -53,7 +53,7 @@ module.exports = async (req, res) => {
   }
 
   if (!id || !status) return res.status(400).json({ error: 'Missing id or status' });
-  if (!['confirmed', 'rejected', 'pending'].includes(status)) {
+  if (!['confirmed', 'rejected', 'pending', 'booked'].includes(status)) {
     return res.status(400).json({ error: 'Invalid status' });
   }
 
