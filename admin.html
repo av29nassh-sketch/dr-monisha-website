@@ -499,7 +499,7 @@
     window.location.href = `intent://send?phone=${phone}&text=${text}#Intent;package=${pkg};scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
   }
 
-  async function sendConfirmationWa(id) {
+  function sendConfirmationWa(id) {
     const b = (window._bookings || []).find(x => x.id === id);
     if (!b) return;
     const phoneClean = b.phone.replace(/\D/g, '');
@@ -508,8 +508,10 @@
     const msg = encodeURIComponent(
       `Hi ${b.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
     );
-    await updateBookingStatus(id, 'booked');
+    // Open WA first (must be synchronous — user gesture context lost after any await)
     openWa(waPhone, msg);
+    // Update DB in background after WA opens
+    updateBookingStatus(id, 'booked').then(() => renderBookings());
   }
 
   function toggleWaApp() {
@@ -990,26 +992,9 @@
     const { type, id, booking } = pendingAction;
     closeDialog();
 
-    const newStatus = type === 'confirm' ? 'booked' : 'rejected';
+    const newStatus = type === 'confirm' ? 'confirmed' : 'rejected';
     if (type === 'confirm') soundConfirm(); else soundReject();
-    const success = await updateBookingStatus(id, newStatus);
-
-    // Auto-send WhatsApp confirmation when admin confirms a booking
-    if (success && type === 'confirm' && booking) {
-      const phoneClean = booking.phone.replace(/\D/g, '');
-      const waPhone    = phoneClean.startsWith('91') ? phoneClean : '91' + phoneClean;
-      const consultType = booking.type === 'offline' ? 'in-person' : 'online';
-      const note = (document.getElementById('dialog-note')?.value || '').trim();
-      const noteLine = note ? `\n\n📝 ${note}` : '';
-      const msg = encodeURIComponent(
-        `Hi ${booking.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${booking.formattedDate}* at *${booking.time}*.` +
-        `\n\nPlease be available 5 minutes before your appointment.` +
-        noteLine +
-        `\n\n— Dr. Monisha S Clinic`
-      );
-      openWa(waPhone, msg);
-    }
-
+    await updateBookingStatus(id, newStatus);
     renderBookings();
   }
 
