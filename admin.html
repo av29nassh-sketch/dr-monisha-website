@@ -493,7 +493,10 @@
 
   function openWa(phone, text) {
     if (waApp === 'business') {
-      window.open(`whatsappbusiness://send?phone=${phone}&text=${text}`, '_blank');
+      // Use Android intent URL — prevents PWA from going blank on return
+      // (window.open with custom schemes navigates the PWA window itself)
+      const fallback = encodeURIComponent(`https://wa.me/${phone}?text=${text}`);
+      window.location.href = `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
     } else {
       window.open(`https://wa.me/${phone}?text=${text}`, '_blank');
     }
