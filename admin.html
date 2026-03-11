@@ -924,7 +924,7 @@
 
   // ── Dialog ─────────────────────────────────────────────────────────────────
   async function openConfirmDialog(id) {
-    const b = (await getBookings()).find(x => String(x.id) === String(id));
+    const b = (window._bookings || []).find(x => String(x.id) === String(id));
     if (!b) return;
     pendingAction = { type: 'confirm', id, booking: b };
 
@@ -957,7 +957,7 @@
   }
 
   async function openRejectDialog(id) {
-    const b = (await getBookings()).find(x => String(x.id) === String(id));
+    const b = (window._bookings || []).find(x => String(x.id) === String(id));
     if (!b) return;
     pendingAction = { type: 'reject', id, booking: b };
 
