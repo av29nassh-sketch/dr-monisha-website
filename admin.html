@@ -515,13 +515,8 @@
     );
     const href = buildWaHref(waPhone, msg);
     updateBookingStatus(id, 'booked').then(() => renderBookings());
-    if (waApp === 'business') {
-      // Chrome blocks intent:// URLs set dynamically on anchor href — use direct navigation instead
-      window.location.href = href;
-      return false;
-    }
-    anchor.href = href;
-    return true; // allow the anchor to navigate
+    window.open(href, '_blank');
+    return false;
   }
 
   function toggleWaApp() {
@@ -1022,13 +1017,8 @@
       closeDialog();
       soundConfirm();
       updateBookingStatus(id, 'booked').then(() => renderBookings());
-      if (waApp === 'business') {
-        // Chrome blocks intent:// URLs set dynamically on anchor href — use direct navigation
-        window.location.href = href;
-        return false;
-      }
-      anchor.href = href;
-      return true; // let anchor navigate to WA
+      window.open(href, '_blank');
+      return false;
 
     } else {
       e.preventDefault(); // reject has href="#", block navigation
