@@ -515,8 +515,9 @@
     );
     const href = buildWaHref(waPhone, msg);
     updateBookingStatus(id, 'booked').then(() => renderBookings());
-    window.open(href, '_blank');
-    return false;
+    anchor.href = href;
+    anchor.target = '_blank';
+    return true;
   }
 
   function toggleWaApp() {
@@ -1017,8 +1018,9 @@
       closeDialog();
       soundConfirm();
       updateBookingStatus(id, 'booked').then(() => renderBookings());
-      window.open(href, '_blank');
-      return false;
+      anchor.href = href;
+      anchor.target = '_blank';
+      return true;
 
     } else {
       e.preventDefault(); // reject has href="#", block navigation
