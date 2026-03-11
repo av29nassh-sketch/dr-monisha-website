@@ -34,7 +34,7 @@ messaging.onBackgroundMessage(payload => {
 // ─────────────────────────────────────────────────────────────────────────────
 // PWA Cache
 // ─────────────────────────────────────────────────────────────────────────────
-const CACHE_NAME = 'dr-monisha-v5';
+const CACHE_NAME = 'dr-monisha-v6';
 
 const PRECACHE_URLS = [
   '/',
@@ -68,7 +68,7 @@ self.addEventListener('fetch', event => {
 
   const url = new URL(request.url);
 
-  if (request.mode === 'navigate' || url.pathname === '/') {
+  if (request.mode === 'navigate' || url.pathname === '/' || url.pathname === '/admin.html') {
     event.respondWith(
       fetch(request)
         .then(response => {
