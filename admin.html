@@ -1041,7 +1041,6 @@
 
   // ── Delete single booking ──────────────────────────────────────────────────
   async function deleteBooking(id) {
-    if (!confirm('Delete this booking permanently?')) return;
     const res = await fetch('/api/update-booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
