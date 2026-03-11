@@ -499,7 +499,7 @@
       const fallback = encodeURIComponent(`https://wa.me/${phone}?text=${text}`);
       return `intent://send?phone=${phone}&text=${text}#Intent;package=com.whatsapp.w4b;scheme=whatsapp;S.browser_fallback_url=${fallback};end`;
     }
-    return `https://wa.me/${phone}?text=${text}`;
+    return `whatsapp://send?phone=${phone}&text=${text}`;
   }
 
   // Called by the "Send Confirmation" <a> on confirmed cards.
@@ -515,9 +515,13 @@
     );
     const href = buildWaHref(waPhone, msg);
     updateBookingStatus(id, 'booked').then(() => renderBookings());
+    if (waApp === 'business') {
+      // Chrome blocks intent:// URLs set dynamically on anchor href — use direct navigation instead
+      window.location.href = href;
+      return false;
+    }
     anchor.href = href;
-    anchor.target = '_blank';
-    return true;
+    return true; // allow the anchor to navigate
   }
 
   function toggleWaApp() {
@@ -1018,9 +1022,13 @@
       closeDialog();
       soundConfirm();
       updateBookingStatus(id, 'booked').then(() => renderBookings());
+      if (waApp === 'business') {
+        // Chrome blocks intent:// URLs set dynamically on anchor href — use direct navigation
+        window.location.href = href;
+        return false;
+      }
       anchor.href = href;
-      anchor.target = '_blank';
-      return true;
+      return true; // let anchor navigate to WA
 
     } else {
       e.preventDefault(); // reject has href="#", block navigation
