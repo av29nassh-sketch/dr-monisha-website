@@ -518,15 +518,14 @@
       `Hi ${b.name}, your *${consultType} consultation* with Dr. Monisha S is *confirmed* for *${b.formattedDate}* at *${b.time}*.\n\nPlease be available 5 minutes before your appointment.\n\n— Dr. Monisha S Clinic`
     );
     const href = buildWaHref(waPhone, msg);
-    updateBookingStatus(id, 'booked').then(() => renderBookings());
     const isAndroid = /Android/i.test(navigator.userAgent);
     if (isAndroid && waApp === 'business') {
       window.location.href = href;
-      return false;
+    } else {
+      window.open(href, '_blank');
     }
-    anchor.href = href;
-    anchor.target = '_blank';
-    return true; // allow the anchor to navigate
+    updateBookingStatus(id, 'booked').then(() => renderBookings());
+    return false;
   }
 
   function toggleWaApp() {
@@ -1024,17 +1023,17 @@
         `\n\n— Dr. Monisha S Clinic`
       );
       const href = buildWaHref(waPhone, msg);
-      closeDialog();
-      soundConfirm();
-      updateBookingStatus(id, 'booked').then(() => renderBookings());
+      e.preventDefault();
       const isAndroid = /Android/i.test(navigator.userAgent);
       if (isAndroid && waApp === 'business') {
         window.location.href = href;
-        return false;
+      } else {
+        window.open(href, '_blank');
       }
-      anchor.href = href;
-      anchor.target = '_blank';
-      return true; // let anchor navigate to WA
+      closeDialog();
+      soundConfirm();
+      updateBookingStatus(id, 'booked').then(() => renderBookings());
+      return false;
 
     } else {
       e.preventDefault(); // reject has href="#", block navigation
