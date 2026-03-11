@@ -487,7 +487,7 @@
 <script>
   // ── Supabase ────────────────────────────────────────────────────────────────
   const SUPABASE_URL = 'https://nqzuvafvrsdmmvcabgiv.supabase.co';
-  const SUPABASE_KEY = 'sb_publishable_RtEv-iE4U-vzSeWp3a9ZrQ_uNZdiZyO';
+  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xenV2YWZ2cnNkbW12Y2FiZ2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MDcyNjIsImV4cCI6MjA4ODI4MzI2Mn0.3VLd4pMzvNlJWVCF2ZNtFwhaPDgY1TA0pDPd8cOZac4';
   const db = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
   // ── WhatsApp app preference ────────────────────────────────────────────────
@@ -620,8 +620,9 @@
 
   // ── Storage ────────────────────────────────────────────────────────────────
   async function getBookings() {
-    const { data, error } = await db.from('bookings').select('*');
-    if (error) { console.error('Supabase error:', error); return []; }
+    const res = await fetch('/api/get-bookings');
+    if (!res.ok) { console.error('Failed to fetch bookings:', await res.text()); return []; }
+    const data = await res.json();
     return data.map(b => ({
       id: b.id,
       name: b.name,
