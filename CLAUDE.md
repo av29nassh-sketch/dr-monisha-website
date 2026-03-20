@@ -46,6 +46,31 @@
 - **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
 - **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
 
+## Admin Panel Rules
+
+### Supabase Keys
+- Both anon and service_role keys are the same JWT in this project — do NOT try to change them
+- All DB operations depend on RLS policies. If update/delete stops working → check RLS policies first, not keys
+- Required policies on `bookings`: INSERT, SELECT, UPDATE, DELETE — all for `anon` role
+
+### WhatsApp Redirect
+- `buildWaHref(phone, text)` detects Android via `navigator.userAgent`
+- Android + business → `intent://` URL
+- Android + regular → `whatsapp://send?...`
+- Desktop → `https://wa.me/...` via `window.open(href, '_blank')`
+- **CRITICAL: call `window.open` BEFORE `closeDialog()`** — hiding the dialog first breaks the redirect
+
+### Service Worker
+- SW cache name: `dr-monisha-v6` — bump version on every deploy that changes HTML/JS
+- `admin.html` uses network-first strategy in SW fetch handler
+
+### Debugging — before changing any code
+1. Open F12 Console → reproduce → read the actual error
+2. WA redirect issues → check what scheme is in the error
+3. Status/delete not working → check RLS policies
+4. Bookings not loading → check `/api/get-bookings` in Network tab
+5. Mobile shows stale UI → bump SW cache version
+
 ## Hard Rules
 - Do not add sections, features, or content not in the reference
 - Do not "improve" a reference design — match it

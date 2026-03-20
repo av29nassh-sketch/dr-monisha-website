@@ -1,0 +1,1224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How We Built Dr. Monisha's Website — A Full Walkthrough</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --navy: #1a2870;
+    --rose: #c17b6e;
+    --blush: #fdf5f2;
+    --ink: #1c1c2e;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --green: #059669;
+    --amber: #d97706;
+    --purple: #7c3aed;
+    --blue: #0284c7;
+  }
+
+  html { font-size: 15px; }
+
+  body {
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+    color: var(--ink);
+    background: #fff;
+    line-height: 1.75;
+  }
+
+  /* ── COVER PAGE ── */
+  .cover {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0d1547 0%, #1a2870 50%, #2a3b8f 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 80px 60px;
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -200px; right: -200px;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(193,123,110,0.25) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover::after {
+    content: '';
+    position: absolute;
+    bottom: -150px; left: -150px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cover-badge {
+    display: inline-block;
+    background: rgba(193,123,110,0.2);
+    border: 1px solid rgba(193,123,110,0.5);
+    color: #e8a89a;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 100px;
+    margin-bottom: 40px;
+  }
+
+  .cover h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.2;
+    margin-bottom: 24px;
+    letter-spacing: -0.02em;
+  }
+
+  .cover h1 span { color: #e8a89a; }
+
+  .cover p {
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 560px;
+    line-height: 1.7;
+    margin-bottom: 60px;
+  }
+
+  .cover-divider {
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, rgba(193,123,110,0.8), transparent);
+    margin: 0 auto 60px;
+  }
+
+  .cover-meta {
+    display: flex;
+    gap: 48px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .cover-meta-item { text-align: center; }
+  .cover-meta-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #e8a89a;
+    font-weight: 700;
+    display: block;
+  }
+  .cover-meta-item .label {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* ── TOC PAGE ── */
+  .toc-page {
+    padding: 70px 70px;
+    page-break-after: always;
+    min-height: 100vh;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 12px;
+  }
+
+  .toc-page h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    margin-bottom: 48px;
+    letter-spacing: -0.02em;
+  }
+
+  .toc-list { list-style: none; }
+
+  .toc-item {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    padding: 14px 0;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .toc-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--rose);
+    min-width: 28px;
+  }
+
+  .toc-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+    flex: 1;
+  }
+
+  .toc-sub {
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  /* ── CONTENT PAGES ── */
+  .content-page {
+    padding: 70px 70px;
+    page-break-before: always;
+  }
+
+  .chapter-header {
+    margin-bottom: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .chapter-num {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--rose);
+    margin-bottom: 10px;
+  }
+
+  .chapter-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    margin-bottom: 12px;
+  }
+
+  .chapter-intro {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 640px;
+    line-height: 1.75;
+  }
+
+  h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--navy);
+    margin: 32px 0 10px;
+  }
+
+  p { font-size: 0.92rem; color: #374151; line-height: 1.8; margin-bottom: 14px; }
+
+  /* ── CALLOUT BOXES ── */
+  .callout {
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin: 22px 0;
+    font-size: 0.88rem;
+    line-height: 1.7;
+  }
+
+  .callout-blue { background: #eff6ff; border-left: 4px solid #3b82f6; color: #1e40af; }
+  .callout-green { background: #f0fdf4; border-left: 4px solid #22c55e; color: #15803d; }
+  .callout-amber { background: #fffbeb; border-left: 4px solid #f59e0b; color: #92400e; }
+  .callout-rose { background: #fff5f3; border-left: 4px solid var(--rose); color: #9f3a2c; }
+  .callout-purple { background: #faf5ff; border-left: 4px solid #a855f7; color: #6b21a8; }
+
+  .callout strong { display: block; margin-bottom: 4px; font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  /* ── STEP CARDS ── */
+  .steps {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 22px 0;
+  }
+
+  .step {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .step-badge {
+    min-width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .step-content h4 {
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+  }
+
+  .step-content p {
+    font-size: 0.86rem;
+    color: var(--muted);
+    margin: 0;
+  }
+
+  /* ── TECH PILLS ── */
+  .pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+
+  .pill {
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 100px;
+    background: #f3f4f6;
+    color: var(--ink);
+    border: 1px solid var(--border);
+  }
+
+  .pill.navy { background: var(--navy); color: #fff; border-color: var(--navy); }
+  .pill.rose { background: var(--rose); color: #fff; border-color: var(--rose); }
+  .pill.green { background: #059669; color: #fff; border-color: #059669; }
+  .pill.purple { background: #7c3aed; color: #fff; border-color: #7c3aed; }
+  .pill.amber { background: #d97706; color: #fff; border-color: #d97706; }
+
+  /* ── 2-COL GRID ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin: 22px 0;
+  }
+
+  .card {
+    background: #f9fafb;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+  }
+
+  .card h4 {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .card p { font-size: 0.83rem; color: var(--muted); margin: 0; }
+
+  /* ── API TABLE ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 0.84rem;
+  }
+
+  th {
+    background: var(--navy);
+    color: #fff;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  td { padding: 10px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
+  tr:last-child td { border-bottom: none; }
+  tr:nth-child(even) td { background: #f9fafb; }
+
+  /* ── FLOW DIAGRAM ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 20px 0;
+    padding: 18px 20px;
+    background: #f9fafb;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .flow-box {
+    background: var(--navy);
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+
+  .flow-box.rose { background: var(--rose); }
+  .flow-box.green { background: #059669; }
+  .flow-box.purple { background: #7c3aed; }
+  .flow-box.amber { background: #d97706; }
+
+  .arrow {
+    color: var(--muted);
+    font-size: 1rem;
+  }
+
+  /* ── SUMMARY / GLOSSARY PAGE ── */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .gloss-card {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px 18px;
+  }
+
+  .gloss-card .term {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .gloss-card p { font-size: 0.82rem; margin: 0; color: var(--muted); }
+
+  /* ── BACK COVER ── */
+  .back-cover {
+    min-height: 100vh;
+    background: linear-gradient(145deg, #0d1547, #1a2870);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    page-break-before: always;
+    text-align: center;
+    padding: 60px;
+  }
+
+  .back-cover-inner h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: #fff;
+    margin-bottom: 16px;
+  }
+
+  .back-cover-inner p { color: rgba(255,255,255,0.55); font-size: 0.95rem; max-width: 500px; margin: 0 auto 40px; }
+
+  .url-box {
+    display: inline-block;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 10px;
+    padding: 14px 32px;
+    font-size: 0.95rem;
+    color: #e8a89a;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── PRINT / PAGE BREAKS ── */
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .content-page { page-break-before: always; }
+    .no-break { page-break-inside: avoid; }
+  }
+
+  ul { padding-left: 20px; margin: 10px 0; }
+  ul li { font-size: 0.88rem; color: #374151; line-height: 1.8; }
+  ul li strong { color: var(--ink); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     COVER PAGE
+════════════════════════════════════════════════════════ -->
+<div class="cover">
+  <div class="cover-badge">Project Documentation</div>
+  <h1>How We Built<br><span>Dr. Monisha's Website</span></h1>
+  <p>A plain-English walkthrough of every step taken — from blank page to a fully live, installable web app with real-time bookings and push notifications.</p>
+  <div class="cover-divider"></div>
+  <div class="cover-meta">
+    <div class="cover-meta-item">
+      <span class="num">8</span>
+      <span class="label">Chapters</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="num">4</span>
+      <span class="label">API Endpoints</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="num">2</span>
+      <span class="label">Core Pages</span>
+    </div>
+    <div class="cover-meta-item">
+      <span class="num">PWA</span>
+      <span class="label">Installable App</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     TABLE OF CONTENTS
+════════════════════════════════════════════════════════ -->
+<div class="toc-page">
+  <div class="section-label">Contents</div>
+  <h2>What's Inside</h2>
+  <ul class="toc-list">
+    <li class="toc-item">
+      <span class="toc-num">01</span>
+      <span class="toc-title">The Goal — What We Were Building</span>
+      <span class="toc-sub">Scope & vision</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">02</span>
+      <span class="toc-title">The Public Website (index.html)</span>
+      <span class="toc-sub">Design, sections, and the booking form</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">03</span>
+      <span class="toc-title">The Database — Supabase</span>
+      <span class="toc-sub">Where bookings are stored and how security works</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">04</span>
+      <span class="toc-title">The Admin Dashboard (admin.html)</span>
+      <span class="toc-sub">Managing bookings, WhatsApp, and status updates</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">05</span>
+      <span class="toc-title">The Backend — Vercel API</span>
+      <span class="toc-sub">Serverless functions that power everything</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">06</span>
+      <span class="toc-title">Push Notifications — Firebase</span>
+      <span class="toc-sub">Getting alerted the moment a booking arrives</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">07</span>
+      <span class="toc-title">PWA — Installing the App on a Phone</span>
+      <span class="toc-sub">Service worker, manifest, and offline support</span>
+    </li>
+    <li class="toc-item">
+      <span class="toc-num">08</span>
+      <span class="toc-title">Deployment — Going Live</span>
+      <span class="toc-sub">Git, Vercel, and environment variables</span>
+    </li>
+  </ul>
+
+  <div style="margin-top: 48px; padding-top: 32px; border-top: 1px solid var(--border);">
+    <div class="section-label">Tech Stack at a Glance</div>
+    <div class="pills" style="margin-top: 16px;">
+      <span class="pill navy">HTML / CSS / JavaScript</span>
+      <span class="pill navy">Tailwind CSS</span>
+      <span class="pill rose">Supabase (Database)</span>
+      <span class="pill rose">Firebase (Notifications)</span>
+      <span class="pill green">Vercel (Hosting)</span>
+      <span class="pill purple">PWA / Service Worker</span>
+      <span class="pill amber">WhatsApp Integration</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 1 — THE GOAL
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 01</div>
+    <h2>The Goal — What We Were Building</h2>
+    <p class="chapter-intro">Before writing a single line of code, we needed to clearly understand what the website had to do and who would use it.</p>
+  </div>
+
+  <h3>Two Types of Users</h3>
+  <p>This project has two completely different audiences, each with their own needs:</p>
+
+  <div class="two-col">
+    <div class="card">
+      <h4>🧑‍⚕️ Patients (Public)</h4>
+      <p>People who visit the website, learn about Dr. Monisha's services, and want to book a consultation. They need a clean, trustworthy, and easy-to-use website.</p>
+    </div>
+    <div class="card">
+      <h4>👩‍💻 Dr. Monisha (Admin)</h4>
+      <p>The doctor who needs to see incoming booking requests, confirm or reject them, contact patients via WhatsApp, and get notified instantly when someone books.</p>
+    </div>
+  </div>
+
+  <h3>What the Website Needed to Do</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge">1</div>
+      <div class="step-content">
+        <h4>Present the practice professionally</h4>
+        <p>Show Dr. Monisha's services, credentials, and contact info in a clean, modern design that builds trust.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">2</div>
+      <div class="step-content">
+        <h4>Accept booking requests online</h4>
+        <p>Let patients fill out a form with their name, phone, preferred date/time, and consultation type — without needing to call.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">3</div>
+      <div class="step-content">
+        <h4>Notify Dr. Monisha instantly</h4>
+        <p>Send a push notification the moment a new booking arrives, even if the browser is closed.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">4</div>
+      <div class="step-content">
+        <h4>Let the doctor manage bookings</h4>
+        <p>A private admin panel to confirm, reject, search, filter, and delete bookings — and message patients on WhatsApp.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">5</div>
+      <div class="step-content">
+        <h4>Work like a mobile app</h4>
+        <p>The admin dashboard can be installed on a phone's home screen and work offline — no app store required.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-blue">
+    <strong>Why a Website Instead of an App?</strong>
+    Publishing an app on the App Store or Play Store takes weeks, costs money, and requires approval. A Progressive Web App (PWA) website can be installed directly from the browser in seconds — and it looks and feels just like a native app.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 2 — THE PUBLIC WEBSITE
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 02</div>
+    <h2>The Public Website (index.html)</h2>
+    <p class="chapter-intro">The face of the practice. Everything a patient sees when they visit the URL. Built as a single HTML file with all styles embedded inside it.</p>
+  </div>
+
+  <h3>Why One Single File?</h3>
+  <p>We put the entire website in one <code>index.html</code> file. This keeps things simple — no build tools, no complex setup. The browser just opens one file and everything works. For a marketing website of this size, a single file is the right choice.</p>
+
+  <h3>The Sections We Built</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge">1</div>
+      <div class="step-content">
+        <h4>Hero Section — The First Thing You See</h4>
+        <p>A bold headline, Dr. Monisha's photo, a tagline, and a "Book a Consultation" button. This section needs to immediately communicate who she is and what she does. We used large typography, soft background gradients, and her real photo.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">2</div>
+      <div class="step-content">
+        <h4>About Section — Building Trust</h4>
+        <p>A short bio introducing Dr. Monisha. Trust is everything in healthcare — patients need to feel safe before booking. This section humanises her practice.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">3</div>
+      <div class="step-content">
+        <h4>Services Section — What She Offers</h4>
+        <p>Six cards listing the mental health services available: anxiety, depression, counselling, etc. Each card has an icon, title, and brief description. Laid out in a responsive grid that collapses to one column on phones.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">4</div>
+      <div class="step-content">
+        <h4>Testimonials — Social Proof</h4>
+        <p>Patient quotes. People trust other people's experiences. Testimonials reduce hesitation and make new patients feel comfortable reaching out.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">5</div>
+      <div class="step-content">
+        <h4>Booking Modal — The Core Action</h4>
+        <p>When someone clicks "Book Now", a dialog pops up with a form. They fill in their name, phone number, email, preferred date, time, and whether they want an online or offline consultation. When they submit, the data is saved to the database.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">6</div>
+      <div class="step-content">
+        <h4>Footer — Contact Info</h4>
+        <p>Links, social media, phone number, and location. Patients who scroll all the way down are very interested — the footer captures them.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>How It Was Styled</h3>
+  <p>We used <strong>Tailwind CSS</strong> — a utility-first CSS framework loaded from a CDN link. Instead of writing custom CSS from scratch, Tailwind gives us thousands of tiny pre-built classes like <code>text-lg</code>, <code>p-4</code>, or <code>rounded-xl</code> that we compose together directly in the HTML.</p>
+
+  <div class="two-col no-break">
+    <div class="card">
+      <h4>Brand Colors</h4>
+      <p>Navy <strong>#1a2870</strong> for headings and buttons. Rose/blush <strong>#c17b6e</strong> for accents. Soft cream <strong>#fdf5f2</strong> for backgrounds. These were chosen to feel calm, professional, and trustworthy for a mental health practice.</p>
+    </div>
+    <div class="card">
+      <h4>Typography</h4>
+      <p><strong>Playfair Display</strong> (a serif font) for headings — elegant and authoritative. <strong>DM Sans</strong> for body text — clean, modern, and easy to read on screens.</p>
+    </div>
+  </div>
+
+  <div class="callout callout-green">
+    <strong>Mobile-First Design</strong>
+    We designed for mobile screens first, then scaled up for desktop. This is the correct approach because most patients will visit the site on their phones. Tailwind's <code>md:</code> and <code>lg:</code> prefixes let us write rules that only activate on larger screens.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 3 — THE DATABASE
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 03</div>
+    <h2>The Database — Supabase</h2>
+    <p class="chapter-intro">When a patient submits a booking form, that data needs to be stored somewhere safely so Dr. Monisha can access it later. That's the database's job.</p>
+  </div>
+
+  <h3>What is Supabase?</h3>
+  <p>Supabase is a ready-made backend service. Think of it as a spreadsheet in the cloud that your code can read from and write to. It uses a real database (PostgreSQL) under the hood, but provides a simple JavaScript SDK so you don't need to be a database expert to use it.</p>
+
+  <p>We chose Supabase because it has a generous free tier, is fast to set up, and handles all the server infrastructure — we don't need to manage any servers ourselves.</p>
+
+  <h3>The Bookings Table</h3>
+  <p>We created a table called <code>bookings</code> in Supabase. A table is like a spreadsheet — rows are individual bookings, columns are the pieces of information for each booking.</p>
+
+  <table>
+    <tr><th>Column</th><th>What it stores</th><th>Example</th></tr>
+    <tr><td><code>id</code></td><td>Unique ID for each booking</td><td>auto-generated</td></tr>
+    <tr><td><code>name</code></td><td>Patient's full name</td><td>Priya Sharma</td></tr>
+    <tr><td><code>phone</code></td><td>Patient's phone number</td><td>9876543210</td></tr>
+    <tr><td><code>email</code></td><td>Patient's email address</td><td>priya@email.com</td></tr>
+    <tr><td><code>date</code></td><td>Requested appointment date</td><td>2026-03-15</td></tr>
+    <tr><td><code>time</code></td><td>Requested appointment time</td><td>10:30 AM</td></tr>
+    <tr><td><code>type</code></td><td>Online or offline consultation</td><td>online</td></tr>
+    <tr><td><code>status</code></td><td>Current status of the booking</td><td>pending / confirmed / rejected</td></tr>
+    <tr><td><code>submitted_at</code></td><td>When the form was submitted</td><td>auto-timestamp</td></tr>
+  </table>
+
+  <h3>Security — Row Level Security (RLS)</h3>
+  <p>Supabase has a security feature called <strong>Row Level Security (RLS)</strong>. By default, the database is completely locked — nobody can read or write anything. You have to explicitly create "policies" that allow specific actions.</p>
+
+  <p>We set up four policies on the bookings table:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge">✓</div>
+      <div class="step-content">
+        <h4>INSERT policy — Anyone can submit a booking</h4>
+        <p>Allows the booking form on the public website to add new rows to the table.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">✓</div>
+      <div class="step-content">
+        <h4>SELECT policy — The admin can read bookings</h4>
+        <p>Allows the dashboard to fetch and display all bookings.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">✓</div>
+      <div class="step-content">
+        <h4>UPDATE policy — The admin can change status</h4>
+        <p>Allows the dashboard to mark a booking as confirmed, rejected, or booked.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">✓</div>
+      <div class="step-content">
+        <h4>DELETE policy — The admin can remove bookings</h4>
+        <p>Allows the dashboard to permanently delete a booking from the database.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-amber">
+    <strong>Why This Matters</strong>
+    Without these policies, operations silently fail — buttons appear to work but nothing actually changes in the database. If status updates or deletes ever stop working, checking these RLS policies is always the first step.
+  </div>
+
+  <h3>How the Booking Form Connects to Supabase</h3>
+  <div class="flow">
+    <div class="flow-box">Patient fills form</div>
+    <span class="arrow">→</span>
+    <div class="flow-box rose">JavaScript collects data</div>
+    <span class="arrow">→</span>
+    <div class="flow-box green">Supabase SDK sends INSERT</div>
+    <span class="arrow">→</span>
+    <div class="flow-box purple">Row saved in database</div>
+    <span class="arrow">→</span>
+    <div class="flow-box amber">Webhook fires → Push notification</div>
+  </div>
+
+  <p>The Supabase JavaScript SDK is loaded via a CDN link in the HTML. We initialize it with the project URL and an API key, then call <code>supabase.from('bookings').insert({...})</code> when the form is submitted. That's it — Supabase handles all the actual database work.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 4 — ADMIN DASHBOARD
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 04</div>
+    <h2>The Admin Dashboard (admin.html)</h2>
+    <p class="chapter-intro">A private control panel for Dr. Monisha to see every booking, manage their status, and contact patients — all from one screen.</p>
+  </div>
+
+  <h3>What the Dashboard Shows</h3>
+  <p>When Dr. Monisha opens the admin page, she sees four number cards at the top showing a live count of:</p>
+
+  <div class="two-col">
+    <div class="card">
+      <h4>📊 Stats Row</h4>
+      <ul>
+        <li>Total bookings ever received</li>
+        <li>Pending (waiting for action)</li>
+        <li>Confirmed appointments</li>
+        <li>Appointments due today</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h4>🔍 Filter & Search</h4>
+      <ul>
+        <li>Search bar (filter by name or phone)</li>
+        <li>Tab filters: All / Pending / Confirmed / Rejected</li>
+        <li>Sort by newest, oldest, or appointment date</li>
+        <li>"Clear Rejected" bulk delete button</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3>Booking Cards — The Main View</h3>
+  <p>Each booking is shown as a card. The left edge of the card is color-coded so Dr. Monisha can instantly see the status at a glance:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge" style="background:#d97706">●</div>
+      <div class="step-content"><h4>Orange = Pending</h4><p>New booking waiting to be reviewed.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-badge" style="background:#059669">●</div>
+      <div class="step-content"><h4>Green = Confirmed</h4><p>Appointment accepted and confirmed.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-badge" style="background:#dc2626">●</div>
+      <div class="step-content"><h4>Red = Rejected</h4><p>Booking declined.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-badge" style="background:#0284c7">●</div>
+      <div class="step-content"><h4>Blue = Booked</h4><p>Appointment fully confirmed and scheduled.</p></div>
+    </div>
+  </div>
+
+  <h3>The Confirm Flow — Step by Step</h3>
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge">1</div>
+      <div class="step-content"><h4>Dr. Monisha clicks "Confirm"</h4><p>A modal dialog opens showing a preview of the booking details.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-badge">2</div>
+      <div class="step-content"><h4>She optionally types a note</h4><p>For example: "Please bring your previous prescription" or "Join via Google Meet."</p></div>
+    </div>
+    <div class="step">
+      <div class="step-badge">3</div>
+      <div class="step-content"><h4>She clicks "Confirm Appointment"</h4><p>Two things happen simultaneously: the booking status is updated to "confirmed" in the database, and a WhatsApp message is opened with the patient's number pre-filled.</p></div>
+    </div>
+    <div class="step">
+      <div class="step-badge">4</div>
+      <div class="step-content"><h4>WhatsApp opens</h4><p>She just taps send — the patient gets a confirmation message immediately.</p></div>
+    </div>
+  </div>
+
+  <h3>WhatsApp Integration</h3>
+  <p>WhatsApp doesn't have an official API for sending messages directly. Instead, we use a URL scheme that opens WhatsApp with a pre-written message and a phone number already filled in.</p>
+
+  <div class="callout callout-amber">
+    <strong>Android vs Desktop Difference</strong>
+    On Android phones, we use a special <code>intent://</code> URL that opens the WhatsApp app directly. On desktop computers, we use the <code>https://wa.me/</code> web URL that opens WhatsApp Web. The code detects which device is being used and picks the right URL automatically.
+  </div>
+
+  <p>There was a tricky bug here: if we closed the dialog <em>before</em> opening WhatsApp, the browser blocked the redirect as a popup. The fix was simple — always call <code>window.open()</code> first, then close the dialog.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 5 — THE BACKEND (VERCEL API)
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 05</div>
+    <h2>The Backend — Vercel API Functions</h2>
+    <p class="chapter-intro">Some operations need to run on a server, not in the browser. For example, we can't expose our secret database key in the public website's code. That's where serverless functions come in.</p>
+  </div>
+
+  <h3>What is a Serverless Function?</h3>
+  <p>Normally, a "backend" means a server that runs 24/7. Serverless functions are different — they're tiny pieces of code that only run when someone calls them, then shut down. Vercel (our hosting platform) manages all of this automatically. We just write the function; Vercel handles the rest.</p>
+
+  <p>Each file inside the <code>/api/</code> folder automatically becomes an API endpoint. For example, <code>/api/get-bookings.js</code> becomes available at <code>https://yoursite.vercel.app/api/get-bookings</code>.</p>
+
+  <h3>Our Four API Endpoints</h3>
+
+  <table>
+    <tr><th>File</th><th>What it does</th><th>Who calls it</th></tr>
+    <tr>
+      <td><code>get-bookings.js</code></td>
+      <td>Fetches all bookings from Supabase and returns them as JSON. Uses the secret service key so it bypasses RLS.</td>
+      <td>Admin dashboard on load</td>
+    </tr>
+    <tr>
+      <td><code>update-booking.js</code></td>
+      <td>Updates a booking's status (confirm/reject) or deletes it. Also handles bulk-delete of rejected bookings.</td>
+      <td>Admin dashboard buttons</td>
+    </tr>
+    <tr>
+      <td><code>save-fcm-token.js</code></td>
+      <td>Saves the doctor's device notification token to Supabase so we know where to send push notifications.</td>
+      <td>Admin dashboard on load</td>
+    </tr>
+    <tr>
+      <td><code>send-push.js</code></td>
+      <td>Sends FCM push notifications to all registered devices. Called automatically by Supabase when a new booking is inserted.</td>
+      <td>Supabase webhook (automatic)</td>
+    </tr>
+  </table>
+
+  <h3>Why We Can't Put the Secret Key in the Website</h3>
+  <p>Supabase has two keys: an <strong>anon key</strong> (safe to be public, limited permissions) and a <strong>service role key</strong> (bypasses all security — never expose this publicly). The public website uses the anon key. The API functions use the service key, which is stored in Vercel's environment variables — these are like secret config values that only exist on Vercel's servers, never visible in the code.</p>
+
+  <div class="callout callout-rose">
+    <strong>Environment Variables</strong>
+    Think of environment variables as a secure notepad on the server. We store secrets like <code>SUPABASE_SERVICE_KEY</code> there. The code can read them at runtime, but they're never included in the files that get deployed to GitHub or visible to anyone inspecting the website.
+  </div>
+
+  <h3>How the Supabase Webhook Works</h3>
+  <p>Supabase has a feature called <strong>webhooks</strong>. We configured it so that every time a new row is inserted into the <code>bookings</code> table (i.e., someone submits the booking form), Supabase automatically calls our <code>/api/send-push</code> endpoint and sends the new booking data. This is what triggers the push notification to Dr. Monisha's phone.</p>
+
+  <div class="flow">
+    <div class="flow-box">Patient submits form</div>
+    <span class="arrow">→</span>
+    <div class="flow-box rose">Supabase saves row</div>
+    <span class="arrow">→</span>
+    <div class="flow-box amber">Webhook fires</div>
+    <span class="arrow">→</span>
+    <div class="flow-box green">/api/send-push called</div>
+    <span class="arrow">→</span>
+    <div class="flow-box purple">Firebase sends notification</div>
+    <span class="arrow">→</span>
+    <div class="flow-box navy">Phone buzzes</div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 6 — PUSH NOTIFICATIONS
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 06</div>
+    <h2>Push Notifications — Firebase</h2>
+    <p class="chapter-intro">The goal was simple: the moment a patient submits a booking, Dr. Monisha's phone should buzz — even if she's not on the website.</p>
+  </div>
+
+  <h3>What is Firebase Cloud Messaging (FCM)?</h3>
+  <p>Firebase is Google's app development platform. One of its services is <strong>Firebase Cloud Messaging (FCM)</strong> — a free system for sending push notifications to phones and browsers. It's the same technology that apps like WhatsApp and Instagram use to send you notifications.</p>
+
+  <p>We don't need a native app to use FCM — modern browsers support it through the Web Push standard.</p>
+
+  <h3>How It Works — The Three Parts</h3>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge">A</div>
+      <div class="step-content">
+        <h4>Getting Permission + Saving the Token</h4>
+        <p>When Dr. Monisha first opens the admin dashboard, the browser asks "Allow notifications?". If she clicks Allow, the browser registers with Firebase and receives a unique <strong>FCM token</strong> — like a phone number for that specific device+browser. We save this token to Supabase via <code>/api/save-fcm-token</code>.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">B</div>
+      <div class="step-content">
+        <h4>Sending the Notification</h4>
+        <p>When a new booking comes in, our <code>/api/send-push</code> function fetches all saved FCM tokens from Supabase and uses the Firebase Admin SDK to send a message to every token. Firebase handles the actual delivery to each device.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">C</div>
+      <div class="step-content">
+        <h4>Receiving When the Browser is Closed</h4>
+        <p>This is where the <strong>Service Worker</strong> comes in (covered in the next chapter). A service worker runs in the background even when the browser tab is closed. It listens for incoming FCM messages and displays the system notification.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="callout callout-purple">
+    <strong>Data-Only Messages</strong>
+    We send "data-only" FCM messages (no <code>notification</code> field). This means the FCM server doesn't automatically show a notification — instead, the message is delivered to our service worker, which then displays the notification itself. This gives us full control over how the notification looks and what happens when it's tapped.
+  </div>
+
+  <h3>Cleaning Up Old Tokens</h3>
+  <p>FCM tokens expire when a user uninstalls the app, clears browser data, or revokes permission. After sending notifications, our function checks which tokens failed and automatically deletes them from Supabase. This keeps the token list clean and prevents errors.</p>
+
+  <h3>Testing Notifications</h3>
+  <p>We added a <strong>Test Notification button</strong> in the admin header. Clicking it calls <code>/api/send-push</code> directly so Dr. Monisha can verify notifications are working without waiting for a real booking to arrive.</p>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 7 — PWA
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 07</div>
+    <h2>PWA — Installing the App on a Phone</h2>
+    <p class="chapter-intro">A Progressive Web App (PWA) is a website that can be installed on your home screen and behaves like a native app — no app store required.</p>
+  </div>
+
+  <h3>What Makes a PWA?</h3>
+  <p>Three ingredients are needed for a website to qualify as an installable PWA:</p>
+
+  <div class="steps">
+    <div class="step">
+      <div class="step-badge">1</div>
+      <div class="step-content">
+        <h4>HTTPS (Secure Connection)</h4>
+        <p>The website must be served over HTTPS. Vercel does this automatically — every deployment gets a free SSL certificate.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">2</div>
+      <div class="step-content">
+        <h4>Web App Manifest (manifest.json)</h4>
+        <p>A JSON file that tells the browser how to treat the app — its name, icon, colors, and start page. This is what makes the browser show the "Add to Home Screen" prompt.</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-badge">3</div>
+      <div class="step-content">
+        <h4>Service Worker (sw.js)</h4>
+        <p>A JavaScript file that runs in the background, separate from the main page. It handles caching (for offline support) and push notifications.</p>
+      </div>
+    </div>
+  </div>
+
+  <h3>The Manifest File</h3>
+  <p>Our <code>manifest.json</code> defines the app as:</p>
+  <ul>
+    <li><strong>Name:</strong> "Dr. Monisha — Dashboard"</li>
+    <li><strong>Start URL:</strong> <code>/admin.html</code> (opens the admin panel when launched)</li>
+    <li><strong>Display:</strong> <code>standalone</code> — hides the browser's address bar, looks like a real app</li>
+    <li><strong>Theme color:</strong> Navy <code>#1a2870</code> — colors the phone's status bar</li>
+    <li><strong>Icons:</strong> 192×192 and 512×512 PNG icons for the home screen</li>
+  </ul>
+
+  <h3>The Service Worker — Two Jobs</h3>
+
+  <div class="two-col">
+    <div class="card">
+      <h4>Job 1: Caching (Offline Support)</h4>
+      <p>On first visit, the SW downloads and stores key files (HTML, icons) in the browser's cache. If the internet goes down, it serves those cached files instead — the app still loads.</p>
+      <br>
+      <p><strong>Network-first strategy</strong> for the admin page: always tries to get the latest version from the internet first, falls back to cache if offline.</p>
+      <br>
+      <p><strong>Cache-first strategy</strong> for images/icons: serves from cache immediately (faster), updates the cache in the background.</p>
+    </div>
+    <div class="card">
+      <h4>Job 2: Push Notifications</h4>
+      <p>The SW registers with Firebase Messaging and listens for incoming FCM messages using <code>onBackgroundMessage()</code>.</p>
+      <br>
+      <p>When a message arrives (even with the browser closed), the SW displays a system notification using <code>showNotification()</code>.</p>
+      <br>
+      <p>When the notification is tapped, the SW opens <code>/admin.html</code>.</p>
+    </div>
+  </div>
+
+  <h3>Cache Versioning — The "v6" Number</h3>
+  <p>The service worker cache has a name: <code>dr-monisha-v6</code>. Every time we deploy changes to the HTML or JavaScript, we bump this number (v6 → v7). This forces the service worker to discard the old cache and download the latest files. Without this, users might see the old version of the site even after we've made updates.</p>
+
+  <div class="callout callout-green">
+    <strong>Why PWA Instead of a Native App?</strong>
+    A native app would require submitting to the App Store (requires a Mac, $99/year, and Apple's review process) or the Play Store (requires a Google account, $25 one-time fee, and review time). A PWA can be installed instantly, updated instantly, and works on every device — all for free.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHAPTER 8 — DEPLOYMENT
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Chapter 08</div>
+    <h2>Deployment — Going Live</h2>
+    <p class="chapter-intro">Writing the code is one thing. Making it available to the world at a real URL is another. Here's how we deployed everything.</p>
+  </div>
+
+  <h3>The Deployment Stack</h3>
+
+  <div class="two-col">
+    <div class="card">
+      <h4>Git — Version Control</h4>
+      <p>All project files are stored in a Git repository. Git tracks every change ever made, so we can always go back to a previous version if something breaks. It also enables the automatic deployment trigger.</p>
+    </div>
+    <div class="card">
+      <h4>Vercel — Hosting & Serverless</h4>
+      <p>Vercel is connected to the Git repository. Every time we push new code, Vercel automatically detects the change and deploys the updated site within seconds. No manual FTP uploads needed.</p>
+    </div>
+  </div>
+
+  <h3>The Deployment Flow</h3>
+  <div class="flow">
+    <div class="flow-box">Write / edit code locally</div>
+    <span class="arrow">→</span>
+    <div class="flow-box rose">git commit</div>
+    <span class="arrow">→</span>
+    <div class="flow-box amber">git push to GitHub</div>
+    <span class="arrow">→</span>
+    <div class="flow-box green">Vercel auto-deploys</div>
+    <span class="arrow">→</span>
+    <div class="flow-box purple">Live in ~30 seconds</div>
+  </div>
+
+  <h3>Environment Variables in Vercel</h3>
+  <p>Secret keys and credentials are stored in Vercel's dashboard, not in the code. This keeps them safe — even if someone can see the code on GitHub, they can't see the secrets. We set three variables:</p>
+
+  <table>
+    <tr><th>Variable</th><th>What it holds</th></tr>
+    <tr><td><code>SUPABASE_URL</code></td><td>The URL of our Supabase database project</td></tr>
+    <tr><td><code>SUPABASE_SERVICE_KEY</code></td><td>The secret key that bypasses database security (only used server-side)</td></tr>
+    <tr><td><code>FIREBASE_SERVICE_ACCOUNT</code></td><td>Firebase credentials for sending push notifications (stored as JSON string)</td></tr>
+  </table>
+
+  <h3>The Live URL</h3>
+  <p>The site is live at <strong>https://dr-monisha-website.vercel.app</strong>. Vercel also provides a free SSL certificate automatically, so the connection is always encrypted (HTTPS).</p>
+
+  <h3>Local Development</h3>
+  <p>For testing changes before deploying, we use a local server:</p>
+  <ul>
+    <li><code>node serve.mjs</code> starts a server at <code>http://localhost:3000</code></li>
+    <li><code>node screenshot.mjs http://localhost:3000</code> takes an automated screenshot for visual review</li>
+    <li>Once satisfied, we commit and push — Vercel deploys automatically</li>
+  </ul>
+
+  <div class="callout callout-blue">
+    <strong>Summary: The Full Architecture</strong>
+    The website (HTML/CSS/JS) is hosted on Vercel. Patient bookings go into Supabase (PostgreSQL database). A Supabase webhook calls a Vercel serverless function when a booking is created. That function uses Firebase to send a push notification to the admin dashboard, which is installed as a PWA on Dr. Monisha's phone. The doctor manages bookings from the dashboard and contacts patients via WhatsApp.
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     GLOSSARY
+════════════════════════════════════════════════════════ -->
+<div class="content-page">
+  <div class="chapter-header">
+    <div class="chapter-num">Reference</div>
+    <h2>Glossary — Terms Explained Simply</h2>
+    <p class="chapter-intro">A quick reference for the technical terms used throughout this document.</p>
+  </div>
+
+  <div class="glossary-grid">
+    <div class="gloss-card">
+      <div class="term">API</div>
+      <p>Application Programming Interface. A way for two programs to talk to each other. Like a waiter who takes your order to the kitchen and brings back food — you don't need to know how the kitchen works.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">CDN</div>
+      <p>Content Delivery Network. A network of servers around the world that serve files fast. When we load Tailwind CSS from a CDN, it comes from the nearest server to the user.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Database</div>
+      <p>An organised way to store data. Like a spreadsheet, but faster, more powerful, and accessible by code from anywhere on the internet.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Environment Variables</div>
+      <p>Secret configuration values stored on a server, not in code. Like a keychain that only the server can see — the code uses these without exposing them publicly.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">FCM Token</div>
+      <p>A unique identifier Firebase gives to each browser or device that has enabled push notifications. Like a postal address specifically for push notifications.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Firebase</div>
+      <p>Google's app development platform. We use its Cloud Messaging (FCM) service to send push notifications to Dr. Monisha's device.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Git</div>
+      <p>A version control system that tracks changes to code over time. Every change is recorded — you can always undo or go back to any previous state.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">HTTPS</div>
+      <p>HyperText Transfer Protocol Secure. A secure version of HTTP. All data sent between the browser and server is encrypted so nobody can intercept it.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">PWA</div>
+      <p>Progressive Web App. A website that can be installed on a phone's home screen and behaves like a native app, including offline support and push notifications.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">RLS (Row Level Security)</div>
+      <p>A Supabase security feature. By default, the database is locked. You create "policies" to allow specific operations. Without the right policies, reads/writes silently fail.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Serverless Function</div>
+      <p>A small piece of backend code that runs only when called (not 24/7). The platform (Vercel) manages all infrastructure — we just write the function.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Service Worker</div>
+      <p>A JavaScript file that runs in the background, separate from the web page. It intercepts network requests (for caching) and receives push notifications even when the browser is closed.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Supabase</div>
+      <p>A backend-as-a-service platform. Provides a PostgreSQL database, authentication, and real-time subscriptions — all with a simple API and free tier.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Tailwind CSS</div>
+      <p>A CSS framework with thousands of tiny utility classes. Instead of writing CSS files, you apply classes directly in HTML: <code>text-lg font-bold p-4 rounded-xl</code>.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Vercel</div>
+      <p>A hosting platform for frontend websites and serverless functions. Connects to GitHub and auto-deploys every time code is pushed. Provides free HTTPS and global CDN.</p>
+    </div>
+    <div class="gloss-card">
+      <div class="term">Webhook</div>
+      <p>An automatic notification from one service to another. Like subscribing to an alert — when something happens in Supabase (new booking), it automatically calls our API endpoint.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     BACK COVER
+════════════════════════════════════════════════════════ -->
+<div class="back-cover">
+  <div class="back-cover-inner">
+    <h2>The Website is Live</h2>
+    <p>Everything described in this document is running in production. The full stack — public website, admin dashboard, database, push notifications, and PWA — is live and accessible now.</p>
+    <div class="url-box">https://dr-monisha-website.vercel.app</div>
+  </div>
+</div>
+
+</body>
+</html>
