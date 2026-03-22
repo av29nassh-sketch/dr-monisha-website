@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carty | The Obsidian Chronograph</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-dim": "#d7dbdb","secondary-fixed-dim": "#ffb86f","primary-fixed": "#dde3ee","tertiary-fixed-dim": "#ffb3b4","on-tertiary-container": "#f73653","on-surface": "#181c1d","on-secondary": "#ffffff","on-secondary-fixed-variant": "#693c00","surface-variant": "#e0e3e3","on-tertiary-fixed-variant": "#920025","secondary-container": "#fe9800","inverse-on-surface": "#eef1f1","primary-container": "#161c24","secondary-fixed": "#ffdcbd","on-primary-fixed": "#161c24","primary-fixed-dim": "#c1c7d2","outline-variant": "#c5c6cb","inverse-surface": "#2d3131","on-secondary-container": "#643900","on-background": "#181c1d","on-surface-variant": "#45474b","on-error": "#ffffff","tertiary-container": "#40000b","surface-container-low": "#f1f4f4","on-secondary-fixed": "#2c1600","error": "#ba1a1a","background": "#f7fafa","primary": "#000000","tertiary-fixed": "#ffdada","surface-container-highest": "#e0e3e3","on-primary-fixed-variant": "#414750","on-primary": "#ffffff","surface-container-high": "#e6e9e9","inverse-primary": "#c1c7d2","surface-bright": "#f7fafa","on-primary-container": "#7e848e","error-container": "#ffdad6","on-error-container": "#93000a","surface": "#f7fafa","on-tertiary": "#ffffff","surface-container": "#ebeeee","secondary": "#8a5100","surface-tint": "#595f68","tertiary": "#000000","surface-container-lowest": "#ffffff","outline": "#75777c","on-tertiary-fixed": "#40000b"
+        },
+        fontFamily: {"headline": ["Plus Jakarta Sans"],"body": ["Manrope"],"label": ["Inter"]},
+        borderRadius: {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; display: inline-block; line-height: 1; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .editorial-shadow { text-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+  body { font-family: 'Manrope', sans-serif; }
+</style>
+</head>
+<body class="bg-background text-on-background font-body selection:bg-secondary-container/30">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(24,28,29,0.05)]">
+  <div class="flex justify-between items-center px-8 py-6 w-full max-w-screen-2xl mx-auto">
+    <a href="carty-home.html" class="text-2xl font-bold tracking-tighter text-black font-headline">Carty</a>
+    <div class="hidden md:flex items-center space-x-12">
+      <a class="text-black border-b-2 border-black pb-1 font-headline tracking-tight" href="carty-shop.html">Exhibitions</a>
+      <a class="text-gray-500 hover:text-black transition-colors font-headline tracking-tight" href="carty-shop.html">Collections</a>
+      <a class="text-gray-500 hover:text-black transition-colors font-headline tracking-tight" href="carty-shop.html">Archives</a>
+      <a class="text-gray-500 hover:text-black transition-colors font-headline tracking-tight" href="#">About</a>
+    </div>
+    <div class="flex items-center space-x-6">
+      <a href="carty-bag.html" class="hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-black">shopping_bag</span>
+      </a>
+      <a href="carty-signin.html" class="hover:opacity-70 transition-opacity">
+        <span class="material-symbols-outlined text-black">person</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-24 min-h-screen">
+  <div class="flex flex-col md:flex-row w-full max-w-screen-2xl mx-auto overflow-hidden">
+    <!-- Left Side: Visual Gallery -->
+    <section class="w-full md:w-3/5 h-[614px] md:h-screen md:sticky md:top-0 overflow-y-auto hide-scrollbar space-y-4 px-4 md:px-8 py-8">
+      <div class="grid grid-cols-1 gap-8">
+        <div class="relative aspect-[4/5] bg-surface-container overflow-hidden group">
+          <img alt="The Obsidian Chronograph Main Shot" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAEkcAoTZVopQdsReoPcAga3l8rsPhQswv5ZEOnedLBeNARySzzdZa_oFlDFXJEDHgkpwbzX79ZEvFOuaGNUF-ytbWUANq8qVBODZrJ7d_2BsOq37EstPmC25VjaqMS1Jy9ZiBR7ZLSiY108972sdWZZChzZJtoumZm5HHmsjqxQKbDZkWRMAQe0HU4pfkXQAYhlpomn6CLEzqfv7ANjSzd9GVYcbqn8kLCbzUpuWAv15bDDogLjH_CY2aVMEEr8ejbU6gsglDw2oc"/>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="relative aspect-square bg-surface-container overflow-hidden group">
+            <img alt="Watch Detail" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCqcwVxk9BquF8UJCNkxev4EE4SlngmGRHaaKhm56D_ypLS-FIYTj7YxIlNEXrr9QzacKt4wwXejn7SoIkB-K4zCczgP0n-lIHDah6AIezI9MIwK4SQiy2Dmog-FAlE6xNPlo8TqBqHfToDQkPuWPHZeP6SptagMeTUqD55bTECHYdmHbZeF79AyPJLASZcgtWgKom7VgArbeNw1aHY65aNatad9xneW1B60snr3Z98k6zgdC0kfYp4nykIRC_FDZpnOnltPSxKRJQ"/>
+          </div>
+          <div class="relative aspect-square bg-surface-container overflow-hidden group">
+            <img alt="Watch Lifestyle" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB3OfqVXLkQTFdcZzl3Kv65QjZEmV15RevBYiS08MwOfb-YlJTMoS7iZTEGZbtVxAW0c0Tme_rtym8-MjtyMAo67Re7Y0RsavIMLJVNDdUAo81t18wz3dIHlXXGQptdU9D8u-Gtxk_n2J_Mf2Iq_Ty-FIBDuyDzS1Yp1zxO28RWy6xkhwVZpVD5BJpINKGIwm_ZjgjNFxVesLeY8ZfykZVKfBy2cuS8WbGhOUVS4z9i2PRl9ErjX5ZrCAqO0iAjp87Uf3v3Cn-GvFU"/>
+          </div>
+        </div>
+        <div class="relative aspect-[16/9] bg-surface-container overflow-hidden group">
+          <img alt="Watch Inner Mechanics" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC_piCOFVmHP0NkakJsJ4RUWNVfpjbVoQ5RFxxctashlBXA3C8wdU9Gg5WKY_5cjxW7nqz4kdgjkOjc4YZwPxQscX33u61KMR7brZYRf2LGiyGlSFCx8fSy3wMjigVRtEpBjNNKGSFQUcSS9hciND_v19IxUNQGgyHGNSkWJ0ktW-KRPN3OSVk9rcEGoqATJUpdioDCduHRzVYS_z1Ocb6WofnRwNOtilwbOYNi5cArRYrwqnWQyxzt6-kQh0Ihm0fB1iwjK9LF9I"/>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Side: Product Information -->
+    <section class="w-full md:w-2/5 px-6 md:px-12 py-12 md:py-24 bg-surface-container-lowest">
+      <div class="max-w-md mx-auto space-y-12">
+        <div class="space-y-4">
+          <nav class="flex items-center space-x-2 text-on-surface-variant font-label text-[0.6875rem] uppercase tracking-widest">
+            <a class="hover:text-primary transition-colors" href="carty-shop.html">Timepieces</a>
+            <span class="material-symbols-outlined text-[10px]">chevron_right</span>
+            <span>Limited Edition</span>
+          </nav>
+          <h1 class="text-4xl md:text-5xl font-extrabold font-headline tracking-tighter leading-tight editorial-shadow">The Obsidian Chronograph</h1>
+          <p class="text-secondary font-medium tracking-wide uppercase text-sm">Mastery of Time</p>
+          <p class="text-2xl font-headline font-semibold text-primary mt-6">$2,450.00</p>
+        </div>
+
+        <div class="space-y-6">
+          <p class="text-on-surface-variant leading-relaxed text-lg font-body">
+            Forged in the fires of precision, the Obsidian Chronograph is a testament to the intersection of industrial strength and celestial elegance. Every element is meticulously crafted from brushed obsidian black steel, providing a tactile depth that defies conventional light.
+          </p>
+          <p class="text-on-surface-variant leading-relaxed font-body">
+            The dial, protected by double-domed sapphire crystal with anti-reflective coating, features hand-applied indices and a sweeping second hand that dances across the void of its matte-black face.
+          </p>
+        </div>
+
+        <!-- Specs Bento -->
+        <div class="grid grid-cols-2 gap-0.5 bg-outline-variant/10 p-0.5">
+          <div class="bg-surface-container-lowest p-6 flex flex-col justify-between h-32">
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Case Size</span>
+            <span class="font-headline font-bold text-xl">42mm</span>
+          </div>
+          <div class="bg-surface-container-lowest p-6 flex flex-col justify-between h-32">
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Resistance</span>
+            <span class="font-headline font-bold text-xl">10 ATM</span>
+          </div>
+          <div class="bg-surface-container-lowest p-6 flex flex-col justify-between h-32">
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Power Reserve</span>
+            <span class="font-headline font-bold text-xl">72 Hours</span>
+          </div>
+          <div class="bg-surface-container-lowest p-6 flex flex-col justify-between h-32">
+            <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Movement</span>
+            <span class="font-headline font-bold text-xl">Cal. 8011</span>
+          </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="space-y-4 pt-4">
+          <button id="btn-add-bag" onclick="addProductToBag()" class="w-full py-5 bg-secondary-container hover:bg-secondary transition-colors duration-300 text-on-secondary-container font-headline font-bold tracking-tight rounded-md flex items-center justify-center space-x-3 shadow-xl shadow-secondary-container/20 group active:scale-[0.98]">
+            <span>Add to Bag</span>
+            <span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>
+          </button>
+          <button id="btn-wishlist" onclick="toggleWishlist()" class="w-full py-5 border border-outline-variant hover:bg-surface-container-low transition-colors text-primary font-headline font-semibold rounded-md flex items-center justify-center space-x-3 active:scale-[0.98]">
+            <span class="material-symbols-outlined" id="wish-icon">favorite_border</span>
+            <span id="wish-label">Add to Wishlist</span>
+          </button>
+        </div>
+
+        <!-- Accordions -->
+        <div class="pt-8 border-t border-outline-variant/20 space-y-6">
+          <details class="group">
+            <summary class="flex justify-between items-center cursor-pointer list-none py-2 group-open:pb-4">
+              <span class="font-headline font-bold text-sm uppercase tracking-widest">Curator's Note</span>
+              <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+            <div class="text-on-surface-variant text-sm leading-relaxed pb-4 font-body italic">
+              "The Obsidian is best paired with architectural tailoring or high-contrast evening wear. Its matte finish absorbs light, making it a subtle but powerful statement of intent. I recommend the Italian calfskin strap for daytime formality."
+            </div>
+          </details>
+          <details class="group">
+            <summary class="flex justify-between items-center cursor-pointer list-none py-2 group-open:pb-4">
+              <span class="font-headline font-bold text-sm uppercase tracking-widest">Shipping &amp; Returns</span>
+              <span class="material-symbols-outlined transition-transform group-open:rotate-180">expand_more</span>
+            </summary>
+            <div class="text-on-surface-variant text-sm leading-relaxed pb-4 font-body">
+              Complimentary white-glove delivery on all timepiece orders. Returns accepted within 14 days in original condition with security seal intact.
+            </div>
+          </details>
+        </div>
+
+        <!-- Reviews -->
+        <div class="pt-16 border-t border-outline-variant/20 space-y-10">
+          <div class="flex flex-col space-y-2">
+            <h2 class="text-2xl font-headline font-bold tracking-tight">Reviews</h2>
+            <div class="flex items-center space-x-3">
+              <div class="flex text-secondary-container">
+                <span class="material-symbols-outlined !text-lg" style="font-variation-settings: 'FILL' 1">star</span>
+                <span class="material-symbols-outlined !text-lg" style="font-variation-settings: 'FILL' 1">star</span>
+                <span class="material-symbols-outlined !text-lg" style="font-variation-settings: 'FILL' 1">star</span>
+                <span class="material-symbols-outlined !text-lg" style="font-variation-settings: 'FILL' 1">star</span>
+                <span class="material-symbols-outlined !text-lg" style="font-variation-settings: 'FILL' 1">star</span>
+              </div>
+              <span class="font-headline font-bold text-lg">4.9/5</span>
+              <span class="text-on-surface-variant text-xs uppercase tracking-widest font-label">(24 Reviews)</span>
+            </div>
+          </div>
+          <div class="space-y-12">
+            <div class="space-y-3">
+              <div class="flex justify-between items-start">
+                <div class="space-y-1">
+                  <div class="flex text-secondary-container">
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                  </div>
+                  <p class="font-headline font-bold text-sm tracking-tight uppercase">Exceptional Craftsmanship</p>
+                </div>
+                <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Nov 2023</span>
+              </div>
+              <p class="text-on-surface-variant text-sm leading-relaxed font-body">
+                "The depth of the black steel is unlike any other timepiece I own. It feels weighted and purposeful on the wrist. A true collector's item that commands attention without screaming for it."
+              </p>
+              <p class="font-label text-[10px] uppercase tracking-widest font-bold">Alexander V.</p>
+            </div>
+            <div class="space-y-3">
+              <div class="flex justify-between items-start">
+                <div class="space-y-1">
+                  <div class="flex text-secondary-container">
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 1">star</span>
+                    <span class="material-symbols-outlined !text-[14px]" style="font-variation-settings: 'FILL' 0">star</span>
+                  </div>
+                  <p class="font-headline font-bold text-sm tracking-tight uppercase">Architectural Brilliance</p>
+                </div>
+                <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Oct 2023</span>
+              </div>
+              <p class="text-on-surface-variant text-sm leading-relaxed font-body">
+                "I bought this for the movement, but I fell in love with the matte finish. The sapphire crystal is virtually invisible. It's the perfect blend of modern engineering and classic luxury."
+              </p>
+              <p class="font-label text-[10px] uppercase tracking-widest font-bold">Helena M.</p>
+            </div>
+          </div>
+          <a href="carty-review.html" class="w-full py-4 text-[0.6875rem] uppercase tracking-[0.2em] font-label font-bold border-b border-outline-variant hover:border-primary transition-colors text-center block">
+            View All Reviews
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="w-full border-t border-black/5 bg-stone-50">
+  <div class="flex flex-col md:flex-row justify-between items-center px-12 py-16 w-full max-w-screen-2xl mx-auto">
+    <div class="flex flex-col items-center md:items-start space-y-4 mb-8 md:mb-0">
+      <div class="font-headline font-bold text-lg text-black uppercase tracking-tighter">Carty</div>
+      <p class="font-label text-[0.6875rem] uppercase tracking-widest text-gray-400">© 2024 Carty GALLERY. ALL RIGHTS RESERVED.</p>
+    </div>
+    <div class="flex flex-wrap justify-center gap-x-8 gap-y-4">
+      <a class="font-label text-[0.6875rem] uppercase tracking-widest text-gray-400 hover:text-black transition-colors" href="#">Privacy Policy</a>
+      <a class="font-label text-[0.6875rem] uppercase tracking-widest text-gray-400 hover:text-black transition-colors" href="#">Terms of Service</a>
+      <a class="font-label text-[0.6875rem] uppercase tracking-widest text-gray-400 hover:text-black transition-colors" href="#">Shipping &amp; Returns</a>
+      <a class="font-label text-[0.6875rem] uppercase tracking-widest text-gray-400 hover:text-black transition-colors" href="#">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<script src="carty-cart.js"></script>
+<script>
+  var PRODUCT = {
+    id: 'obsidian-chronograph',
+    name: 'The Obsidian Chronograph',
+    price: 2450,
+    category: 'Horology',
+    img: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAEkcAoTZVopQdsReoPcAga3l8rsPhQswv5ZEOnedLBeNARySzzdZa_oFlDFXJEDHgkpwbzX79ZEvFOuaGNUF-ytbWUANq8qVBODZrJ7d_2BsOq37EstPmC25VjaqMS1Jy9ZiBR7ZLSiY108972sdWZZChzZJtoumZm5HHmsjqxQKbDZkWRMAQe0HU4pfkXQAYhlpomn6CLEzqfv7ANjSzd9GVYcbqn8kLCbzUpuWAv15bDDogLjH_CY2aVMEEr8ejbU6gsglDw2oc'
+  };
+
+  function addProductToBag() {
+    addToCart(PRODUCT);
+    var btn = document.getElementById('btn-add-bag');
+    btn.innerHTML = '<span class="material-symbols-outlined">check</span><span>Added to Bag</span>';
+    btn.style.background = '#643900';
+    setTimeout(function () {
+      btn.innerHTML = '<span>Add to Bag</span><span class="material-symbols-outlined transition-transform group-hover:translate-x-1">arrow_forward</span>';
+      btn.style.background = '';
+    }, 1800);
+    setTimeout(function () { window.location.href = 'carty-bag.html'; }, 900);
+  }
+
+  function toggleWishlist() {
+    var icon = document.getElementById('wish-icon');
+    var label = document.getElementById('wish-label');
+    if (isWishlisted(PRODUCT.id)) {
+      removeFromWishlist(PRODUCT.id);
+      icon.textContent = 'favorite_border';
+      label.textContent = 'Add to Wishlist';
+      showToast('Removed from wishlist');
+    } else {
+      addToWishlist(PRODUCT);
+      icon.textContent = 'favorite';
+      label.textContent = 'Saved to Wishlist';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    if (isWishlisted(PRODUCT.id)) {
+      document.getElementById('wish-icon').textContent = 'favorite';
+      document.getElementById('wish-label').textContent = 'Saved to Wishlist';
+    }
+  });
+</script>
+</body>
+</html>

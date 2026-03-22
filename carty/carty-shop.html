@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carty | Digital Gallery</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "on-secondary-fixed": "#2c1600",
+          "secondary-fixed-dim": "#ffb86f",
+          "on-tertiary": "#ffffff",
+          "surface-tint": "#595f68",
+          "on-surface": "#181c1d",
+          "outline": "#75777c",
+          "error-container": "#ffdad6",
+          "error": "#ba1a1a",
+          "on-secondary-container": "#643900",
+          "on-error": "#ffffff",
+          "on-error-container": "#93000a",
+          "tertiary-fixed": "#ffdada",
+          "surface-container": "#ebeeee",
+          "on-primary-container": "#7e848e",
+          "inverse-surface": "#2d3131",
+          "on-tertiary-fixed-variant": "#920025",
+          "on-primary-fixed": "#161c24",
+          "tertiary": "#000000",
+          "secondary": "#8a5100",
+          "primary-container": "#161c24",
+          "on-tertiary-container": "#f73653",
+          "surface-container-high": "#e6e9e9",
+          "on-surface-variant": "#45474b",
+          "surface-container-highest": "#e0e3e3",
+          "surface-container-low": "#f1f4f4",
+          "secondary-container": "#fe9800",
+          "surface-container-lowest": "#ffffff",
+          "tertiary-container": "#40000b",
+          "surface-variant": "#e0e3e3",
+          "outline-variant": "#c5c6cb",
+          "inverse-on-surface": "#eef1f1",
+          "secondary-fixed": "#ffdcbd",
+          "on-tertiary-fixed": "#40000b",
+          "surface-dim": "#d7dbdb",
+          "surface": "#f7fafa",
+          "on-primary-fixed-variant": "#414750",
+          "on-primary": "#ffffff",
+          "background": "#f7fafa",
+          "primary-fixed-dim": "#c1c7d2",
+          "on-background": "#181c1d",
+          "primary-fixed": "#dde3ee",
+          "inverse-primary": "#c1c7d2",
+          "tertiary-fixed-dim": "#ffb3b4",
+          "on-secondary-fixed-variant": "#693c00",
+          "on-secondary": "#ffffff",
+          "surface-bright": "#f7fafa",
+          "primary": "#000000"
+        },
+        fontFamily: {
+          "headline": ["Plus Jakarta Sans"],
+          "body": ["Manrope"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-size: 20px;
+  }
+  body { font-family: 'Manrope', sans-serif; }
+</style>
+</head>
+<body class="bg-background text-on-background antialiased selection:bg-secondary-container selection:text-on-secondary-container">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(24,28,29,0.05)] flex justify-between items-center px-12 h-20 font-['Plus_Jakarta_Sans'] tracking-tight">
+  <a href="carty-home.html" class="text-2xl font-bold tracking-tighter text-black uppercase">Carty</a>
+  <div class="hidden md:flex items-center gap-10">
+    <a class="text-black border-b-2 border-black pb-1 duration-300 ease-in-out" href="carty-shop.html">Exhibitions</a>
+    <a class="text-neutral-500 hover:text-black transition-colors duration-300 ease-in-out" href="carty-shop.html">Collections</a>
+    <a class="text-neutral-500 hover:text-black transition-colors duration-300 ease-in-out" href="carty-shop.html">Apothecary</a>
+    <a class="text-neutral-500 hover:text-black transition-colors duration-300 ease-in-out" href="carty-shop.html">Designers</a>
+  </div>
+  <div class="flex items-center gap-6">
+    <a href="carty-product.html" class="hover:opacity-70 transition-opacity">
+      <span class="material-symbols-outlined">shopping_bag</span>
+    </a>
+    <a href="carty-signin.html" class="hover:opacity-70 transition-opacity">
+      <span class="material-symbols-outlined">person</span>
+    </a>
+  </div>
+</nav>
+
+<main class="pt-20 flex min-h-screen">
+  <!-- SideNavBar / Filter Panel -->
+  <aside class="h-full w-72 border-r border-neutral-100 flex flex-col p-8 pt-24 sticky top-0 bg-white">
+    <div class="mb-10">
+      <h2 class="font-['Plus_Jakarta_Sans'] text-2xl font-bold tracking-tight mb-1">Filters</h2>
+      <p class="font-['Inter'] text-[10px] uppercase tracking-widest text-neutral-400">Refine Exhibition</p>
+    </div>
+    <div class="space-y-6 flex-1" id="filter-list">
+      <div onclick="setFilter(this,'category')" class="flex items-center gap-4 p-3 text-black font-bold bg-neutral-100 rounded-lg cursor-pointer transition-colors duration-200 filter-btn active-filter">
+        <span class="material-symbols-outlined">category</span>
+        <span class="font-['Inter'] text-sm uppercase tracking-widest">Category</span>
+      </div>
+      <div onclick="setFilter(this,'price')" class="flex items-center gap-4 p-3 text-neutral-400 hover:bg-neutral-50 cursor-pointer transition-colors duration-200 filter-btn">
+        <span class="material-symbols-outlined">payments</span>
+        <span class="font-['Inter'] text-sm uppercase tracking-widest">Price Range</span>
+      </div>
+      <div onclick="setFilter(this,'material')" class="flex items-center gap-4 p-3 text-neutral-400 hover:bg-neutral-50 cursor-pointer transition-colors duration-200 filter-btn">
+        <span class="material-symbols-outlined">texture</span>
+        <span class="font-['Inter'] text-sm uppercase tracking-widest">Material</span>
+      </div>
+      <div onclick="setFilter(this,'designer')" class="flex items-center gap-4 p-3 text-neutral-400 hover:bg-neutral-50 cursor-pointer transition-colors duration-200 filter-btn">
+        <span class="material-symbols-outlined">architecture</span>
+        <span class="font-['Inter'] text-sm uppercase tracking-widest">Designer</span>
+      </div>
+    </div>
+    <div class="mt-auto pt-8">
+      <button onclick="applyShopFilters()" class="w-full bg-primary text-on-primary py-4 text-xs font-bold uppercase tracking-widest hover:opacity-90 transition-opacity active:scale-[0.98]">
+        Apply Filters
+      </button>
+    </div>
+  </aside>
+
+  <!-- Product Listing Canvas -->
+  <section class="flex-1 px-12 py-16 bg-surface">
+    <div class="flex justify-between items-end mb-16">
+      <div>
+        <h1 class="font-headline text-5xl font-extrabold tracking-tighter text-on-surface mb-2">The Collection</h1>
+        <p class="font-label text-xs uppercase tracking-[0.2em] text-on-surface-variant">128 Pieces Curated</p>
+      </div>
+      <div class="flex items-center gap-4 border-b border-outline-variant/30 pb-2 cursor-pointer group hover:border-primary transition-colors">
+        <span class="font-label text-[10px] uppercase tracking-widest text-on-surface-variant">Sort By</span>
+        <span class="font-body text-sm font-semibold">Newest Arrivals</span>
+        <span class="material-symbols-outlined text-xs">expand_more</span>
+      </div>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-x-12 gap-y-20">
+      <!-- Product 1 -->
+      <a class="group block transition-transform duration-300 hover:-translate-y-1 cursor-pointer" href="carty-product-heritage.html">
+        <article>
+          <div class="relative overflow-hidden bg-surface-container-low mb-6 aspect-[4/5] flex items-center justify-center">
+            <img class="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhGTmvcpdmgwAEOaALziy5O_kG2UABtqtwcSVdCaUoGeX6BJaZRUmR50gMCXvdSLDbOXv1cbF6j4omulkCQdU4i1rTMSjKijYWLiu2HjganqWnOb58ZrnAF04v5RvGpzODPaadh8vXrHnNN_Y-H0p6csFrihcyOEVEFD4PJ9jWWgNJe-VScscODG-rqIpuV3WN26e4mAXVxs3nAZc6oRTbLGDgoJy15iSFZHlTkcsX5x_HfKq2VnRYUAS2VaaU7nRn7H17ETDlP9Q"/>
+            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="event.preventDefault();window.location.href='carty-product-heritage.html'" class="bg-white/90 backdrop-blur-md px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl hover:bg-white active:scale-[0.98]">Quick View</button>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Horology</p>
+            <h3 class="font-headline text-xl font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">The Heritage Automatic</h3>
+            <p class="font-body text-on-surface-variant font-medium">$890.00</p>
+          </div>
+        </article>
+      </a>
+      <!-- Product 2 -->
+      <a class="group block transition-transform duration-300 hover:-translate-y-1 cursor-pointer" href="carty-product-lamp.html">
+        <article>
+          <div class="relative overflow-hidden bg-surface-container-low mb-6 aspect-[4/5] flex items-center justify-center">
+            <img class="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDllwJPfMVCODyaZ3bDti2mvSouTTAvYPH753L5ZRHCPdDJUvAybXjffDF6zLhPoQD4Ki5MHmF7QbqS4NNywmyYCwYCibBsvpBXjkcy6Od5C9gGeSuUbkBmFSv2wh8HDGqZjb2k46XQNOeHvxWx5uF05FPfMkjlNp42DmdUM_lXDc3R0-KaoxqZwHlsWaqMMhaQisQYtJ72e4R6q93czrZeCAWn-yaWm-QJjTsyI3UvKgZfoJApHqnTfbkcgz9i6dQo08swzrI4po"/>
+            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="event.preventDefault();window.location.href='carty-product-lamp.html'" class="bg-white/90 backdrop-blur-md px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl hover:bg-white active:scale-[0.98]">Quick View</button>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Minimalist Furniture</p>
+            <h3 class="font-headline text-xl font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">Umbra Table Lamp</h3>
+            <p class="font-body text-on-surface-variant font-medium">$385.00</p>
+          </div>
+        </article>
+      </a>
+      <!-- Product 3 -->
+      <a class="group block transition-transform duration-300 hover:-translate-y-1 cursor-pointer" href="carty-product-botanical.html">
+        <article>
+          <div class="relative overflow-hidden bg-surface-container-low mb-6 aspect-[4/5] flex items-center justify-center">
+            <img class="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzzqzt992hDUF95TyeEyjpIXnYmADj5LpKuK7ePaF8FeRL9u0NcMVa605QZ-Jojkh1bFp5GlTNoWx5rOv1j1xoWDSKmLXNe3V75QkpiFiwJgaLYy4gQrQljaCY6eXQCvdtNhMMjWs9PGqzh5kDVi_FBmjEc7L6FzR4EYiMne5XGDx7DrMmOyeBHX5o5n5vtt5867WxsdxPqYhBVpq5tQ42BZtTaCq4VgfUVUnXy-HpEISJ6IIhmtAS51MCkt1ohrugoDMahPtTIMc"/>
+            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="event.preventDefault();window.location.href='carty-product-botanical.html'" class="bg-white/90 backdrop-blur-md px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl hover:bg-white active:scale-[0.98]">Quick View</button>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Apothecary</p>
+            <h3 class="font-headline text-xl font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">Botanical Ritual Set</h3>
+            <p class="font-body text-on-surface-variant font-medium">$220.00</p>
+          </div>
+        </article>
+      </a>
+      <!-- Product 4 -->
+      <a class="group block transition-transform duration-300 hover:-translate-y-1 cursor-pointer" href="carty-product-pen.html">
+        <article>
+          <div class="relative overflow-hidden bg-surface-container-low mb-6 aspect-[4/5] flex items-center justify-center">
+            <img class="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBqZgrDDc2Ag0iOFLfBLcHwGHrdIWvv2xMIGd3kQ_bdOwRj2j6r9eoJ1aIWuXszAR8konrQ9Tv7uMgRlbsvgJh9n-4PJZYQJCfZc7NWugTB4ZKdUaAtE00LqC69hP26SlN0s0LFZel1cLkWBMYGekXev-MI5ANelDaD7Lfbnksc1f9rxg1BqZp09z6EipCzTHBXbVrKuKRPOTh0F4kGtU49vTo8dLYVz-xZGBqp_XdhR3qn0O4dKc5KTEgB8wyOGpqPivWYnsSP6UI"/>
+            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="event.preventDefault();window.location.href='carty-product-pen.html'" class="bg-white/90 backdrop-blur-md px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl hover:bg-white active:scale-[0.98]">Quick View</button>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Designer Tech</p>
+            <h3 class="font-headline text-xl font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">Gold Nib Fountain Pen</h3>
+            <p class="font-body text-on-surface-variant font-medium">$495.00</p>
+          </div>
+        </article>
+      </a>
+      <!-- Product 5 -->
+      <a class="group block transition-transform duration-300 hover:-translate-y-1 cursor-pointer" href="carty-product.html">
+        <article>
+          <div class="relative overflow-hidden bg-surface-container-low mb-6 aspect-[4/5] flex items-center justify-center">
+            <img class="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOPL5RPxa3CYDJwqu4p2CBY2emqgkBEVqI9xxnXs3fJ77SHbks7eCvprwWRfDO-jCtDWthg8oluLxhFTQfRIIPQJvsQWYsaqgsTCO1kbZpZ2GzyPH4-vD6BLHldbX5AS7-UvDIbJAaXPQPLx1AJrVubFzGPDfpmLLjLU_dx5y_f-7Pcswlpa3Gt91AlcWaIuyFoLNd4VZmrnmYNYtFmIbHcg-rCy6NupJeJcHzfBmQXkg1XZmy4Cwhy542Yo9dqd24oc5U6afjgoQ"/>
+            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="event.preventDefault();window.location.href='carty-product.html'" class="bg-white/90 backdrop-blur-md px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl hover:bg-white active:scale-[0.98]">Quick View</button>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary">Horology</p>
+            <h3 class="font-headline text-xl font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">The Obsidian Chronograph</h3>
+            <p class="font-body text-on-surface-variant font-medium">$2,450.00</p>
+          </div>
+        </article>
+      </a>
+      <!-- Product 6 -->
+      <a class="group block transition-transform duration-300 hover:-translate-y-1 cursor-pointer" href="carty-product-ceramic.html">
+        <article>
+          <div class="relative overflow-hidden bg-surface-container-low mb-6 aspect-[4/5] flex items-center justify-center">
+            <img class="w-full h-full object-cover mix-blend-multiply transition-transform duration-700 group-hover:scale-105" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAGchFRePmtq5izmPXWdt2fjkj0_fv2PxxOElxWNpOrf8QgMekgBRUx4hmYQwVT1OfVzwZ3U2ColFimETc-84OM-WiczcQRYHCwT7qae4tKzTJNL95PsF8wiL3iOWaZ4FcnJT1FA-HnDEfzL1bGmVJdmPJ62ixCdDHct61JtXayVGUZ46BK1MdhdLa57Ink-JnhnJog37cumYuDPsPdVF01RiNAF-tta1yX05c24sxQcU91Q1zSye8jSWSoD7tcEF7ekhSsvmVlP_c"/>
+            <div class="absolute bottom-6 left-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <button onclick="event.preventDefault();window.location.href='carty-product-ceramic.html'" class="bg-white/90 backdrop-blur-md px-6 py-3 text-[10px] font-bold uppercase tracking-widest shadow-xl hover:bg-white active:scale-[0.98]">Quick View</button>
+            </div>
+          </div>
+          <div class="space-y-1">
+            <p class="font-label text-[10px] uppercase tracking-[0.2em] text-on-surface-variant">Minimalist Furniture</p>
+            <h3 class="font-headline text-xl font-bold tracking-tight text-on-surface group-hover:text-primary transition-colors">Minimalist Tonal Ceramic</h3>
+            <p class="font-body text-on-surface-variant font-medium">$145.00</p>
+          </div>
+        </article>
+      </a>
+    </div>
+
+    <!-- Load More -->
+    <div class="mt-24 flex justify-center">
+      <button onclick="loadMoreProducts()" class="group flex flex-col items-center gap-4">
+        <span class="font-label text-[10px] uppercase tracking-[0.3em] text-on-surface-variant group-hover:text-primary transition-colors">Explore More</span>
+        <div class="w-px h-16 bg-neutral-200 group-hover:h-24 transition-all duration-500"></div>
+      </button>
+    </div>
+  </section>
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-20 px-12 border-t border-neutral-100 bg-neutral-50 flex flex-col md:flex-row justify-between items-center gap-8 font-['Inter'] text-[10px] tracking-[0.2em] uppercase">
+  <div class="text-sm font-black text-black">Carty</div>
+  <div class="flex gap-12">
+    <a class="text-neutral-400 hover:text-black transition-colors duration-300 ease-out" href="#">Privacy</a>
+    <a class="text-neutral-400 hover:text-black transition-colors duration-300 ease-out" href="#">Terms</a>
+    <a class="text-neutral-400 hover:text-black transition-colors duration-300 ease-out" href="carty-shipping.html">Shipping</a>
+    <a class="text-neutral-400 hover:text-black transition-colors duration-300 ease-out" href="#">Contact</a>
+  </div>
+  <div class="text-neutral-400">© 2024 Carty DIGITAL GALLERY</div>
+</footer>
+
+<script src="carty-cart.js"></script>
+<script>
+  function setFilter(el, type) {
+    document.querySelectorAll('.filter-btn').forEach(function(b) {
+      b.classList.remove('bg-neutral-100','text-black','font-bold');
+      b.classList.add('text-neutral-400');
+    });
+    el.classList.add('bg-neutral-100','text-black','font-bold');
+    el.classList.remove('text-neutral-400');
+  }
+
+  function applyShopFilters() {
+    showToast('Filters applied');
+  }
+
+  function loadMoreProducts() {
+    showToast('Showing all 128 pieces');
+  }
+</script>
+</body>
+</html>

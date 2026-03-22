@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carty | Home</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#111111",
+          "primary-container": "#161c24",
+          "on-primary": "#ffffff",
+          "on-primary-container": "#7e848e",
+          "secondary": "#8a5100",
+          "secondary-container": "#fe9800",
+          "on-secondary-container": "#643900",
+          "on-secondary": "#ffffff",
+          "surface": "#f7fafa",
+          "surface-container": "#ebeeee",
+          "surface-container-low": "#f1f4f4",
+          "surface-container-high": "#e6e9e9",
+          "surface-container-highest": "#e0e3e3",
+          "surface-container-lowest": "#ffffff",
+          "on-surface": "#181c1d",
+          "on-surface-variant": "#45474b",
+          "outline": "#75777c",
+          "outline-variant": "#c5c6cb",
+          "tertiary": "#111111",
+          "tertiary-container": "#40000b",
+          "on-tertiary-container": "#f73653",
+          "error": "#ba1a1a",
+        },
+        fontFamily: {
+          "headline": ["Plus Jakarta Sans"],
+          "body": ["Manrope"],
+          "label": ["Inter"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "sm": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+    font-size: 20px;
+  }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  body { font-family: 'Manrope', sans-serif; }
+  html { scroll-behavior: smooth; }
+  .product-img { transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  .product-card:hover .product-img { transform: scale(1.05); }
+  .nav-dropdown { display: none; }
+  .nav-item:hover .nav-dropdown { display: block; }
+</style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-secondary-container selection:text-on-secondary-container">
+
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 bg-white/90 backdrop-blur-xl border-b border-neutral-100/80">
+  <div class="flex justify-between items-center px-8 lg:px-12 h-16 w-full max-w-[1600px] mx-auto">
+    <a href="carty-home.html" class="text-xl font-black tracking-tighter text-black font-headline">Carty</a>
+    <div class="hidden md:flex items-center gap-8 font-headline tracking-tight text-xs uppercase font-semibold">
+      <div class="nav-item relative">
+        <a class="text-gray-500 hover:text-black transition-colors duration-200 py-5 block" href="#collections">Collections</a>
+        <div class="nav-dropdown absolute top-full left-1/2 -translate-x-1/2 bg-white border border-neutral-100 shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-4 min-w-[180px] z-50">
+          <a href="#collections" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Horology</a>
+          <a href="#collections" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Sound Studio</a>
+          <a href="#collections" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Apothecary</a>
+          <a href="#collections" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Habitat</a>
+        </div>
+      </div>
+      <div class="nav-item relative">
+        <a class="text-gray-500 hover:text-black transition-colors duration-200 py-5 block" href="#exhibitions">Exhibitions</a>
+        <div class="nav-dropdown absolute top-full left-1/2 -translate-x-1/2 bg-white border border-neutral-100 shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-4 min-w-[180px] z-50">
+          <a href="#exhibitions" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Carbon Series</a>
+          <a href="#exhibitions" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Analog Reverie</a>
+          <a href="#exhibitions" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Tonal Ceramics</a>
+        </div>
+      </div>
+      <div class="nav-item relative">
+        <a class="text-gray-500 hover:text-black transition-colors duration-200 py-5 block" href="#new-arrivals">New Arrivals</a>
+        <div class="nav-dropdown absolute top-full left-1/2 -translate-x-1/2 bg-white border border-neutral-100 shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-4 min-w-[180px] z-50">
+          <a href="#new-arrivals" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">This Week</a>
+          <a href="#new-arrivals" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">Last Drop</a>
+        </div>
+      </div>
+      <div class="nav-item relative">
+        <a class="text-gray-500 hover:text-black transition-colors duration-200 py-5 block" href="#archive">Archive</a>
+        <div class="nav-dropdown absolute top-full left-1/2 -translate-x-1/2 bg-white border border-neutral-100 shadow-[0_8px_30px_rgba(0,0,0,0.08)] p-4 min-w-[180px] z-50">
+          <a href="#archive" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">SS 2023</a>
+          <a href="#archive" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">FW 2022</a>
+          <a href="#archive" class="block px-3 py-2 text-xs text-gray-600 hover:text-black hover:bg-neutral-50 transition-colors">SS 2022</a>
+        </div>
+      </div>
+    </div>
+    <div class="flex items-center gap-4">
+      <a href="carty-search.html" class="p-2 hover:bg-neutral-100 rounded-full transition-colors duration-200">
+        <span class="material-symbols-outlined text-[18px]">search</span>
+      </a>
+      <a href="carty-wishlist.html" class="p-2 hover:bg-neutral-100 rounded-full transition-colors duration-200">
+        <span class="material-symbols-outlined text-[18px]">favorite_border</span>
+      </a>
+      <a href="carty-bag.html" class="p-2 hover:bg-neutral-100 rounded-full transition-colors duration-200 relative">
+        <span class="material-symbols-outlined text-[18px]">shopping_bag</span>
+        <span data-cart-badge class="absolute -top-0.5 -right-0.5 w-4 h-4 bg-secondary-container text-on-secondary-container text-[8px] font-bold rounded-full items-center justify-center font-label" style="display:none"></span>
+      </a>
+      <a href="carty-signin.html" class="p-2 hover:bg-neutral-100 rounded-full transition-colors duration-200">
+        <span class="material-symbols-outlined text-[18px]">person</span>
+      </a>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-16">
+
+  <!-- ─── HERO SECTION ─── -->
+  <section class="w-full bg-white border-b border-neutral-100">
+    <div class="max-w-[1600px] mx-auto px-8 lg:px-12 py-10 grid grid-cols-1 lg:grid-cols-2 gap-8 items-center min-h-[480px]">
+      <!-- Left: Text -->
+      <div class="order-2 lg:order-1">
+        <span class="font-label text-secondary uppercase tracking-[0.25em] text-[10px] font-semibold mb-4 block">New Season · SS 2024</span>
+        <h1 class="font-headline text-4xl md:text-5xl lg:text-[3.25rem] font-extrabold text-black tracking-[-0.03em] leading-[1.05] mb-5">
+          Objects Worth<br/>Caring About.
+        </h1>
+        <p class="text-neutral-500 text-sm leading-[1.7] max-w-sm mb-8 font-body">
+          A curated gallery of precision-crafted goods — from luxury timepieces to studio audio, botanical rituals, and analog art.
+        </p>
+        <div class="flex items-center gap-4">
+          <a href="#collections" class="bg-black text-white px-7 py-3 font-headline font-bold uppercase tracking-[0.12em] text-[10px] hover:bg-neutral-800 transition-colors duration-200 active:scale-95 inline-block">
+            Shop Collections
+          </a>
+          <a href="#new-arrivals" class="text-black border-b border-black/40 pb-0.5 font-label text-[10px] uppercase tracking-widest hover:border-black transition-colors duration-200">
+            New Arrivals
+          </a>
+        </div>
+        <!-- Trust signals -->
+        <div class="flex items-center gap-6 mt-10 pt-8 border-t border-neutral-100">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px] text-secondary">local_shipping</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-neutral-500">Free shipping $150+</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px] text-secondary">verified</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-neutral-500">Authenticated pieces</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-[16px] text-secondary">replay</span>
+            <span class="font-label text-[10px] uppercase tracking-wider text-neutral-500">30-day returns</span>
+          </div>
+        </div>
+      </div>
+      <!-- Right: Product Mosaic -->
+      <div class="order-1 lg:order-2 grid grid-cols-3 gap-3 h-[340px] lg:h-[400px]">
+        <!-- Tall left card -->
+        <div class="col-span-1 row-span-2 relative overflow-hidden bg-surface-container group product-card cursor-pointer">
+          <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4RLqjecF8Gb0tkMmAhWREfu5nIVJPIlSBxwRkH0IrsfHdcPtEp6EmpNSDeGnMxu6dW113BfT5yKhKHdIpLd6Znlosx-MtOaoJYcTxYth0HSYk-heoMKWvefAGg_Ee032zYUU8HTZhUg0ifsY2nsZ5riRd6SPJ7GGHbdUwDx8onPR0DrAU5OUmDTqFixSXT4Rgbqy2HiviaiFjb_CkN6JCqub3G1E08lfW4k3kvrbJHx7Sw90HVUethXmfAkDdflncA-7gYTwp-zY" alt="Obsidian Chronograph"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3">
+            <span class="text-white/70 font-label text-[9px] uppercase tracking-wider block">Horology</span>
+            <span class="text-white font-headline text-xs font-bold">Obsidian Chrono</span>
+            <span class="text-secondary-container font-label text-[10px] font-bold">$2,450</span>
+          </div>
+        </div>
+        <!-- Top right -->
+        <div class="col-span-2 relative overflow-hidden bg-surface-container group product-card cursor-pointer">
+          <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDadTuV2oekDbE7H-5yyq0BLRhwg-M1DTIPoNMLIVw3u7p_QtG-_4GOQT4pdKsv_AawXOvM8H7TfcUYEuww7Vft4HWS3QivJegnRSEekHI86CQH2lXIDkfsH5cFU0gDEr02UY6B_7n7RDb32Rkv7OKPn7P_WOPcT6Pui5P0eW5xBsMSNWrAdu1cLD7tN2uV-FGUIPH3nLtB14eFISb9EeW3-Cp2eYz1WNDwgjuD5NFg8qIECezsaoWzhjAuE1usgYeV9Mx2me4H_4Q" alt="Studio Monitor Pro"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
+          <div class="absolute bottom-3 left-3 right-3">
+            <span class="text-white/70 font-label text-[9px] uppercase tracking-wider block">Sound Studio</span>
+            <span class="text-white font-headline text-xs font-bold">Monitor Pro X</span>
+            <span class="text-secondary-container font-label text-[10px] font-bold">$320</span>
+          </div>
+        </div>
+        <!-- Bottom right grid: 2 cells -->
+        <div class="col-span-1 relative overflow-hidden bg-surface-container group product-card cursor-pointer">
+          <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6j_5_09xkC18cacavEg6NZlUXOIKqB4eAIlAH5SH0Vmg2saJjBkYKPH6lkhw9ls-GWnwvNrNDAeizD0KKAlnLmVCjC1Hrcsz5w83eoDtH9bHYYlUGpMyMNZHYgCJwFheGGdfEMH0-dkPOlE_rPBRc8KPrky9sEfwBBJB4HfLGzanI6hug-cNGS_4PB950nxJi1FwSQG9CTJiMnvykam7FHp617Yl79F4aXj7YMnK6sqESaa60t2kiw21P4l8nQ4stuLKgQCtKCs" alt="Oud & Ember"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute bottom-2 left-2 right-2">
+            <span class="text-white font-headline text-[10px] font-bold leading-tight">Oud & Ember</span>
+            <span class="text-secondary-container font-label text-[9px] font-bold block">$145</span>
+          </div>
+        </div>
+        <div class="col-span-1 relative overflow-hidden bg-surface-container group product-card cursor-pointer">
+          <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzzqzt992hDUF95TyeEyjpIXnYmADj5LpKuK7ePaF8FeRL9u0NcMVa605QZ-Jojkh1bFp5GlTNoWx5rOv1j1xoWDSKmLXNe3V75QkpiFiwJgaLYy4gQrQljaCY6eXQCvdtNhMMjWs9PGqzh5kDVi_FBmjEc7L6FzR4EYiMne5XGDx7DrMmOyeBHX5o5n5vtt5867WxsdxPqYhBVpq5tQ42BZtTaCq4VgfUVUnXy-HpEISJ6IIhmtAS51MCkt1ohrugoDMahPtTIMc" alt="Botanical Ritual"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+          <div class="absolute bottom-2 left-2 right-2">
+            <span class="text-white font-headline text-[10px] font-bold leading-tight">Botanical Set</span>
+            <span class="text-secondary-container font-label text-[9px] font-bold block">$220</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── PROMO BAR ─── -->
+  <div class="bg-primary-container text-on-primary py-2.5 text-center font-label text-[10px] uppercase tracking-[0.2em]">
+    Free worldwide shipping on orders above $150 · <span class="text-secondary-container font-bold">Shop New Arrivals →</span>
+  </div>
+
+  <!-- ─── COLLECTIONS ─── -->
+  <section id="collections" class="py-16 px-8 lg:px-12 max-w-[1600px] mx-auto">
+    <div class="flex justify-between items-end mb-8">
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary font-semibold mb-1 block">Browse by Category</span>
+        <h2 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Collections</h2>
+      </div>
+      <a href="carty-shop.html" class="font-label text-[10px] uppercase tracking-widest text-secondary font-semibold hover:opacity-70 transition-opacity duration-200 flex items-center gap-1">
+        All Collections <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </a>
+    </div>
+    <!-- 4 Category Cards -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+
+      <!-- Horology -->
+      <a href="carty-shop.html" class="group block relative overflow-hidden bg-surface-container aspect-[3/4] product-card">
+        <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4RLqjecF8Gb0tkMmAhWREfu5nIVJPIlSBxwRkH0IrsfHdcPtEp6EmpNSDeGnMxu6dW113BfT5yKhKHdIpLd6Znlosx-MtOaoJYcTxYth0HSYk-heoMKWvefAGg_Ee032zYUU8HTZhUg0ifsY2nsZ5riRd6SPJ7GGHbdUwDx8onPR0DrAU5OUmDTqFixSXT4Rgbqy2HiviaiFjb_CkN6JCqub3G1E08lfW4k3kvrbJHx7Sw90HVUethXmfAkDdflncA-7gYTwp-zY" alt="Horology"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5">
+          <span class="font-label text-[9px] text-white/60 uppercase tracking-widest block mb-1">14 Products</span>
+          <h3 class="font-headline text-lg font-bold text-white leading-tight mb-2">Horology</h3>
+          <span class="font-label text-[9px] uppercase tracking-widest text-secondary-container border-b border-secondary-container/50 pb-0.5 group-hover:border-secondary-container transition-colors duration-200">Shop Now →</span>
+        </div>
+      </a>
+
+      <!-- Sound Studio -->
+      <a href="carty-shop.html" class="group block relative overflow-hidden bg-surface-container aspect-[3/4] product-card">
+        <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDadTuV2oekDbE7H-5yyq0BLRhwg-M1DTIPoNMLIVw3u7p_QtG-_4GOQT4pdKsv_AawXOvM8H7TfcUYEuww7Vft4HWS3QivJegnRSEekHI86CQH2lXIDkfsH5cFU0gDEr02UY6B_7n7RDb32Rkv7OKPn7P_WOPcT6Pui5P0eW5xBsMSNWrAdu1cLD7tN2uV-FGUIPH3nLtB14eFISb9EeW3-Cp2eYz1WNDwgjuD5NFg8qIECezsaoWzhjAuE1usgYeV9Mx2me4H_4Q" alt="Sound Studio"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5">
+          <span class="font-label text-[9px] text-white/60 uppercase tracking-widest block mb-1">9 Products</span>
+          <h3 class="font-headline text-lg font-bold text-white leading-tight mb-2">Sound Studio</h3>
+          <span class="font-label text-[9px] uppercase tracking-widest text-secondary-container border-b border-secondary-container/50 pb-0.5 group-hover:border-secondary-container transition-colors duration-200">Shop Now →</span>
+        </div>
+      </a>
+
+      <!-- Apothecary -->
+      <a href="carty-shop.html" class="group block relative overflow-hidden bg-surface-container aspect-[3/4] product-card">
+        <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6j_5_09xkC18cacavEg6NZlUXOIKqB4eAIlAH5SH0Vmg2saJjBkYKPH6lkhw9ls-GWnwvNrNDAeizD0KKAlnLmVCjC1Hrcsz5w83eoDtH9bHYYlUGpMyMNZHYgCJwFheGGdfEMH0-dkPOlE_rPBRc8KPrky9sEfwBBJB4HfLGzanI6hug-cNGS_4PB950nxJi1FwSQG9CTJiMnvykam7FHp617Yl79F4aXj7YMnK6sqESaa60t2kiw21P4l8nQ4stuLKgQCtKCs" alt="Apothecary"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5">
+          <span class="font-label text-[9px] text-white/60 uppercase tracking-widest block mb-1">22 Products</span>
+          <h3 class="font-headline text-lg font-bold text-white leading-tight mb-2">Apothecary</h3>
+          <span class="font-label text-[9px] uppercase tracking-widest text-secondary-container border-b border-secondary-container/50 pb-0.5 group-hover:border-secondary-container transition-colors duration-200">Shop Now →</span>
+        </div>
+      </a>
+
+      <!-- Habitat -->
+      <a href="carty-shop.html" class="group block relative overflow-hidden bg-surface-container aspect-[3/4] product-card">
+        <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgyKK2qoaqaF5hE1bsQYnxyyhVFtzkU6X46UPF-stllqGrF51lv-NBPj-OacSicSnPtkdR3v-zQD9HCSnjx7gVvPJWYK2qaK6k_FXmOb1AQ0Xwdz40YWWX-7wslkDSGz4gIK7o5IyfnEHq9NsUEyMXHfFWyZg_G4vK_8Af0c4v7vPexva68b_MsSPVUqqUNNq0I9EidFqczZJWDCNqkBXMT2TGDDgqBXL9Z2gt70wqDQcNnqrpUEyPrq_l5GXB8NGT1y9xCTt3WCU" alt="Habitat"/>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
+        <div class="absolute bottom-0 left-0 right-0 p-5">
+          <span class="font-label text-[9px] text-white/60 uppercase tracking-widest block mb-1">17 Products</span>
+          <h3 class="font-headline text-lg font-bold text-white leading-tight mb-2">Habitat</h3>
+          <span class="font-label text-[9px] uppercase tracking-widest text-secondary-container border-b border-secondary-container/50 pb-0.5 group-hover:border-secondary-container transition-colors duration-200">Shop Now →</span>
+        </div>
+      </a>
+
+    </div>
+
+    <!-- Products within Collections (6-product grid) -->
+    <div class="mt-10 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      <!-- Col product 1 -->
+      <div class="group product-card cursor-pointer">
+        <a href="carty-product.html" class="block">
+          <div class="relative overflow-hidden bg-surface-container-low aspect-[3/4] mb-3">
+            <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJk3TdaqkfaQvcKGKV_l76wAT6-gf97ySV-r_GLpiZZAIgy3ZW0JHJ7N-hxdeB4qoofaspQU0cKsAU7rAm0SAZF-DPxXc0zWWzc_i9vCWh27I0Y-FpUHRj-7zC2P-a5hIj7l5WEHSRkMHid-u9aLK4nIILPTOYPBDIk0PJifK_w_x9toGWMUKNRrxGvtF5pHB11Nv4JjALgNnrxejtt6WodDNF_mcKoefK0-OTeI3COkffnuwweSYrIsodRktDQ3abb7v9u4353Hg" alt="Heritage Automatic"/>
+            <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white">
+              <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+            </button>
+          </div>
+          <span class="font-label text-[9px] uppercase tracking-wider text-secondary block mb-0.5">Horology</span>
+          <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Heritage Automatic</h4>
+          <span class="font-bold text-secondary text-xs">$890</span>
+        </a>
+      </div>
+      <!-- Col product 2 -->
+      <div class="group product-card cursor-pointer">
+        <a href="carty-product.html" class="block">
+          <div class="relative overflow-hidden bg-surface-container-low aspect-[3/4] mb-3">
+            <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDadTuV2oekDbE7H-5yyq0BLRhwg-M1DTIPoNMLIVw3u7p_QtG-_4GOQT4pdKsv_AawXOvM8H7TfcUYEuww7Vft4HWS3QivJegnRSEekHI86CQH2lXIDkfsH5cFU0gDEr02UY6B_7n7RDb32Rkv7OKPn7P_WOPcT6Pui5P0eW5xBsMSNWrAdu1cLD7tN2uV-FGUIPH3nLtB14eFISb9EeW3-Cp2eYz1WNDwgjuD5NFg8qIECezsaoWzhjAuE1usgYeV9Mx2me4H_4Q" alt="Studio Monitor Pro"/>
+            <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white">
+              <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+            </button>
+            <div class="absolute top-2 left-2 bg-primary-container text-on-primary font-label text-[8px] uppercase tracking-wider px-2 py-0.5">Bestseller</div>
+          </div>
+          <span class="font-label text-[9px] uppercase tracking-wider text-secondary block mb-0.5">Sound Studio</span>
+          <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Studio Monitor Pro</h4>
+          <span class="font-bold text-secondary text-xs">$320</span>
+        </a>
+      </div>
+      <!-- Col product 3 -->
+      <div class="group product-card cursor-pointer">
+        <a href="carty-product.html" class="block">
+          <div class="relative overflow-hidden bg-surface-container-low aspect-[3/4] mb-3">
+            <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6j_5_09xkC18cacavEg6NZlUXOIKqB4eAIlAH5SH0Vmg2saJjBkYKPH6lkhw9ls-GWnwvNrNDAeizD0KKAlnLmVCjC1Hrcsz5w83eoDtH9bHYYlUGpMyMNZHYgCJwFheGGdfEMH0-dkPOlE_rPBRc8KPrky9sEfwBBJB4HfLGzanI6hug-cNGS_4PB950nxJi1FwSQG9CTJiMnvykam7FHp617Yl79F4aXj7YMnK6sqESaa60t2kiw21P4l8nQ4stuLKgQCtKCs" alt="Oud & Ember"/>
+            <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white">
+              <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+            </button>
+          </div>
+          <span class="font-label text-[9px] uppercase tracking-wider text-secondary block mb-0.5">Apothecary</span>
+          <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Oud & Ember 50ml</h4>
+          <span class="font-bold text-secondary text-xs">$145</span>
+        </a>
+      </div>
+      <!-- Col product 4 -->
+      <div class="group product-card cursor-pointer">
+        <a href="carty-product.html" class="block">
+          <div class="relative overflow-hidden bg-surface-container-low aspect-[3/4] mb-3">
+            <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzzqzt992hDUF95TyeEyjpIXnYmADj5LpKuK7ePaF8FeRL9u0NcMVa605QZ-Jojkh1bFp5GlTNoWx5rOv1j1xoWDSKmLXNe3V75QkpiFiwJgaLYy4gQrQljaCY6eXQCvdtNhMMjWs9PGqzh5kDVi_FBmjEc7L6FzR4EYiMne5XGDx7DrMmOyeBHX5o5n5vtt5867WxsdxPqYhBVpq5tQ42BZtTaCq4VgfUVUnXy-HpEISJ6IIhmtAS51MCkt1ohrugoDMahPtTIMc" alt="Botanical Ritual"/>
+            <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white">
+              <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+            </button>
+            <div class="absolute top-2 left-2 bg-secondary-container text-on-secondary-container font-label text-[8px] uppercase tracking-wider px-2 py-0.5">New</div>
+          </div>
+          <span class="font-label text-[9px] uppercase tracking-wider text-secondary block mb-0.5">Apothecary</span>
+          <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Botanical Ritual Set</h4>
+          <span class="font-bold text-secondary text-xs">$220</span>
+        </a>
+      </div>
+      <!-- Col product 5 -->
+      <div class="group product-card cursor-pointer">
+        <a href="carty-product.html" class="block">
+          <div class="relative overflow-hidden bg-surface-container-low aspect-[3/4] mb-3">
+            <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgyKK2qoaqaF5hE1bsQYnxyyhVFtzkU6X46UPF-stllqGrF51lv-NBPj-OacSicSnPtkdR3v-zQD9HCSnjx7gVvPJWYK2qaK6k_FXmOb1AQ0Xwdz40YWWX-7wslkDSGz4gIK7o5IyfnEHq9NsUEyMXHfFWyZg_G4vK_8Af0c4v7vPexva68b_MsSPVUqqUNNq0I9EidFqczZJWDCNqkBXMT2TGDDgqBXL9Z2gt70wqDQcNnqrpUEyPrq_l5GXB8NGT1y9xCTt3WCU" alt="Tonal Ceramics"/>
+            <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white">
+              <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+            </button>
+          </div>
+          <span class="font-label text-[9px] uppercase tracking-wider text-secondary block mb-0.5">Habitat</span>
+          <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Tonal Ceramic Set</h4>
+          <span class="font-bold text-secondary text-xs">$185</span>
+        </a>
+      </div>
+      <!-- Col product 6 -->
+      <div class="group product-card cursor-pointer">
+        <a href="carty-product.html" class="block">
+          <div class="relative overflow-hidden bg-surface-container-low aspect-[3/4] mb-3">
+            <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQ93imN3C4kRLdojOjroUgvlZYCs0e1X4u9rk3yXKsXYzA-ZbrwIJ8E113_354pQMzlelGl0IL6Y8yXcI0O6K8xGgyYvKBK_5uG1CtaXPLXS-sQzabLzoE3gZ2tNcLaDZ0hvPtCNVIUx0Fbjp8xAfBEvHOh86jSNXSn29VCO5gBak1eqXke0JAv8YMHKYcCVCaFoNE-klTHOBa_Vl0V0O6ObmAbMlv-AinhgR94iQxZj0NGwNrh5ftGrOkAQeFItneojFRQ_TK00" alt="Instant Vision Camera"/>
+            <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200 hover:bg-white">
+              <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+            </button>
+          </div>
+          <span class="font-label text-[9px] uppercase tracking-wider text-secondary block mb-0.5">Analogue</span>
+          <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Instant Vision Mk.II</h4>
+          <span class="font-bold text-secondary text-xs">$420</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── EXHIBITIONS ─── -->
+  <section id="exhibitions" class="bg-surface-container-low py-16 border-y border-neutral-100">
+    <div class="px-8 lg:px-12 max-w-[1600px] mx-auto">
+      <div class="flex justify-between items-end mb-8">
+        <div>
+          <span class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary font-semibold mb-1 block">Curated Series</span>
+          <h2 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Exhibitions</h2>
+        </div>
+        <a href="carty-shop.html" class="font-label text-[10px] uppercase tracking-widest text-secondary font-semibold hover:opacity-70 transition-opacity duration-200 flex items-center gap-1">
+          All Exhibitions <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Exhibition cards — 3-column grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        <!-- Exhibition 1: Carbon Series -->
+        <div class="group product-card cursor-pointer">
+          <a href="carty-shop.html" class="block">
+            <div class="relative aspect-[4/3] overflow-hidden bg-surface-container mb-4">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDadTuV2oekDbE7H-5yyq0BLRhwg-M1DTIPoNMLIVw3u7p_QtG-_4GOQT4pdKsv_AawXOvM8H7TfcUYEuww7Vft4HWS3QivJegnRSEekHI86CQH2lXIDkfsH5cFU0gDEr02UY6B_7n7RDb32Rkv7OKPn7P_WOPcT6Pui5P0eW5xBsMSNWrAdu1cLD7tN2uV-FGUIPH3nLtB14eFISb9EeW3-Cp2eYz1WNDwgjuD5NFg8qIECezsaoWzhjAuE1usgYeV9Mx2me4H_4Q" alt="Carbon Series"/>
+              <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300"></div>
+              <span class="absolute top-4 left-4 bg-primary-container text-on-primary font-label text-[8px] uppercase tracking-widest px-2.5 py-1">Exhibition No. 042</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="font-label text-[9px] text-secondary uppercase tracking-wider mb-1 block">Sound Studio</span>
+                <h3 class="font-headline text-sm font-bold">Carbon Series Collection</h3>
+                <p class="text-on-surface-variant text-xs mt-1 font-body leading-relaxed">9 pieces · Studio-grade clarity</p>
+              </div>
+              <span class="font-label text-xs text-on-surface-variant">From $220</span>
+            </div>
+          </a>
+          <!-- Exhibition products row -->
+          <div class="flex gap-2 mt-4">
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0 product-card cursor-pointer">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDadTuV2oekDbE7H-5yyq0BLRhwg-M1DTIPoNMLIVw3u7p_QtG-_4GOQT4pdKsv_AawXOvM8H7TfcUYEuww7Vft4HWS3QivJegnRSEekHI86CQH2lXIDkfsH5cFU0gDEr02UY6B_7n7RDb32Rkv7OKPn7P_WOPcT6Pui5P0eW5xBsMSNWrAdu1cLD7tN2uV-FGUIPH3nLtB14eFISb9EeW3-Cp2eYz1WNDwgjuD5NFg8qIECezsaoWzhjAuE1usgYeV9Mx2me4H_4Q" alt=""/>
+            </div>
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0 product-card cursor-pointer">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzjBtqDpoMqI3W9-tRcLfQnZky0RRp_Xz5qlYizALJeS80tyPkj5g7OiWzEHKpyRJUd4Xh0Hjvafa0t7RjvXad5ESFlTOO5gttvV4ROgnZijHBHBSnCs_nIYC1zLkFcNEuK3YI18BZ4qqc7fWZGAhEl-IUDZRcDWEcg6oxEWo8QbxbZr9KrHFoVmaTTKCkrrGDXuzUl52AcDkE3J-_k-6KTdZctUbu-t_dUdO2UK-Temy79gYUncSnfpbH_WAtsvt0g42gkSbG8k" alt=""/>
+            </div>
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0 product-card cursor-pointer">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWjnEnS_jLIqAWSBbfS5Ch3XUP27WGG1s6gFNewSSSztV3p66WPahpLn0m_Y6oBxg_o-xirdx_hpOAY6nr66uNfDuQrwScDtQoN701sWtx_sHY9b_Iq54P7KqdR-yfvXw3QAlAZtNET7VT_aLvgJuhlzqmMbL5M6dDi7OSJzsODBSKRA4xzUxtGF7_qlTsoFaM7NWt696nlL2r0aCfCSzWDKNsONAMCAPQheYuJ71ljbi9jqcTbtIECQbm4SnQ6aIwgIEQlo1fcLw" alt=""/>
+            </div>
+            <div class="flex-1 flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-label text-[9px] uppercase tracking-wider">+6 more</div>
+          </div>
+        </div>
+
+        <!-- Exhibition 2: Analog Reverie -->
+        <div class="group product-card cursor-pointer">
+          <a href="carty-shop.html" class="block">
+            <div class="relative aspect-[4/3] overflow-hidden bg-surface-container mb-4">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQ93imN3C4kRLdojOjroUgvlZYCs0e1X4u9rk3yXKsXYzA-ZbrwIJ8E113_354pQMzlelGl0IL6Y8yXcI0O6K8xGgyYvKBK_5uG1CtaXPLXS-sQzabLzoE3gZ2tNcLaDZ0hvPtCNVIUx0Fbjp8xAfBEvHOh86jSNXSn29VCO5gBak1eqXke0JAv8YMHKYcCVCaFoNE-klTHOBa_Vl0V0O6ObmAbMlv-AinhgR94iQxZj0NGwNrh5ftGrOkAQeFItneojFRQ_TK00" alt="Analog Reverie"/>
+              <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300"></div>
+              <span class="absolute top-4 left-4 bg-primary-container text-on-primary font-label text-[8px] uppercase tracking-widest px-2.5 py-1">Exhibition No. 038</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="font-label text-[9px] text-secondary uppercase tracking-wider mb-1 block">Analogue</span>
+                <h3 class="font-headline text-sm font-bold">Analog Reverie</h3>
+                <p class="text-on-surface-variant text-xs mt-1 font-body leading-relaxed">6 pieces · Film & instant</p>
+              </div>
+              <span class="font-label text-xs text-on-surface-variant">From $95</span>
+            </div>
+          </a>
+          <div class="flex gap-2 mt-4">
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQ93imN3C4kRLdojOjroUgvlZYCs0e1X4u9rk3yXKsXYzA-ZbrwIJ8E113_354pQMzlelGl0IL6Y8yXcI0O6K8xGgyYvKBK_5uG1CtaXPLXS-sQzabLzoE3gZ2tNcLaDZ0hvPtCNVIUx0Fbjp8xAfBEvHOh86jSNXSn29VCO5gBak1eqXke0JAv8YMHKYcCVCaFoNE-klTHOBa_Vl0V0O6ObmAbMlv-AinhgR94iQxZj0NGwNrh5ftGrOkAQeFItneojFRQ_TK00" alt=""/>
+            </div>
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxLfp35glTa-TME377X4_4dLarZGOPOk-QqQLM8r-jFEBL_dQpV6UG3VXsprUO0qlVj-dHGkRr9XUSj-mhfqNg4_Er5ixarZPRqFkS_Rzn-HLFYFrHI5RPDPLV01aER2lUBpddMydPeYHeimtgMwo9OgziVTaZTP91jccJNwA0iCgBWjgja4uGkTK5TwQYKg9RynD0WdGxesEcobCXWK3lJu2ShZgsfcZS2rKcGV91CIYvM_ReBJEf6or4904wTCU9pslo8t2N-y4" alt=""/>
+            </div>
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrzHoGAvWknUr8ZBjAwPUdbeF3PCKkl11Yx8lM2w4DvB_4EdgJ98HnjPFlnc-dUbrsTpB8GAacgcgVmIylrgswIezotcr5LkfaqX4SqUFv9bVKKp2sYKdXsEejXAjPOU520ZrdO_I12gtbkOoLlqKdjB7XXtUmXw_ddCBlZio8VK2RB5zlu9_Qpo4aBTldfR8tgQmLVNtJcU2lV0kAfVo__okgMd0zySC_B_UVNljHiXCFOgiPYZEfqbXtmHWhcxG0iIm4tPB6Jg" alt=""/>
+            </div>
+            <div class="flex-1 flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-label text-[9px] uppercase tracking-wider">+3 more</div>
+          </div>
+        </div>
+
+        <!-- Exhibition 3: Tonal Ceramics -->
+        <div class="group product-card cursor-pointer">
+          <a href="carty-shop.html" class="block">
+            <div class="relative aspect-[4/3] overflow-hidden bg-surface-container mb-4">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgyKK2qoaqaF5hE1bsQYnxyyhVFtzkU6X46UPF-stllqGrF51lv-NBPj-OacSicSnPtkdR3v-zQD9HCSnjx7gVvPJWYK2qaK6k_FXmOb1AQ0Xwdz40YWWX-7wslkDSGz4gIK7o5IyfnEHq9NsUEyMXHfFWyZg_G4vK_8Af0c4v7vPexva68b_MsSPVUqqUNNq0I9EidFqczZJWDCNqkBXMT2TGDDgqBXL9Z2gt70wqDQcNnqrpUEyPrq_l5GXB8NGT1y9xCTt3WCU" alt="Tonal Ceramics"/>
+              <div class="absolute inset-0 bg-black/10 group-hover:bg-black/0 transition-colors duration-300"></div>
+              <span class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container font-label text-[8px] uppercase tracking-widest px-2.5 py-1">Selling Fast</span>
+            </div>
+            <div class="flex justify-between items-start">
+              <div>
+                <span class="font-label text-[9px] text-secondary uppercase tracking-wider mb-1 block">Habitat</span>
+                <h3 class="font-headline text-sm font-bold">Tonal Ceramics</h3>
+                <p class="text-on-surface-variant text-xs mt-1 font-body leading-relaxed">12 pieces · Home & living</p>
+              </div>
+              <span class="font-label text-xs text-on-surface-variant">From $85</span>
+            </div>
+          </a>
+          <div class="flex gap-2 mt-4">
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgyKK2qoaqaF5hE1bsQYnxyyhVFtzkU6X46UPF-stllqGrF51lv-NBPj-OacSicSnPtkdR3v-zQD9HCSnjx7gVvPJWYK2qaK6k_FXmOb1AQ0Xwdz40YWWX-7wslkDSGz4gIK7o5IyfnEHq9NsUEyMXHfFWyZg_G4vK_8Af0c4v7vPexva68b_MsSPVUqqUNNq0I9EidFqczZJWDCNqkBXMT2TGDDgqBXL9Z2gt70wqDQcNnqrpUEyPrq_l5GXB8NGT1y9xCTt3WCU" alt=""/>
+            </div>
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzzqzt992hDUF95TyeEyjpIXnYmADj5LpKuK7ePaF8FeRL9u0NcMVa605QZ-Jojkh1bFp5GlTNoWx5rOv1j1xoWDSKmLXNe3V75QkpiFiwJgaLYy4gQrQljaCY6eXQCvdtNhMMjWs9PGqzh5kDVi_FBmjEc7L6FzR4EYiMne5XGDx7DrMmOyeBHX5o5n5vtt5867WxsdxPqYhBVpq5tQ42BZtTaCq4VgfUVUnXy-HpEISJ6IIhmtAS51MCkt1ohrugoDMahPtTIMc" alt=""/>
+            </div>
+            <div class="w-14 h-14 overflow-hidden bg-surface-container flex-shrink-0">
+              <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6j_5_09xkC18cacavEg6NZlUXOIKqB4eAIlAH5SH0Vmg2saJjBkYKPH6lkhw9ls-GWnwvNrNDAeizD0KKAlnLmVCjC1Hrcsz5w83eoDtH9bHYYlUGpMyMNZHYgCJwFheGGdfEMH0-dkPOlE_rPBRc8KPrky9sEfwBBJB4HfLGzanI6hug-cNGS_4PB950nxJi1FwSQG9CTJiMnvykam7FHp617Yl79F4aXj7YMnK6sqESaa60t2kiw21P4l8nQ4stuLKgQCtKCs" alt=""/>
+            </div>
+            <div class="flex-1 flex items-center justify-center bg-surface-container-highest text-on-surface-variant font-label text-[9px] uppercase tracking-wider">+9 more</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NEW ARRIVALS ─── -->
+  <section id="new-arrivals" class="py-16 px-8 lg:px-12 max-w-[1600px] mx-auto">
+    <div class="flex justify-between items-end mb-8">
+      <div>
+        <span class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary font-semibold mb-1 block">Just Landed</span>
+        <h2 class="font-headline text-2xl font-bold tracking-tight text-on-surface">New Arrivals</h2>
+      </div>
+      <a href="carty-shop.html" class="font-label text-[10px] uppercase tracking-widest text-secondary font-semibold hover:opacity-70 transition-opacity duration-200 flex items-center gap-1">
+        View All <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+      </a>
+    </div>
+
+    <!-- Highlighted drop + product grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+      <!-- Featured drop — tall left panel -->
+      <div class="lg:col-span-2 group product-card cursor-pointer relative overflow-hidden bg-primary-container aspect-[4/5] lg:aspect-auto">
+        <a href="carty-product.html" class="block w-full h-full">
+          <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRjrq8c8zgeyscGmcqaL7E07pwoVmwjT_uuYTD3aEHBIPq3KLuMC1QWvmCFv7sw2NUwSHEfh4AzWrgOydlX6w4MbR0ARYPyG8G6Fy5lI6sjhdyZokyMhyUZ8eGmC9ayR4nMfYreAgfxbo-ThGgcyAhvc5-pBiIsStL5hsA3GMtdaKjEGQasGSY_FdRYFw992Vh_zcYrzGrICO9NKj1OlpE3SAIVfwG3gESnsnzOxHI7oC7wNhtk6PmKXmbKuN4Vf3qmsoCC8JKI4c" alt="Featured Drop"/>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-6">
+            <span class="bg-secondary-container text-on-secondary-container font-label text-[8px] uppercase tracking-widest px-2.5 py-1 inline-block mb-3">Drop of the Week</span>
+            <h3 class="font-headline text-xl font-bold text-white leading-tight mb-1">Sonic Pureness<br/>Carbon Edition</h3>
+            <p class="text-white/60 text-xs font-body mb-4">Limited to 200 units worldwide.</p>
+            <div class="flex items-center justify-between">
+              <span class="text-secondary-container font-bold font-label text-sm">$680</span>
+              <span class="font-label text-[9px] uppercase tracking-widest text-white border border-white/30 px-3 py-1.5 hover:bg-white hover:text-black transition-colors duration-200">Shop Now</span>
+            </div>
+          </div>
+        </a>
+      </div>
+
+      <!-- Right: 2×4 product grid -->
+      <div class="lg:col-span-3 grid grid-cols-2 md:grid-cols-3 gap-4">
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-surface-container aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4RLqjecF8Gb0tkMmAhWREfu5nIVJPIlSBxwRkH0IrsfHdcPtEp6EmpNSDeGnMxu6dW113BfT5yKhKHdIpLd6Znlosx-MtOaoJYcTxYth0HSYk-heoMKWvefAGg_Ee032zYUU8HTZhUg0ifsY2nsZ5riRd6SPJ7GGHbdUwDx8onPR0DrAU5OUmDTqFixSXT4Rgbqy2HiviaiFjb_CkN6JCqub3G1E08lfW4k3kvrbJHx7Sw90HVUethXmfAkDdflncA-7gYTwp-zY" alt="Obsidian Chrono"/>
+              <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+              </button>
+              <span class="absolute top-2 left-2 bg-secondary-container text-on-secondary-container font-label text-[8px] uppercase tracking-wider px-2 py-0.5">New</span>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Obsidian Chronograph</h4>
+            <span class="font-bold text-secondary text-xs">$2,450</span>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-surface-container aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAzzqzt992hDUF95TyeEyjpIXnYmADj5LpKuK7ePaF8FeRL9u0NcMVa605QZ-Jojkh1bFp5GlTNoWx5rOv1j1xoWDSKmLXNe3V75QkpiFiwJgaLYy4gQrQljaCY6eXQCvdtNhMMjWs9PGqzh5kDVi_FBmjEc7L6FzR4EYiMne5XGDx7DrMmOyeBHX5o5n5vtt5867WxsdxPqYhBVpq5tQ42BZtTaCq4VgfUVUnXy-HpEISJ6IIhmtAS51MCkt1ohrugoDMahPtTIMc" alt="Ritual Set"/>
+              <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+              </button>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Ritual Botanical Set</h4>
+            <span class="font-bold text-secondary text-xs">$220</span>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-surface-container aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBkQ93imN3C4kRLdojOjroUgvlZYCs0e1X4u9rk3yXKsXYzA-ZbrwIJ8E113_354pQMzlelGl0IL6Y8yXcI0O6K8xGgyYvKBK_5uG1CtaXPLXS-sQzabLzoE3gZ2tNcLaDZ0hvPtCNVIUx0Fbjp8xAfBEvHOh86jSNXSn29VCO5gBak1eqXke0JAv8YMHKYcCVCaFoNE-klTHOBa_Vl0V0O6ObmAbMlv-AinhgR94iQxZj0NGwNrh5ftGrOkAQeFItneojFRQ_TK00" alt="Instant Vision"/>
+              <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+              </button>
+              <span class="absolute top-2 left-2 bg-secondary-container text-on-secondary-container font-label text-[8px] uppercase tracking-wider px-2 py-0.5">New</span>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Instant Vision Mk.II</h4>
+            <span class="font-bold text-secondary text-xs">$420</span>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-surface-container aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6j_5_09xkC18cacavEg6NZlUXOIKqB4eAIlAH5SH0Vmg2saJjBkYKPH6lkhw9ls-GWnwvNrNDAeizD0KKAlnLmVCjC1Hrcsz5w83eoDtH9bHYYlUGpMyMNZHYgCJwFheGGdfEMH0-dkPOlE_rPBRc8KPrky9sEfwBBJB4HfLGzanI6hug-cNGS_4PB950nxJi1FwSQG9CTJiMnvykam7FHp617Yl79F4aXj7YMnK6sqESaa60t2kiw21P4l8nQ4stuLKgQCtKCs" alt="Oud Ember"/>
+              <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+              </button>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Oud & Ember 50ml</h4>
+            <span class="font-bold text-secondary text-xs">$145</span>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-surface-container aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgyKK2qoaqaF5hE1bsQYnxyyhVFtzkU6X46UPF-stllqGrF51lv-NBPj-OacSicSnPtkdR3v-zQD9HCSnjx7gVvPJWYK2qaK6k_FXmOb1AQ0Xwdz40YWWX-7wslkDSGz4gIK7o5IyfnEHq9NsUEyMXHfFWyZg_G4vK_8Af0c4v7vPexva68b_MsSPVUqqUNNq0I9EidFqczZJWDCNqkBXMT2TGDDgqBXL9Z2gt70wqDQcNnqrpUEyPrq_l5GXB8NGT1y9xCTt3WCU" alt="Minimalist Ceramics"/>
+              <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+              </button>
+              <span class="absolute top-2 left-2 bg-primary-container text-on-primary font-label text-[8px] uppercase tracking-wider px-2 py-0.5">Members</span>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Minimalist Ceramics</h4>
+            <span class="font-bold text-secondary text-xs">$185</span>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-surface-container aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJk3TdaqkfaQvcKGKV_l76wAT6-gf97ySV-r_GLpiZZAIgy3ZW0JHJ7N-hxdeB4qoofaspQU0cKsAU7rAm0SAZF-DPxXc0zWWzc_i9vCWh27I0Y-FpUHRj-7zC2P-a5hIj7l5WEHSRkMHid-u9aLK4nIILPTOYPBDIk0PJifK_w_x9toGWMUKNRrxGvtF5pHB11Nv4JjALgNnrxejtt6WodDNF_mcKoefK0-OTeI3COkffnuwweSYrIsodRktDQ3abb7v9u4353Hg" alt="Heritage Automatic"/>
+              <button class="absolute top-2 right-2 p-1.5 bg-white/80 backdrop-blur rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                <span class="material-symbols-outlined text-[14px]">favorite_border</span>
+              </button>
+              <span class="absolute top-2 left-2 bg-secondary-container text-on-secondary-container font-label text-[8px] uppercase tracking-wider px-2 py-0.5">New</span>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight">Heritage Automatic</h4>
+            <span class="font-bold text-secondary text-xs">$890</span>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── ARCHIVE ─── -->
+  <section id="archive" class="bg-primary-container py-16 border-t border-white/10">
+    <div class="px-8 lg:px-12 max-w-[1600px] mx-auto">
+      <div class="flex justify-between items-end mb-8">
+        <div>
+          <span class="font-label text-[10px] uppercase tracking-[0.2em] text-secondary-container font-semibold mb-1 block">Past Seasons</span>
+          <h2 class="font-headline text-2xl font-bold tracking-tight text-on-primary">Archive</h2>
+        </div>
+        <a href="carty-shop.html" class="font-label text-[10px] uppercase tracking-widest text-secondary-container font-semibold hover:opacity-70 transition-opacity duration-200 flex items-center gap-1">
+          Full Archive <span class="material-symbols-outlined text-[14px]">arrow_forward</span>
+        </a>
+      </div>
+
+      <!-- Archive season tabs -->
+      <div class="flex gap-6 mb-8 border-b border-white/10 pb-0">
+        <button class="font-label text-[10px] uppercase tracking-widest text-secondary-container border-b-2 border-secondary-container pb-3 font-bold">SS 2023</button>
+        <button class="font-label text-[10px] uppercase tracking-widest text-white/50 pb-3 hover:text-white transition-colors duration-200">FW 2022</button>
+        <button class="font-label text-[10px] uppercase tracking-widest text-white/50 pb-3 hover:text-white transition-colors duration-200">SS 2022</button>
+      </div>
+
+      <!-- Archive product grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-white/5 aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img opacity-80 group-hover:opacity-100 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCKzjBtqDpoMqI3W9-tRcLfQnZky0RRp_Xz5qlYizALJeS80tyPkj5g7OiWzEHKpyRJUd4Xh0Hjvafa0t7RjvXad5ESFlTOO5gttvV4ROgnZijHBHBSnCs_nIYC1zLkFcNEuK3YI18BZ4qqc7fWZGAhEl-IUDZRcDWEcg6oxEWo8QbxbZr9KrHFoVmaTTKCkrrGDXuzUl52AcDkE3J-_k-6KTdZctUbu-t_dUdO2UK-Temy79gYUncSnfpbH_WAtsvt0g42gkSbG8k" alt="Archive Item"/>
+              <div class="absolute top-2 left-2 bg-white/10 text-white font-label text-[8px] uppercase tracking-wider px-2 py-0.5">SS 23</div>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight text-on-primary">Matte Form Vase</h4>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-secondary-container text-xs">$95</span>
+              <span class="line-through text-white/30 font-label text-[10px]">$140</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-white/5 aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img opacity-80 group-hover:opacity-100 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAWjnEnS_jLIqAWSBbfS5Ch3XUP27WGG1s6gFNewSSSztV3p66WPahpLn0m_Y6oBxg_o-xirdx_hpOAY6nr66uNfDuQrwScDtQoN701sWtx_sHY9b_Iq54P7KqdR-yfvXw3QAlAZtNET7VT_aLvgJuhlzqmMbL5M6dDi7OSJzsODBSKRA4xzUxtGF7_qlTsoFaM7NWt696nlL2r0aCfCSzWDKNsONAMCAPQheYuJ71ljbi9jqcTbtIECQbm4SnQ6aIwgIEQlo1fcLw" alt="Archive Item"/>
+              <div class="absolute top-2 left-2 bg-white/10 text-white font-label text-[8px] uppercase tracking-wider px-2 py-0.5">SS 23</div>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight text-on-primary">Linen Cushion Set</h4>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-secondary-container text-xs">$68</span>
+              <span class="line-through text-white/30 font-label text-[10px]">$120</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-white/5 aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img opacity-80 group-hover:opacity-100 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxLfp35glTa-TME377X4_4dLarZGOPOk-QqQLM8r-jFEBL_dQpV6UG3VXsprUO0qlVj-dHGkRr9XUSj-mhfqNg4_Er5ixarZPRqFkS_Rzn-HLFYFrHI5RPDPLV01aER2lUBpddMydPeYHeimtgMwo9OgziVTaZTP91jccJNwA0iCgBWjgja4uGkTK5TwQYKg9RynD0WdGxesEcobCXWK3lJu2ShZgsfcZS2rKcGV91CIYvM_ReBJEf6or4904wTCU9pslo8t2N-y4" alt="Archive Item"/>
+              <div class="absolute top-2 left-2 bg-white/10 text-white font-label text-[8px] uppercase tracking-wider px-2 py-0.5">SS 23</div>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight text-on-primary">Wabi-Sabi Bowl</h4>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-secondary-container text-xs">$75</span>
+              <span class="line-through text-white/30 font-label text-[10px]">$110</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-white/5 aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img opacity-80 group-hover:opacity-100 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDrzHoGAvWknUr8ZBjAwPUdbeF3PCKkl11Yx8lM2w4DvB_4EdgJ98HnjPFlnc-dUbrsTpB8GAacgcgVmIylrgswIezotcr5LkfaqX4SqUFv9bVKKp2sYKdXsEejXAjPOU520ZrdO_I12gtbkOoLlqKdjB7XXtUmXw_ddCBlZio8VK2RB5zlu9_Qpo4aBTldfR8tgQmLVNtJcU2lV0kAfVo__okgMd0zySC_B_UVNljHiXCFOgiPYZEfqbXtmHWhcxG0iIm4tPB6Jg" alt="Archive Item"/>
+              <div class="absolute top-2 left-2 bg-white/10 text-white font-label text-[8px] uppercase tracking-wider px-2 py-0.5">SS 23</div>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight text-on-primary">Stone Carafe Set</h4>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-secondary-container text-xs">$130</span>
+              <span class="line-through text-white/30 font-label text-[10px]">$190</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-white/5 aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img opacity-80 group-hover:opacity-100 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4RLqjecF8Gb0tkMmAhWREfu5nIVJPIlSBxwRkH0IrsfHdcPtEp6EmpNSDeGnMxu6dW113BfT5yKhKHdIpLd6Znlosx-MtOaoJYcTxYth0HSYk-heoMKWvefAGg_Ee032zYUU8HTZhUg0ifsY2nsZ5riRd6SPJ7GGHbdUwDx8onPR0DrAU5OUmDTqFixSXT4Rgbqy2HiviaiFjb_CkN6JCqub3G1E08lfW4k3kvrbJHx7Sw90HVUethXmfAkDdflncA-7gYTwp-zY" alt="Archive Item"/>
+              <div class="absolute top-2 left-2 bg-white/10 text-white font-label text-[8px] uppercase tracking-wider px-2 py-0.5">SS 23</div>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight text-on-primary">Tourbillon Slim</h4>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-secondary-container text-xs">$1,800</span>
+              <span class="line-through text-white/30 font-label text-[10px]">$2,400</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="group product-card cursor-pointer">
+          <a href="carty-product.html" class="block">
+            <div class="relative overflow-hidden bg-white/5 aspect-[3/4] mb-3">
+              <img class="w-full h-full object-cover product-img opacity-80 group-hover:opacity-100 transition-opacity duration-300" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl6j_5_09xkC18cacavEg6NZlUXOIKqB4eAIlAH5SH0Vmg2saJjBkYKPH6lkhw9ls-GWnwvNrNDAeizD0KKAlnLmVCjC1Hrcsz5w83eoDtH9bHYYlUGpMyMNZHYgCJwFheGGdfEMH0-dkPOlE_rPBRc8KPrky9sEfwBBJB4HfLGzanI6hug-cNGS_4PB950nxJi1FwSQG9CTJiMnvykam7FHp617Yl79F4aXj7YMnK6sqESaa60t2kiw21P4l8nQ4stuLKgQCtKCs" alt="Archive Item"/>
+              <div class="absolute top-2 left-2 bg-white/10 text-white font-label text-[8px] uppercase tracking-wider px-2 py-0.5">SS 23</div>
+            </div>
+            <h4 class="font-headline text-xs font-bold mb-1 leading-tight text-on-primary">Cedar & Moss 30ml</h4>
+            <div class="flex items-center gap-2">
+              <span class="font-bold text-secondary-container text-xs">$88</span>
+              <span class="line-through text-white/30 font-label text-[10px]">$125</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── NEWSLETTER / MEMBERSHIP STRIP ─── -->
+  <section class="py-12 px-8 lg:px-12 bg-white border-t border-neutral-100">
+    <div class="max-w-[1600px] mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+      <div>
+        <h3 class="font-headline text-lg font-bold tracking-tight mb-1">Become a Carty Member</h3>
+        <p class="text-on-surface-variant text-xs font-body">Early access to drops, archive discounts, and member exclusives.</p>
+      </div>
+      <div class="flex items-center gap-3 w-full md:w-auto">
+        <input type="email" placeholder="Enter your email" class="flex-1 md:w-64 border border-neutral-200 px-4 py-2.5 text-xs font-body focus:outline-none focus:border-black transition-colors duration-200 bg-surface"/>
+        <button class="bg-black text-white px-6 py-2.5 font-headline font-bold uppercase tracking-[0.1em] text-[10px] hover:bg-neutral-800 transition-colors duration-200 active:scale-95 flex-shrink-0">
+          Join
+        </button>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="w-full py-12 px-8 lg:px-12 border-t border-neutral-100 bg-neutral-50">
+  <div class="max-w-[1600px] mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
+    <div>
+      <div class="text-base font-black text-black font-headline mb-4">Carty</div>
+      <p class="text-neutral-400 text-xs font-body leading-relaxed">A gallery for objects worth caring about.</p>
+    </div>
+    <div>
+      <h4 class="font-label text-[10px] uppercase tracking-widest text-neutral-400 mb-4">Shop</h4>
+      <div class="space-y-2">
+        <a href="#collections" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Collections</a>
+        <a href="#exhibitions" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Exhibitions</a>
+        <a href="#new-arrivals" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">New Arrivals</a>
+        <a href="#archive" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Archive</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-label text-[10px] uppercase tracking-widest text-neutral-400 mb-4">Account</h4>
+      <div class="space-y-2">
+        <a href="carty-profile.html" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Profile</a>
+        <a href="carty-wishlist.html" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Wishlist</a>
+        <a href="carty-bag.html" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">My Bag</a>
+      </div>
+    </div>
+    <div>
+      <h4 class="font-label text-[10px] uppercase tracking-widest text-neutral-400 mb-4">Info</h4>
+      <div class="space-y-2">
+        <a href="#" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Shipping & Returns</a>
+        <a href="#" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Privacy Policy</a>
+        <a href="#" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Terms of Service</a>
+        <a href="#" class="block text-xs text-neutral-600 hover:text-black transition-colors duration-200">Contact</a>
+      </div>
+    </div>
+  </div>
+  <div class="border-t border-neutral-200 pt-6 flex flex-col md:flex-row justify-between items-center gap-2">
+    <div class="font-label text-[10px] text-neutral-400 tracking-wider uppercase">© 2024 Carty. All rights reserved.</div>
+    <div class="flex gap-4">
+      <a href="#" class="font-label text-[10px] text-neutral-400 hover:text-black transition-colors duration-200 uppercase tracking-wider">Instagram</a>
+      <a href="#" class="font-label text-[10px] text-neutral-400 hover:text-black transition-colors duration-200 uppercase tracking-wider">Pinterest</a>
+      <a href="#" class="font-label text-[10px] text-neutral-400 hover:text-black transition-colors duration-200 uppercase tracking-wider">Twitter</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile Nav -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-white/95 backdrop-blur-2xl border-t border-neutral-100 shadow-[0_-4px_20px_rgba(0,0,0,0.06)] z-50">
+  <a href="carty-home.html" class="flex flex-col items-center justify-center text-black">
+    <span class="material-symbols-outlined text-[20px]">home</span>
+    <span class="font-label text-[9px] uppercase tracking-widest font-medium mt-0.5">Home</span>
+  </a>
+  <a href="carty-shop.html" class="flex flex-col items-center justify-center text-neutral-400">
+    <span class="material-symbols-outlined text-[20px]">grid_view</span>
+    <span class="font-label text-[9px] uppercase tracking-widest font-medium mt-0.5">Shop</span>
+  </a>
+  <a href="carty-wishlist.html" class="flex flex-col items-center justify-center text-neutral-400">
+    <span class="material-symbols-outlined text-[20px]">favorite_border</span>
+    <span class="font-label text-[9px] uppercase tracking-widest font-medium mt-0.5">Saved</span>
+  </a>
+  <a href="carty-bag.html" class="flex flex-col items-center justify-center text-neutral-400 relative">
+    <span class="material-symbols-outlined text-[20px]">shopping_bag</span>
+    <span class="absolute top-0 right-3 w-3.5 h-3.5 bg-secondary-container text-on-secondary-container text-[7px] font-bold rounded-full flex items-center justify-center">3</span>
+    <span class="font-label text-[9px] uppercase tracking-widest font-medium mt-0.5">Bag</span>
+  </a>
+  <a href="carty-signin.html" class="flex flex-col items-center justify-center text-neutral-400">
+    <span class="material-symbols-outlined text-[20px]">person</span>
+    <span class="font-label text-[9px] uppercase tracking-widest font-medium mt-0.5">Account</span>
+  </a>
+</nav>
+
+<script src="carty-cart.js"></script>
+<script>
+  // Newsletter Join
+  document.addEventListener('DOMContentLoaded', function() {
+    var joinBtn = document.querySelector('button.bg-black.text-white');
+    if (joinBtn && joinBtn.textContent.trim() === 'Join') {
+      joinBtn.addEventListener('click', function() {
+        var input = joinBtn.previousElementSibling;
+        var val = input ? input.value.trim() : '';
+        if (!val || !val.includes('@')) {
+          showToast('Please enter a valid email address');
+          return;
+        }
+        joinBtn.textContent = 'Subscribed!';
+        joinBtn.style.background = '#8a5100';
+        joinBtn.disabled = true;
+        showToast('You\'re on the list! Welcome to Carty.');
+      });
+    }
+
+    // Archive season tabs
+    var tabs = document.querySelectorAll('#archive button[class*="font-label"]');
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function() {
+        tabs.forEach(function(t) {
+          t.className = t.className.replace('text-secondary-container border-b-2 border-secondary-container', 'text-white/50');
+        });
+        tab.classList.remove('text-white/50');
+        tab.className += ' text-secondary-container border-b-2 border-secondary-container';
+        showToast('Showing ' + tab.textContent.trim() + ' archive');
+      });
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!-- User Profile & My Orders - Curator -->
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carty | My Orders</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;family=Manrope:wght@300;400;500;600&amp;family=Inter:wght@300;400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-container-highest": "#e0e3e3",
+              "tertiary-fixed-dim": "#ffb3b4",
+              "surface-container-low": "#f1f4f4",
+              "outline": "#75777c",
+              "primary-container": "#161c24",
+              "on-primary-fixed": "#161c24",
+              "surface-bright": "#f7fafa",
+              "on-surface": "#181c1d",
+              "secondary": "#8a5100",
+              "on-surface-variant": "#45474b",
+              "tertiary": "#000000",
+              "on-tertiary-fixed": "#40000b",
+              "primary-fixed": "#dde3ee",
+              "on-primary-container": "#7e848e",
+              "surface-container-lowest": "#ffffff",
+              "on-background": "#181c1d",
+              "inverse-primary": "#c1c7d2",
+              "surface-variant": "#e0e3e3",
+              "secondary-fixed-dim": "#ffb86f",
+              "tertiary-container": "#40000b",
+              "on-error-container": "#93000a",
+              "surface-dim": "#d7dbdb",
+              "error-container": "#ffdad6",
+              "background": "#f7fafa",
+              "on-secondary": "#ffffff",
+              "on-primary-fixed-variant": "#414750",
+              "primary": "#000000",
+              "on-secondary-container": "#643900",
+              "on-secondary-fixed": "#2c1600",
+              "surface-container-high": "#e6e9e9",
+              "secondary-fixed": "#ffdcbd",
+              "on-tertiary-fixed-variant": "#920025",
+              "on-tertiary-container": "#f73653",
+              "inverse-surface": "#2d3131",
+              "on-error": "#ffffff",
+              "on-tertiary": "#ffffff",
+              "surface": "#f7fafa",
+              "secondary-container": "#fe9800",
+              "inverse-on-surface": "#eef1f1",
+              "error": "#ba1a1a",
+              "on-primary": "#ffffff",
+              "surface-container": "#ebeeee",
+              "on-secondary-fixed-variant": "#693c00",
+              "tertiary-fixed": "#ffdada",
+              "surface-tint": "#595f68",
+              "primary-fixed-dim": "#c1c7d2",
+              "outline-variant": "#c5c6cb"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); }
+        .editorial-shadow { box-shadow: 0 20px 50px rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+<!-- TopNavBar -->
+<header class="fixed top-0 w-full z-50 bg-white/80 dark:bg-black/80 backdrop-blur-xl shadow-[0_20px_50px_rgba(0,0,0,0.05)]">
+<nav class="flex justify-between items-center px-8 py-6 max-w-[1440px] mx-auto font-['Plus_Jakarta_Sans'] tracking-tight">
+<a class="text-2xl font-bold tracking-tighter text-black dark:text-white" href="carty-home.html">Carty</a>
+<div class="hidden md:flex items-center space-x-12">
+<a class="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white transition-colors" href="carty-shop.html">Shop</a>
+<a class="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white transition-colors" href="#">Collections</a>
+<a class="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white transition-colors" href="#">Editorial</a>
+<a class="text-gray-400 dark:text-gray-500 hover:text-black dark:hover:text-white transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center space-x-6">
+<a class="hover:opacity-70 transition-opacity" href="carty-bag.html">
+<span class="material-symbols-outlined text-black dark:text-white">shopping_bag</span>
+</a>
+<a class="text-black dark:text-white border-b-2 border-black dark:border-white pb-1 transition-opacity" href="carty-profile.html">
+<span class="material-symbols-outlined">person</span>
+</a>
+</div>
+</nav>
+</header>
+<main class="pt-32 pb-20 px-8 max-w-[1440px] mx-auto min-h-screen">
+<!-- Profile Header Section -->
+<section class="mb-16 flex flex-col md:flex-row md:items-end justify-between gap-8">
+<div class="flex items-center gap-8">
+<div class="w-32 h-32 rounded-full overflow-hidden bg-surface-container-high relative">
+<img class="w-full h-full object-cover" data-alt="Close up portrait of a sophisticated man" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAapCyQ-6flr5t6yWPBmysyacOP0VLKjmmTH3pc6ogF9KEbI9PubLVgpbcAUwfKmJ2mnX8p3RBeP1M9Vt7ML5H_ajDj82HiDHBemHQp227txP5uzOWmcSJ-mB7hJ4lmrzRw9UzYOQAk71d7C14mYmQTFhN7Izrrdo9ZJEOOR0fTYitjZvIOmY56woKIC5bEslixgI5ZMg04fdmapXty9V8Gcdm_JFo17gw67OD5AkBqYd6xh7J0HjDaMDMWzaKw6QVtGIMxlJEGSJw"/>
+</div>
+<div>
+<h1 class="font-headline text-4xl font-extrabold tracking-tighter mb-2">Alexander Vogue</h1>
+<div class="flex items-center gap-3">
+<span class="bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest">Inner Circle Member</span>
+<span class="text-on-surface-variant text-sm font-body">Member since 2022</span>
+</div>
+</div>
+</div>
+<div class="flex gap-4">
+<button onclick="if(typeof showToast==='function')showToast('Profile editing coming soon')" class="px-8 py-3 bg-primary text-on-primary font-label text-xs uppercase tracking-widest rounded-md hover:opacity-90 transition-all">Edit Profile</button>
+</div>
+</section>
+<!-- Two Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16">
+<!-- Sidebar Navigation -->
+<aside class="lg:col-span-3">
+<nav class="flex flex-col space-y-2">
+<a class="group flex items-center justify-between py-4 border-b border-outline-variant/15 text-on-surface-variant hover:text-primary transition-colors" href="carty-profile.html">
+<span class="font-label text-sm uppercase tracking-widest">My Account</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between py-4 border-b border-black text-primary font-bold transition-colors" href="carty-profile.html">
+<span class="font-label text-sm uppercase tracking-widest">Order History</span>
+<span class="material-symbols-outlined">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between py-4 border-b border-outline-variant/15 text-on-surface-variant hover:text-primary transition-colors" href="carty-wishlist.html">
+<span class="font-label text-sm uppercase tracking-widest">Wishlist</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between py-4 border-b border-outline-variant/15 text-on-surface-variant hover:text-primary transition-colors" href="#" onclick="event.preventDefault();if(typeof showToast==='function')showToast('Address book coming soon')">
+<span class="font-label text-sm uppercase tracking-widest">Address Book</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+<a class="group flex items-center justify-between py-4 border-b border-outline-variant/15 text-on-surface-variant hover:text-primary transition-colors" href="carty-payment.html">
+<span class="font-label text-sm uppercase tracking-widest">Payment Methods</span>
+<span class="material-symbols-outlined opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
+</a>
+</nav>
+<div class="mt-20 p-8 bg-surface-container-low rounded-xl">
+<h4 class="font-headline text-lg font-bold mb-4">Need Assistance?</h4>
+<p class="text-sm text-on-surface-variant mb-6 font-body leading-relaxed">Our concierge team is available 24/7 for our Inner Circle members.</p>
+<a class="text-secondary font-bold text-xs uppercase tracking-widest underline decoration-secondary/30 underline-offset-4" href="#" onclick="event.preventDefault();if(typeof showToast==='function')showToast('Concierge available 24/7 — feature coming soon')">Contact Concierge</a>
+</div>
+</aside>
+<!-- Main Content: Order History -->
+<section class="lg:col-span-9">
+<header class="mb-10 flex items-center justify-between">
+<h2 class="font-headline text-2xl font-bold tracking-tight">Recent Orders</h2>
+<div class="flex gap-4">
+<select class="bg-transparent border-none font-label text-xs uppercase tracking-widest focus:ring-0 cursor-pointer">
+<option>Last 6 Months</option>
+<option>2023</option>
+<option>2022</option>
+</select>
+</div>
+</header>
+<div class="space-y-8">
+<!-- Order Card 1 -->
+<div class="group bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-transparent hover:border-outline-variant/10">
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-32 aspect-square bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Minimalist luxury wristwatch on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_kMaoL0Y98yAGZPpFjr4z78JP70o5uMxcLJHTgOS6DD8olcHFrukNNS4bHXjRWzDIa5IYEBsBZfHqwYGHPGxVy9UzB8DYIFRT0jZh4RrV5S7w85FBwCSVgvnJ9Dn1PSkxEpsWeqWhc1yCBqH1X2S0TRVgA8YgsVG-S6C03es_z0mgcJMeBFOlRe4inBUTMFDRuZG-KoNl0Nl-fRnE22t8vmjqkBjhedJydwB9Ufsle0IHXsnvwT3zZTMXNGUrcmI7QP1awqQbMbs"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline font-bold text-lg mb-1">Architectural Timepiece V1</h3>
+<p class="text-on-surface-variant text-sm font-body">Midnight Black / Italian Leather</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-label uppercase tracking-widest px-3 py-1 bg-green-50 text-green-700 rounded-full">Delivered</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-outline-variant/10">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Order Number</p>
+<p class="font-body text-sm font-semibold">#CR-982410</p>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Order Date</p>
+<p class="font-body text-sm font-semibold">Oct 12, 2023</p>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Total</p>
+<p class="font-body text-sm font-bold">$1,240.00</p>
+</div>
+<div class="flex justify-end items-end">
+<button onclick="if(typeof showToast==='function')showToast('Order #CR-982410 delivered Oct 2023')" class="text-xs font-label uppercase tracking-widest font-bold border-b border-primary pb-0.5">Order Details</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Card 2 -->
+<div class="group bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-transparent hover:border-outline-variant/10">
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-32 aspect-square bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="High-end wireless headphones in sleek charging case" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZ4cwEME5SuKPGAtWFYNa-ajxlgRPti7snqb8r--KlYg_ecr7xa0CneuY6mT2rzmx6eWxn5aX-0zDvxkbEHr9vWTSqdH55njJTm3O-jnnqjYSqOz6ALsqo79PmjYAfH2Uf_FiKBHTbbQvUffF_dYOw9lwj-Tfd7zoq4aWoTWo1O7zDBvyKaoLhP1ytUm1ONN2lgLTeBHCBJf2kvNYDCfe2oHt-9X3qxejDL29-bKI6eHlVE3zp9_iDYNw5UfISvkLWWLTzbAYHMf0"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline font-bold text-lg mb-1">Sonic Narrative Headphones</h3>
+<p class="text-on-surface-variant text-sm font-body">Brushed Titanium Edition</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-label uppercase tracking-widest px-3 py-1 bg-amber-50 text-secondary rounded-full">In Transit</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-outline-variant/10">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Order Number</p>
+<p class="font-body text-sm font-semibold">#CR-990152</p>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Order Date</p>
+<p class="font-body text-sm font-semibold">Dec 04, 2023</p>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Total</p>
+<p class="font-body text-sm font-bold">$890.00</p>
+</div>
+<div class="flex justify-end items-end">
+<button onclick="if(typeof showToast==='function')showToast('Order #CR-990152 is in transit')" class="text-xs font-label uppercase tracking-widest font-bold border-b border-primary pb-0.5">Track Order</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Order Card 3 -->
+<div class="group bg-surface-container-lowest rounded-xl p-6 transition-all hover:shadow-[0_20px_50px_rgba(0,0,0,0.05)] border border-transparent hover:border-outline-variant/10">
+<div class="flex flex-col md:flex-row gap-8 items-start">
+<div class="w-full md:w-32 aspect-square bg-surface-container-low rounded-lg overflow-hidden flex-shrink-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Classic tailored wool coat hanging in minimal space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCO5iwpTFqKMiQbsML7QXyzQ4yhqk-j4MV29Vu76_SzWoe0yCyupOWc33mpCZLQW-lR-60xD6ZUfIP2uuLaotgBMRmB-D9dS2v_TWqM5KE1RF5zvRjvYKsCJcUQ5sM0ZHFYN2kiTzpneARtDyIh1hPwMPeMScS6QMOGZBDLyzY-hDRwnu40TtT1ltW_WC_Uy6H2uJvEK-gFNY6_IbLG18O3tib_Rcsdk5kI5T3-Mnx7vm0EOYP0wEoJgzFZjQ_mawzgWimz4lhbBwo"/>
+</div>
+<div class="flex-grow">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-headline font-bold text-lg mb-1">Overcoat No. 04</h3>
+<p class="text-on-surface-variant text-sm font-body">Charcoal Virgin Wool</p>
+</div>
+<div class="text-right">
+<span class="text-xs font-label uppercase tracking-widest px-3 py-1 bg-green-50 text-green-700 rounded-full">Delivered</span>
+</div>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 pt-6 border-t border-outline-variant/10">
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Order Number</p>
+<p class="font-body text-sm font-semibold">#CR-971203</p>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Order Date</p>
+<p class="font-body text-sm font-semibold">Aug 28, 2023</p>
+</div>
+<div>
+<p class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1">Total</p>
+<p class="font-body text-sm font-bold">$2,150.00</p>
+</div>
+<div class="flex justify-end items-end">
+<button onclick="if(typeof showToast==='function')showToast('Order #CR-971203 delivered Aug 2023')" class="text-xs font-label uppercase tracking-widest font-bold border-b border-primary pb-0.5">Order Details</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Load More -->
+<div class="mt-16 flex justify-center">
+<button onclick="if(typeof showToast==='function')showToast('Showing all orders')" class="px-12 py-4 border border-outline-variant/30 font-label text-xs uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-all">View Full Archive</button>
+</div>
+</section>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-20 px-8 bg-gray-50 dark:bg-zinc-900 border-t border-gray-100 dark:border-zinc-800">
+<div class="flex flex-col md:flex-row justify-between items-center gap-8 w-full max-w-[1440px] mx-auto">
+<div class="text-lg font-black tracking-tighter text-black dark:text-white">Carty</div>
+<div class="flex flex-wrap justify-center gap-8">
+<a class="font-['Inter'] text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-amber-600 dark:hover:text-amber-500 transition-colors" href="#">Privacy Policy</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-amber-600 dark:hover:text-amber-500 transition-colors" href="#">Terms of Service</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-amber-600 dark:hover:text-amber-500 transition-colors" href="#">Shipping &amp; Returns</a>
+<a class="font-['Inter'] text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500 hover:text-amber-600 dark:hover:text-amber-500 transition-colors" href="#">Contact</a>
+</div>
+<div class="font-['Inter'] text-[11px] uppercase tracking-widest text-gray-400 dark:text-gray-500">
+                © 2024 THE DIGITAL Carty. ALL RIGHTS RESERVED.
+            </div>
+</div>
+</footer>
+<script src="carty-cart.js"></script>
+</body></html>

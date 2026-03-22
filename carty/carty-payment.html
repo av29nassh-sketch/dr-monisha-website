@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Carty | Checkout - Payment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "surface-bright": "#f7fafa","surface-container-high": "#e6e9e9","on-error-container": "#93000a","surface-dim": "#d7dbdb","surface": "#f7fafa","on-secondary-container": "#643900","surface-variant": "#e0e3e3","error": "#ba1a1a","surface-container": "#ebeeee","secondary": "#8a5100","inverse-primary": "#c1c7d2","error-container": "#ffdad6","on-secondary": "#ffffff","surface-tint": "#595f68","surface-container-highest": "#e0e3e3","on-surface-variant": "#45474b","primary-fixed": "#dde3ee","surface-container-lowest": "#ffffff","tertiary": "#000000","tertiary-container": "#40000b","on-primary-fixed": "#161c24","secondary-fixed-dim": "#ffb86f","secondary-fixed": "#ffdcbd","on-background": "#181c1d","primary-fixed-dim": "#c1c7d2","tertiary-fixed": "#ffdada","on-tertiary-fixed-variant": "#920025","on-tertiary-container": "#f73653","on-tertiary-fixed": "#40000b","tertiary-fixed-dim": "#ffb3b4","on-primary-container": "#7e848e","inverse-on-surface": "#eef1f1","inverse-surface": "#2d3131","on-primary-fixed-variant": "#414750","primary": "#000000","outline": "#75777c","on-secondary-fixed-variant": "#693c00","on-tertiary": "#ffffff","surface-container-low": "#f1f4f4","on-error": "#ffffff","on-secondary-fixed": "#2c1600","secondary-container": "#fe9800","on-primary": "#ffffff","primary-container": "#161c24","on-surface": "#181c1d","background": "#f7fafa","outline-variant": "#c5c6cb"
+        },
+        fontFamily: {"headline": ["Plus Jakarta Sans"],"body": ["Manrope"],"label": ["Inter"]},
+        borderRadius: {"DEFAULT": "0.125rem","lg": "0.25rem","xl": "0.5rem","full": "0.75rem"},
+      },
+    },
+  }
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24; }
+  body { font-family: 'Manrope', sans-serif; }
+  .plus-jakarta { font-family: 'Plus Jakarta Sans', sans-serif; }
+  .glass-nav { background: rgba(255,255,255,0.8); backdrop-filter: blur(20px); }
+</style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+<header class="fixed top-0 w-full z-50 glass-nav shadow-[0_20px_50px_rgba(0,0,0,0.02)]">
+  <div class="flex justify-between items-center px-8 py-6 max-w-screen-2xl mx-auto w-full">
+    <a href="carty-home.html" class="text-2xl font-black tracking-tighter text-black uppercase plus-jakarta">Carty</a>
+    <div class="flex items-center space-x-6">
+      <span class="text-neutral-400 font-label text-[10px] uppercase tracking-widest font-medium">Secure Checkout Encrypted</span>
+      <span class="material-symbols-outlined text-black">lock</span>
+    </div>
+  </div>
+  <div class="bg-neutral-100/50 h-[1px] w-full"></div>
+</header>
+
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto">
+  <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
+    <!-- Main Transactional Content -->
+    <div class="lg:col-span-7">
+      <!-- Progress Indicator -->
+      <nav class="flex items-center space-x-8 mb-16">
+        <a href="carty-shipping.html" class="flex items-center space-x-3 opacity-40 hover:opacity-60 transition-opacity">
+          <span class="font-headline font-bold text-xs">01</span>
+          <span class="font-label text-[10px] uppercase tracking-widest">Shipping</span>
+        </a>
+        <div class="h-[1px] w-8 bg-outline-variant opacity-20"></div>
+        <div class="flex items-center space-x-3 text-black">
+          <span class="font-headline font-bold text-xs underline underline-offset-8">02</span>
+          <span class="font-label text-[10px] uppercase tracking-widest font-bold">Payment</span>
+        </div>
+        <div class="h-[1px] w-8 bg-outline-variant opacity-20"></div>
+        <div class="flex items-center space-x-3 opacity-40">
+          <span class="font-headline font-bold text-xs">03</span>
+          <span class="font-label text-[10px] uppercase tracking-widest">Review</span>
+        </div>
+      </nav>
+
+      <section class="space-y-12">
+        <header>
+          <h1 class="font-headline text-4xl font-extrabold tracking-tight text-primary mb-2">Payment Method</h1>
+          <p class="font-body text-on-surface-variant">All transactions are secure and encrypted.</p>
+        </header>
+
+        <div class="space-y-4">
+          <!-- Credit Card (Active) -->
+          <div class="bg-surface-container-lowest p-8 rounded-lg border border-primary/5 shadow-sm">
+            <label class="flex items-center justify-between cursor-pointer mb-8">
+              <div class="flex items-center space-x-4">
+                <div class="w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
+                  <div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+                </div>
+                <span class="font-headline font-bold text-lg">Credit / Debit Card</span>
+              </div>
+              <span class="material-symbols-outlined text-neutral-400">credit_card</span>
+            </label>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="md:col-span-2">
+                <label class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Cardholder Name</label>
+                <input class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary px-4 py-4 text-sm font-headline tracking-wide uppercase" placeholder="ALEXANDER VOGUE" type="text"/>
+              </div>
+              <div class="md:col-span-2">
+                <label class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Card Number</label>
+                <div class="relative">
+                  <input class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary px-4 py-4 text-sm font-headline tracking-[0.2em]" placeholder="•••• •••• •••• ••••" type="text"/>
+                  <div class="absolute right-4 top-1/2 -translate-y-1/2 grayscale opacity-50">
+                    <span class="material-symbols-outlined">account_balance_wallet</span>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <label class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">Expiry Date</label>
+                <input class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary px-4 py-4 text-sm font-headline" placeholder="MM / YY" type="text"/>
+              </div>
+              <div>
+                <label class="block font-label text-[10px] uppercase tracking-widest text-on-surface-variant mb-2">CVV</label>
+                <input class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary px-4 py-4 text-sm font-headline" placeholder="•••" type="password"/>
+              </div>
+            </div>
+          </div>
+          <!-- Apple Pay -->
+          <div class="bg-surface-container-low p-6 rounded-lg hover:bg-surface-container transition-colors cursor-pointer" onclick="selectPayment(this)">
+            <label class="flex items-center justify-between cursor-pointer">
+              <div class="flex items-center space-x-4">
+                <div class="pay-radio w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center">
+                  <div class="pay-dot hidden w-2.5 h-2.5 rounded-full bg-primary"></div>
+                </div>
+                <span class="font-headline font-bold text-lg">Apple Pay</span>
+              </div>
+              <span class="material-symbols-outlined text-black">contactless</span>
+            </label>
+          </div>
+          <!-- Bank Transfer -->
+          <div class="bg-surface-container-low p-6 rounded-lg hover:bg-surface-container transition-colors cursor-pointer" onclick="selectPayment(this)">
+            <label class="flex items-center justify-between cursor-pointer">
+              <div class="flex items-center space-x-4">
+                <div class="pay-radio w-5 h-5 rounded-full border-2 border-outline-variant flex items-center justify-center">
+                  <div class="pay-dot hidden w-2.5 h-2.5 rounded-full bg-primary"></div>
+                </div>
+                <span class="font-headline font-bold text-lg">Bank Transfer</span>
+              </div>
+              <span class="material-symbols-outlined text-neutral-400">account_balance</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Billing Toggle -->
+        <div class="flex items-center justify-between pt-6 border-t border-surface-container-high">
+          <div class="flex items-center space-x-3">
+            <div class="relative inline-flex items-center cursor-pointer">
+              <input checked class="sr-only peer" type="checkbox"/>
+              <div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+            </div>
+            <span class="font-body font-semibold">Billing address same as shipping</span>
+          </div>
+        </div>
+
+        <a href="carty-review.html" class="w-full bg-primary text-on-primary py-6 px-8 font-headline font-extrabold tracking-widest uppercase hover:bg-neutral-800 transition-colors flex justify-between items-center group">
+          <span>Continue to Review</span>
+          <span class="material-symbols-outlined group-hover:translate-x-2 transition-transform">arrow_forward</span>
+        </a>
+      </section>
+    </div>
+
+    <!-- Order Summary Sidebar -->
+    <aside class="lg:col-span-5">
+      <div class="sticky top-40 bg-surface-container-low p-10 rounded-lg">
+        <h2 class="font-headline text-xl font-bold mb-10 pb-6 border-b border-surface-container-high">Order Summary</h2>
+        <div class="space-y-8 mb-10">
+          <div class="flex space-x-6">
+            <div class="w-24 h-32 bg-surface-container-high relative overflow-hidden">
+              <img alt="Sculpture Lamp" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBDddw6Zp1vHVvASbmg9ynU53JFpJmtRQiVBtNZyZ6XkcS8L9WWFu4r0_uDr-jo8pdJSUlUDgOJJ-USRpXB4mEs9_1l9gSAHMvTBMiD3gOWJXPAa2QPMMNt5Iny0WCBAAa1807vbEyFNKL4bC3RrnNLKG6eyiI8ex1F7Z-WQsoLLI5UHf_P4bot-LOBsS3FN2Zvc5HNlzUeGLl81ZQ_xaTrPhEoX23vCvDVyEnKau-UBNgvfGwd8J49VCSDovf5nnCTBlxS9cWet3Q"/>
+              <div class="absolute inset-0 bg-black/5"></div>
+            </div>
+            <div class="flex-1 flex flex-col justify-between py-1">
+              <div>
+                <h3 class="font-headline font-bold text-sm tracking-tight mb-1">Kastel Sculpture Lamp</h3>
+                <p class="font-label text-[10px] uppercase text-on-surface-variant">Edition 01 / Sandstone</p>
+              </div>
+              <div class="flex justify-between items-end">
+                <span class="font-label text-xs">Qty: 1</span>
+                <span class="font-headline font-bold">£2,450.00</span>
+              </div>
+            </div>
+          </div>
+          <div class="flex space-x-6">
+            <div class="w-24 h-32 bg-surface-container-high relative overflow-hidden">
+              <img alt="Lounge Chair" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP6LAOi-SWeKHgYOPOojiZsugSPPeIHunYdBOjL16VGg0F-WH6FzgwUJPYEcEVTz_d5ttogGuNI6lNPjdAQJlTljda4mX_J3KDc4mBp9ufBJ8Do2crBW2ljbcd1XkdBe4mjAtIKqzj6y5n5Xe64BGknLoLyHWtLZGekBSSN3Tb0Hb8_4w5taplx0w6pGl7jnosfSwnD2CtTjl-aG0UQJGDIJFtZnduwMW_IKjQMkF_YmmMMw_GI6KyRBpJkzX7UbkEhXV9jpfH55w"/>
+              <div class="absolute inset-0 bg-black/5"></div>
+            </div>
+            <div class="flex-1 flex flex-col justify-between py-1">
+              <div>
+                <h3 class="font-headline font-bold text-sm tracking-tight mb-1">Atelier No. 04 Lounge</h3>
+                <p class="font-label text-[10px] uppercase text-on-surface-variant">Walnut / Ivory Bouclé</p>
+              </div>
+              <div class="flex justify-between items-end">
+                <span class="font-label text-xs">Qty: 1</span>
+                <span class="font-headline font-bold">£4,330.00</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="space-y-4 pt-8 border-t border-surface-container-high">
+          <div class="flex justify-between font-body text-sm">
+            <span class="text-on-surface-variant">Subtotal</span>
+            <span class="font-semibold">£6,780.00</span>
+          </div>
+          <div class="flex justify-between font-body text-sm">
+            <span class="text-on-surface-variant">Shipping</span>
+            <span class="text-secondary font-semibold uppercase text-[10px] tracking-widest">Complimentary</span>
+          </div>
+          <div class="flex justify-between font-body text-sm">
+            <span class="text-on-surface-variant">Taxes (calculated)</span>
+            <span class="font-semibold">£0.00</span>
+          </div>
+          <div class="flex justify-between pt-6 mt-6 border-t border-primary/10">
+            <span class="font-headline font-black text-lg uppercase tracking-tighter">Total</span>
+            <span class="font-headline font-black text-2xl tracking-tight">£6,780.00</span>
+          </div>
+        </div>
+        <div class="mt-10 p-4 bg-surface-container-highest/50 flex items-center space-x-4">
+          <span class="material-symbols-outlined text-primary text-xl">shield</span>
+          <p class="font-label text-[10px] leading-relaxed tracking-wide text-on-surface-variant uppercase">
+            Premium Buyer Protection Active. Verified by Curator Global Protocol.
+          </p>
+        </div>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<footer class="w-full py-12 border-t border-neutral-200/20 bg-neutral-50">
+  <div class="flex flex-col md:flex-row justify-between items-center px-12 space-y-4 md:space-y-0 max-w-screen-2xl mx-auto">
+    <span class="text-lg font-bold text-black plus-jakarta uppercase">Carty</span>
+    <div class="flex space-x-8">
+      <a class="font-label text-[10px] uppercase tracking-widest font-medium text-neutral-400 hover:text-black transition-colors" href="#">Privacy Policy</a>
+      <a class="font-label text-[10px] uppercase tracking-widest font-medium text-neutral-400 hover:text-black transition-colors" href="#">Terms of Service</a>
+      <a class="font-label text-[10px] uppercase tracking-widest font-medium text-neutral-400 hover:text-black transition-colors" href="#">Shipping Info</a>
+    </div>
+    <span class="font-label text-[10px] uppercase tracking-widest font-medium text-neutral-400">© 2024 Carty. SECURE CHECKOUT ENCRYPTED.</span>
+  </div>
+</footer>
+
+<script src="carty-cart.js"></script>
+<script>
+function selectPayment(el) {
+  document.querySelectorAll('[onclick="selectPayment(this)"]').forEach(function(d) {
+    d.querySelector('.pay-radio').classList.remove('border-primary');
+    d.querySelector('.pay-radio').classList.add('border-outline-variant');
+    d.querySelector('.pay-dot').classList.add('hidden');
+    d.classList.remove('bg-surface-container-lowest', 'border', 'border-primary/5', 'shadow-sm');
+    d.classList.add('bg-surface-container-low');
+  });
+  // Also deselect credit card
+  document.querySelector('.bg-surface-container-lowest .w-5.h-5.rounded-full.border-2.border-primary')
+    && (function() {
+      var cc = document.querySelector('.bg-surface-container-lowest .w-5.h-5.rounded-full.border-2.border-primary');
+      cc.classList.remove('border-primary');
+      cc.classList.add('border-outline-variant');
+      cc.querySelector('.w-2\\.5').classList.add('hidden');
+    })();
+  var radio = el.querySelector('.pay-radio');
+  var dot = el.querySelector('.pay-dot');
+  radio.classList.add('border-primary');
+  radio.classList.remove('border-outline-variant');
+  dot.classList.remove('hidden');
+}
+</script>
+</body>
+</html>

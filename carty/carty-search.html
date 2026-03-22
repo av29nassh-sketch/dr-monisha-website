@@ -1,0 +1,452 @@
+<!-- Refined Search Results - Carty -->
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Search: Timepieces | Carty</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-secondary": "#ffffff",
+              "surface-dim": "#d7dbdb",
+              "on-secondary-fixed": "#2c1600",
+              "tertiary-fixed-dim": "#ffb3b4",
+              "on-surface": "#181c1d",
+              "surface-container-low": "#f1f4f4",
+              "surface-container-highest": "#e0e3e3",
+              "on-background": "#181c1d",
+              "on-tertiary": "#ffffff",
+              "outline-variant": "#c5c6cb",
+              "inverse-surface": "#2d3131",
+              "primary-fixed": "#dde3ee",
+              "on-primary-fixed-variant": "#414750",
+              "inverse-primary": "#c1c7d2",
+              "tertiary-container": "#40000b",
+              "secondary-container": "#fe9800",
+              "tertiary": "#000000",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-fixed": "#40000b",
+              "error-container": "#ffdad6",
+              "surface-container-high": "#e6e9e9",
+              "surface": "#f7fafa",
+              "outline": "#75777c",
+              "on-tertiary-fixed-variant": "#920025",
+              "primary-fixed-dim": "#c1c7d2",
+              "secondary-fixed": "#ffdcbd",
+              "surface-container": "#ebeeee",
+              "secondary": "#8a5100",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#ffdada",
+              "on-secondary-fixed-variant": "#693c00",
+              "on-secondary-container": "#643900",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              "on-primary-container": "#7e848e",
+              "on-primary-fixed": "#161c24",
+              "surface-variant": "#e0e3e3",
+              "primary-container": "#161c24",
+              "on-tertiary-container": "#f73653",
+              "on-surface-variant": "#45474b",
+              "background": "#f7fafa",
+              "surface-tint": "#595f68",
+              "primary": "#000000",
+              "inverse-on-surface": "#eef1f1",
+              "surface-bright": "#f7fafa",
+              "secondary-fixed-dim": "#ffb86f",
+              "error": "#ba1a1a"
+            },
+            fontFamily: {
+              "headline": ["Plus Jakarta Sans"],
+              "body": ["Manrope"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .tonal-transition {
+            transition: background-color 0.3s ease;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+            background-color: #f7fafa;
+        }
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        input[type='range'] {
+            -webkit-appearance: none;
+            width: 100%;
+            background: transparent;
+        }
+        input[type='range']::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 2px;
+            cursor: pointer;
+            background: #e0e3e3;
+            border-radius: 0;
+        }
+        input[type='range']::-webkit-slider-thumb {
+            height: 14px;
+            width: 14px;
+            border-radius: 50%;
+            background: #8a5100;
+            cursor: pointer;
+            -webkit-appearance: none;
+            margin-top: -6px;
+            box-shadow: 0 0 0 4px rgba(138, 81, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-on-surface">
+<!-- TopNavBar -->
+<nav class="fixed top-0 w-full z-50 glass-nav shadow-[0_20px_50px_rgba(24,28,29,0.05)]">
+<div class="flex justify-between items-center px-8 py-4 w-full max-w-screen-2xl mx-auto">
+<div class="flex items-center gap-12">
+<a href="carty-home.html" class="text-2xl font-bold tracking-tighter text-black font-headline">Carty</a>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-neutral-500 hover:text-black transition-colors font-headline tracking-tight" href="carty-shop.html">New Arrivals</a>
+<a class="text-neutral-500 hover:text-black transition-colors font-headline tracking-tight" href="carty-shop.html">Collections</a>
+<a class="text-neutral-500 hover:text-black transition-colors font-headline tracking-tight" href="carty-shop.html">Exhibitions</a>
+<a class="text-neutral-500 hover:text-black transition-colors font-headline tracking-tight" href="#">Journal</a>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-secondary w-64 font-body" type="text" value="Timepieces"/>
+</div>
+<a href="carty-bag.html" class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined">shopping_bag</span></a>
+<a href="carty-signin.html" class="hover:opacity-80 transition-opacity"><span class="material-symbols-outlined">person</span></a>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-20 px-8 max-w-screen-2xl mx-auto flex gap-16">
+<!-- Filters Sidebar -->
+<aside class="w-64 flex-shrink-0 hidden lg:block">
+<div class="sticky top-32 space-y-10">
+<div>
+<h3 class="font-headline font-bold text-lg mb-6 tracking-tight">Filters</h3>
+<!-- Category Tree -->
+<div class="mb-8">
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mb-4">Category</p>
+<ul class="space-y-4">
+<li>
+<div class="flex items-center justify-between text-sm group cursor-pointer mb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">expand_more</span>
+<span class="font-headline font-bold">Horology</span>
+</div>
+<span class="text-[10px] font-label text-outline">124</span>
+</div>
+<ul class="ml-6 space-y-2 border-l border-surface-container-highest">
+<li class="flex items-center justify-between text-sm group cursor-pointer pl-4 py-0.5 text-secondary border-l border-secondary -ml-[1px]">
+<span class="font-body">Automatic</span>
+<span class="text-[10px] font-label">42</span>
+</li>
+<li class="flex items-center justify-between text-sm group cursor-pointer pl-4 py-0.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="font-body">Chronograph</span>
+<span class="text-[10px] font-label">18</span>
+</li>
+<li class="flex items-center justify-between text-sm group cursor-pointer pl-4 py-0.5 text-on-surface-variant hover:text-primary transition-colors">
+<span class="font-body">Minimalist</span>
+<span class="text-[10px] font-label">64</span>
+</li>
+</ul>
+</li>
+<li>
+<div class="flex items-center justify-between text-sm group cursor-pointer text-on-surface-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+<span class="font-headline font-semibold">Accessories</span>
+</div>
+<span class="text-[10px] font-label">31</span>
+</div>
+</li>
+</ul>
+</div>
+<!-- Price Slider -->
+<div class="mb-8">
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mb-4">Price Range</p>
+<div class="space-y-4">
+<div class="relative pt-1">
+<input class="w-full h-0.5 appearance-none cursor-pointer" max="5000" min="500" step="100" type="range"/>
+<div class="flex justify-between text-[10px] font-label text-on-surface-variant mt-2">
+<span class="bg-surface-container px-2 py-0.5 rounded">$500</span>
+<span class="bg-surface-container px-2 py-0.5 rounded">$5,000+</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Material -->
+<div class="mb-8">
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mb-4">Material</p>
+<div class="flex flex-wrap gap-1.5">
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 border border-surface-container-highest rounded-full text-[11px] font-label uppercase tracking-tighter hover:border-primary transition-colors">Titanium</button>
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 bg-primary text-white border border-primary rounded-full text-[11px] font-label uppercase tracking-tighter">Rose Gold</button>
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 border border-surface-container-highest rounded-full text-[11px] font-label uppercase tracking-tighter hover:border-primary transition-colors">Steel</button>
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 border border-surface-container-highest rounded-full text-[11px] font-label uppercase tracking-tighter hover:border-primary transition-colors">Leather</button>
+</div>
+</div>
+<!-- Movement -->
+<div class="mb-8">
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mb-4">Movement</p>
+<div class="flex flex-wrap gap-1.5">
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 border border-surface-container-highest rounded-full text-[11px] font-label uppercase tracking-tighter hover:border-primary transition-colors">Mechanical</button>
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 border border-surface-container-highest rounded-full text-[11px] font-label uppercase tracking-tighter hover:border-primary transition-colors">Automatic</button>
+<button onclick="toggleFilterPill(this)" class="px-3 py-1.5 border border-surface-container-highest rounded-full text-[11px] font-label uppercase tracking-tighter hover:border-primary transition-colors">Quartz</button>
+</div>
+</div>
+<!-- Designer -->
+<div class="mb-8">
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-on-surface-variant mb-4">Designer</p>
+<ul class="space-y-2.5">
+<li class="flex items-center gap-3 group cursor-pointer">
+<div class="w-4 h-4 border border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<div class="hidden w-2 h-2 bg-primary"></div>
+</div>
+<span class="text-sm font-headline tracking-tight">Heritage Lab</span>
+</li>
+<li class="flex items-center gap-3 group cursor-pointer">
+<div class="w-4 h-4 border border-primary flex items-center justify-center bg-primary">
+<span class="material-symbols-outlined text-[10px] text-white">check</span>
+</div>
+<span class="text-sm font-headline font-bold tracking-tight">Aurelius</span>
+</li>
+<li class="flex items-center gap-3 group cursor-pointer">
+<div class="w-4 h-4 border border-outline-variant flex items-center justify-center group-hover:border-primary transition-colors">
+<div class="hidden w-2 h-2 bg-primary"></div>
+</div>
+<span class="text-sm font-headline tracking-tight">Studio Mono</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</aside>
+<!-- Content Area -->
+<section class="flex-1">
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-4xl font-headline font-extrabold tracking-tight mb-2">Search: Timepieces</h1>
+<p class="text-on-surface-variant font-body">Showing 124 results in the curated collection</p>
+</div>
+<!-- Sort & View Options -->
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant">View</span>
+<div class="flex bg-surface-container-low p-1 rounded">
+<button class="p-1.5 bg-white shadow-sm flex items-center justify-center">
+<span class="material-symbols-outlined text-base">grid_view</span>
+</button>
+<button class="p-1.5 text-outline hover:text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-base">view_list</span>
+</button>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] font-label uppercase tracking-[0.2em] text-on-surface-variant">Sort By</span>
+<div class="relative">
+<button class="flex items-center gap-3 text-sm font-headline font-bold border-b-2 border-primary pb-1">
+                                Newest Arrivals
+                                <span class="material-symbols-outlined text-sm">expand_more</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Active Filters -->
+<div class="flex flex-wrap items-center gap-3 mb-12" id="active-filters-bar">
+<span class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant mr-2">Active Filters:</span>
+<div class="flex items-center gap-2 bg-secondary/5 border border-secondary/10 px-3 py-1 rounded-full group cursor-pointer" onclick="this.remove()">
+<span class="text-[11px] font-headline font-semibold text-secondary">Automatic</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">close</span>
+</div>
+<div class="flex items-center gap-2 bg-secondary/5 border border-secondary/10 px-3 py-1 rounded-full group cursor-pointer" onclick="this.remove()">
+<span class="text-[11px] font-headline font-semibold text-secondary">Rose Gold</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">close</span>
+</div>
+<div class="flex items-center gap-2 bg-secondary/5 border border-secondary/10 px-3 py-1 rounded-full group cursor-pointer" onclick="this.remove()">
+<span class="text-[11px] font-headline font-semibold text-secondary">Aurelius</span>
+<span class="material-symbols-outlined text-[14px] text-secondary">close</span>
+</div>
+<button onclick="clearSearchFilters()" class="text-[10px] font-label uppercase tracking-widest text-on-surface-variant hover:text-primary ml-4 transition-colors underline underline-offset-4 decoration-outline-variant">Clear All</button>
+</div>
+<!-- Product Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-8 gap-y-16">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer search-card" onclick="window.location.href='carty-product.html'">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Luxury Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUbbtepKXT-odqHyZWdUh0zTXsl1jpMS1fLuFOsK8KvY4v4a_Z5KIbTKm6xxU4UfTtDCRs8kzPqH4n5OQLKjbnOgNjhgs0P00Vix8uazHUOJSoB5ZKU3pL9jXJKNZSKzP1kI2qnb-ds8XlAAKJyqEk0Th6vZYUyeFOQQhWJlCxgNRC9izzhGPo0GT_n4VsKQjMEYh7IWmRsA41qjVoHzFhGVBlDB97x44DPBI4yn67AdjEZ4WBvodfoAPEK8MoHxwrN4XG6L2dHFk"/>
+<div class="absolute top-4 left-4">
+<span class="bg-white/90 backdrop-blur px-3 py-1 text-[10px] font-label uppercase tracking-widest rounded-full">Exhibition Piece</span>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-start">
+<h2 class="font-headline font-bold text-lg group-hover:text-secondary transition-colors">Aurelius Chrono 01</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors p-0.5" onclick="toggleSearchFav(this)"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<p class="text-on-surface-variant font-body text-sm">Automatic / Rose Gold</p>
+<p class="font-headline font-extrabold text-xl mt-2 text-black">$2,450.00</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer search-card" onclick="window.location.href='carty-product.html'">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Minimalist Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBJ9Xf6cXY16xwLVaJiVGp-RdWSqdn-SlxPeKJ-DvfsifLS9YCOujmMpVBaCUSuqoea8DOZyLPji5nX4wcr-w8F9yth6Y5EfAuJFLPHU9BxM79oOsiJMkKjdQ74RuCk_vqcBqBFtMopnvja6WYY2NBVko8Njf72eAtQHzQuOuqb4tJc2dCXPFkWPQJA5ooYz_y7AQmIf9fu304CC2u_XlV_k8cTL2NrvwP9J7v0qzhsfGZgSbErkaQ7vTHjnIugqPcnnwZw4mMy5uM"/>
+<div class="absolute top-4 right-4">
+<div class="w-8 h-8 rounded-full bg-secondary text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+</div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-start">
+<h2 class="font-headline font-bold text-lg group-hover:text-secondary transition-colors">Mono Classic Tan</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors p-0.5" onclick="toggleSearchFav(this)"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<p class="text-on-surface-variant font-body text-sm">Minimalist / Italian Leather</p>
+<p class="font-headline font-extrabold text-xl mt-2 text-black">$890.00</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer search-card" onclick="window.location.href='carty-product.html'">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Steel Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjbWpb1PZn6rKLIN-Ll97nvB5hYpyV-CUkbx-hsR0cc4sOtADZj6BnBYlm864Fg_vCqdfObq3Sosp_-tPDKR-dMgiOQef_pNdnryvsX2IBO4WJEWop0kLSFh-4rRrCkUFYE0PMcvbiSQ9LxdfPQroujHt3xh97l-yGJ8xmmlNBwoZEsYkIwfjt3U6egW3WI7e0bnMrVhKwk6nZFHiR5H2GWhF14GFArek07hyijC-Z0OQJAp6VIg-J2dm4zBNVK5Ez1X-YSEQ2faM"/>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-start">
+<h2 class="font-headline font-bold text-lg group-hover:text-secondary transition-colors">Heritage Steel Diver</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors p-0.5" onclick="toggleSearchFav(this)"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<p class="text-on-surface-variant font-body text-sm">Professional / Titanium</p>
+<p class="font-headline font-extrabold text-xl mt-2 text-black">$3,200.00</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer search-card" onclick="window.location.href='carty-product.html'">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Luxury Timepiece" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBH332u_oLrebUvmcPVVbMMSKJRSsmDh7FJ2AXP45l8J04fNerXwaChfqI5VMZjwLrrrl0lL5gjM2Wmvmkiv0Wbm2NfIhYNsC3GVKyXcu0E55JaBzisFlkPckLdQgjKldPRgDMKXTmNg_Dt7ICGuN4_02_j0osVG6jvb2FKoOK63JCg70Sc_b1vqNbvqKQ8XpMOZzRHF6GIcdI9cYggbsOnSk7croOXhaxLESiIpjViKJTLtFfjv6jfQj4OzdTir3gc8Yfu1reXV-U"/>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-start">
+<h2 class="font-headline font-bold text-lg group-hover:text-secondary transition-colors">Vanguard Open-Heart</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors p-0.5" onclick="toggleSearchFav(this)"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<p class="text-on-surface-variant font-body text-sm">Mechanical / Skeleton</p>
+<p class="font-headline font-extrabold text-xl mt-2 text-black">$5,150.00</p>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group cursor-pointer search-card" onclick="window.location.href='carty-product.html'">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Black Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZVYzRH5LrCqL72kI2kh8W46gAxivh9h65ZRm0BKRs4Ws1TNAClSYkGJUkgWv1jvit7Xre8_KV78-VOJD20uJAeSExPruCXgMmE0KiOxkzQtDqdXbVJ4D3BGN6hqV-2LRM7HCHOx-njl_HeaVFrNSaWa1Onumo408ejAtVRLEOyeQtP_dJap0kqxba9ZRJm-0GHyAtvCWeBemc_NZWy3Gt-huaILgrbdDNQDFOV8I1UVtgDNGj9Ol4X74bwXWQhE7x52kYnN0mxJs"/>
+<div class="absolute bottom-4 left-4 right-4">
+<div class="bg-black/80 backdrop-blur-md text-white px-4 py-2 text-xs font-label uppercase text-center rounded">Limited Release</div>
+</div>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-start">
+<h2 class="font-headline font-bold text-lg group-hover:text-secondary transition-colors">Nocturnal Ghost 02</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors p-0.5" onclick="toggleSearchFav(this)"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<p class="text-on-surface-variant font-body text-sm">Matte Black / Quartz</p>
+<p class="font-headline font-extrabold text-xl mt-2 text-black">$1,100.00</p>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group cursor-pointer search-card" onclick="window.location.href='carty-product.html'">
+<div class="relative aspect-[3/4] mb-6 overflow-hidden bg-surface-container-low rounded-lg">
+<img alt="Gold Watch" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-IUZKstoZ8QNHzYdSXzyH5Pcy8hd5UzewqF802VlPN50i_2GGXTZryRhhyYTsOvvNgouETaRJdVlX7uc0zmC9lDv6TawhTdYVtf1mrKOtlDXvUQTgD1aAz-CXxA4-7JRdz7EvIPeei0j23ZLdtMMP0Tzfz0aIf8HYRCWVeUgY1Gfp903P1rYKYeanSfS6XKPqHDcE05ReqnddBJ3V2nqIQ-1KuXLEQt1omlezmtqD9b1nzTB0veBJkjwQDsatQMcKFk3Vvd38bK8"/>
+</div>
+<div class="space-y-1">
+<div class="flex justify-between items-start">
+<h2 class="font-headline font-bold text-lg group-hover:text-secondary transition-colors">Aurelius Petit Gold</h2>
+<button class="text-on-surface-variant hover:text-error transition-colors p-0.5" onclick="toggleSearchFav(this)"><span class="material-symbols-outlined">favorite</span></button>
+</div>
+<p class="text-on-surface-variant font-body text-sm">Minimalist / 18k Gold Plate</p>
+<p class="font-headline font-extrabold text-xl mt-2 text-black">$1,320.00</p>
+</div>
+</div>
+</div>
+<!-- Pagination -->
+<div class="mt-24 flex flex-col items-center">
+<button onclick="if(typeof showToast==='function')showToast('Showing all 124 results')" class="px-10 py-4 bg-primary text-on-primary font-headline font-bold text-sm tracking-widest uppercase hover:bg-secondary transition-colors duration-300">
+                    Show More Results
+                </button>
+<div class="mt-8 flex gap-4 text-on-surface-variant font-label text-xs tracking-widest">
+<span class="text-primary font-bold">01</span>
+<span class="hover:text-primary cursor-pointer transition-colors">02</span>
+<span class="hover:text-primary cursor-pointer transition-colors">03</span>
+<span class="hover:text-primary cursor-pointer transition-colors">04</span>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t border-neutral-200 bg-neutral-50">
+<div class="w-full px-8 py-12 flex flex-col md:flex-row justify-between items-center gap-6 max-w-screen-2xl mx-auto">
+<div class="flex flex-col items-center md:items-start gap-4">
+<span class="text-lg font-bold text-black font-headline tracking-tighter">Carty</span>
+<p class="font-label text-[0.6875rem] uppercase tracking-widest text-neutral-400">© 2024 Carty Digital Gallery. All Rights Reserved.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-label text-[0.6875rem] uppercase tracking-widest text-neutral-400 hover:text-black transition-colors hover:underline underline-offset-4" href="#">Privacy Policy</a>
+<a class="font-label text-[0.6875rem] uppercase tracking-widest text-neutral-400 hover:text-black transition-colors hover:underline underline-offset-4" href="#">Terms of Service</a>
+<a class="font-label text-[0.6875rem] uppercase tracking-widest text-neutral-400 hover:text-black transition-colors hover:underline underline-offset-4" href="#">Shipping &amp; Returns</a>
+<a class="font-label text-[0.6875rem] uppercase tracking-widest text-neutral-400 hover:text-black transition-colors hover:underline underline-offset-4" href="#">Contact</a>
+</div>
+</div>
+</footer>
+<script src="carty-cart.js"></script>
+<script>
+function toggleSearchFav(btn) {
+  var icon = btn.querySelector('.material-symbols-outlined');
+  var filled = icon.style.fontVariationSettings && icon.style.fontVariationSettings.includes("'FILL' 1");
+  if (filled) {
+    icon.style.fontVariationSettings = "'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+    btn.classList.remove('text-error');
+    btn.classList.add('text-on-surface-variant');
+    if (typeof showToast === 'function') showToast('Removed from wishlist');
+  } else {
+    icon.style.fontVariationSettings = "'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24";
+    btn.classList.remove('text-on-surface-variant');
+    btn.classList.add('text-error');
+    if (typeof showToast === 'function') showToast('Added to wishlist');
+  }
+}
+function toggleFilterPill(btn) {
+  var active = btn.classList.contains('bg-primary');
+  if (active) {
+    btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+    btn.classList.add('border-surface-container-highest');
+    btn.classList.remove('border-primary');
+  } else {
+    btn.classList.add('bg-primary', 'text-white', 'border-primary');
+    btn.classList.remove('border-surface-container-highest');
+  }
+}
+function clearSearchFilters() {
+  document.querySelectorAll('#active-filters-bar [onclick="this.remove()"]').forEach(function(el) { el.remove(); });
+  document.querySelectorAll('.bg-primary.text-white.border-primary').forEach(function(btn) {
+    btn.classList.remove('bg-primary', 'text-white', 'border-primary');
+    btn.classList.add('border-surface-container-highest');
+  });
+  if (typeof showToast === 'function') showToast('All filters cleared');
+}
+</script>
+</body></html>

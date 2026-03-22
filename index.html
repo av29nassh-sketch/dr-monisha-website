@@ -619,12 +619,6 @@
 </style>
 
 <script>
-  // ── CallMeBot: paste your API key below after the one-time WhatsApp setup ──
-  // Setup: send "I allow callmebot to send me messages" to +34 644 56 78 11 on WhatsApp
-  // You will receive your API key by WhatsApp. Paste it here:
-  const CALLMEBOT_API_KEY = 'YOUR_API_KEY';
-  const DOCTOR_PHONE = '918310534521'; // country code + number, no spaces
-  // ──────────────────────────────────────────────────────────────────────────
   const db = supabase.createClient(
     'https://nqzuvafvrsdmmvcabgiv.supabase.co',
     'sb_publishable_RtEv-iE4U-vzSeWp3a9ZrQ_uNZdiZyO'
@@ -765,36 +759,9 @@
       return;
     }
 
-    const now = new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', hour12: true });
-
-    const message =
-      `New Appointment Request!\n` +
-      `---------------------------\n` +
-      `Name: ${name}\n` +
-      `Phone: ${phone}\n` +
-      `Type: ${type === 'offline' ? 'In-Person' : 'Online'}\n` +
-      `Date: ${formatted}\n` +
-      `Time: ${time}\n` +
-      `---------------------------\n` +
-      `Submitted at ${now}\n` +
-      `Reply to patient: wa.me/${phone.replace(/\D/g, '')}`;
-
-    const url = `https://api.callmebot.com/whatsapp.php?phone=${DOCTOR_PHONE}&text=${encodeURIComponent(message)}&apikey=${CALLMEBOT_API_KEY}`;
-
-    fetch(url, { mode: 'no-cors' })
-      .then(() => {
-        document.getElementById('booking-form').style.display = 'none';
-        document.getElementById('booking-success').style.display = 'block';
-        _autoCloseTimer = setTimeout(closeBookingModal, 6000);
-      })
-      .catch(() => {
-        // no-cors fetch always resolves; this only fires on network failure
-        submitBtn.disabled = false;
-        submitText.textContent = 'Submit Booking';
-        spinner.style.display = 'none';
-        formError.textContent = 'Could not send. Please call or WhatsApp directly.';
-        formError.style.display = 'block';
-      });
+    document.getElementById('booking-form').style.display = 'none';
+    document.getElementById('booking-success').style.display = 'block';
+    _autoCloseTimer = setTimeout(closeBookingModal, 6000);
   }
 
   document.addEventListener('keydown', (e) => {
