@@ -34,7 +34,7 @@ messaging.onBackgroundMessage(payload => {
 // ─────────────────────────────────────────────────────────────────────────────
 // PWA Cache
 // ─────────────────────────────────────────────────────────────────────────────
-const CACHE_NAME = 'dr-monisha-v6';
+const CACHE_NAME = 'dr-monisha-v7';
 
 const PRECACHE_URLS = [
   '/',
