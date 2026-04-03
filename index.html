@@ -738,19 +738,16 @@
     const time  = document.getElementById('b-time').value;
     const type  = window._consultationType || 'online';
 
-    // Save booking to Supabase
-    const booking = {
-      id: Date.now().toString(),
-      name, phone,
-      date: rawDate,
-      time,
-      type,
-      status: 'pending',
-      submitted_at: new Date().toISOString()
-    };
-    const { error: insertError } = await db.from('bookings').insert(booking);
-    if (insertError) {
-      console.error('Supabase insert error:', JSON.stringify(insertError));
+    // Save booking via API
+    try {
+      const apiRes = await fetch('/api/submit-booking', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, phone, date: rawDate, time, type }),
+      });
+      if (!apiRes.ok) throw new Error('Insert failed');
+    } catch (insertError) {
+      console.error('Booking insert error:', insertError);
       submitBtn.disabled = false;
       submitText.textContent = 'Submit Booking';
       spinner.style.display = 'none';
