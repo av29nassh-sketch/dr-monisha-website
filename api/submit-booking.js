@@ -26,6 +26,7 @@ module.exports = async (req, res) => {
           Prefer: 'return=representation',
         },
         body: JSON.stringify({
+          id: Date.now().toString(),
           name,
           phone,
           date,
