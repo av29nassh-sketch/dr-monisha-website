@@ -38,7 +38,12 @@ function isValidDate(s) {
 }
 
 function isValidTime(s) {
-  return /^([01]\d|2[0-3]):[0-5]\d$/.test(s);
+  if (typeof s !== 'string') return false;
+  if (s.length > 12) return false;
+  // Accept either 24h (HH:MM) or 12h (H:MM AM/PM, H:MM PM, etc.)
+  if (/^([01]\d|2[0-3]):[0-5]\d$/.test(s)) return true;
+  if (/^(0?[1-9]|1[0-2]):[0-5]\d\s*(AM|PM|am|pm)$/.test(s)) return true;
+  return false;
 }
 
 async function verifyTurnstile(token, ip) {
