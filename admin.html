@@ -701,25 +701,11 @@
         }
       });
 
-      // Auto-refresh token whenever Firebase rotates it
-      messaging.onTokenRefresh(async () => {
-        try {
-          const newToken = await messaging.getToken({
-            vapidKey: FCM_VAPID_KEY,
-            serviceWorkerRegistration: reg,
-          });
-          if (newToken) {
-            await adminFetch('/api/save-fcm-token', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ token: newToken }),
-            });
-            console.log('FCM token refreshed and saved.');
-          }
-        } catch (err) {
-          console.warn('FCM token refresh failed:', err);
-        }
-      });
+      // NOTE: messaging.onTokenRefresh() was removed in Firebase JS SDK v9+.
+      // Modern Firebase compat handles token rotation automatically — every
+      // call to getToken() returns the freshest token, so we just re-call it
+      // on each admin.html load (which happens above). No explicit refresh
+      // listener needed.
 
       console.log('FCM push notifications enabled.');
     } catch (err) {
