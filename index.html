@@ -586,6 +586,15 @@
         </div>
       </div>
 
+      <!-- Honeypot — hidden, bots fill anything -->
+      <div style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+        <label for="b-website">Website</label>
+        <input id="b-website" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- Cloudflare Turnstile widget -->
+      <div id="turnstile-container" style="margin-top:1rem;"></div>
+
       <!-- General error -->
       <p id="form-error" style="display:none;font-family:'DM Sans',sans-serif;font-size:0.8rem;color:#c17b6e;margin:0.75rem 0 0;padding:0.6rem 0.85rem;background:rgba(193,123,110,0.08);border-radius:0.4rem;"></p>
 
@@ -737,21 +746,43 @@
     const phone = document.getElementById('b-phone').value;
     const time  = document.getElementById('b-time').value;
     const type  = window._consultationType || 'online';
+    const honeypot = document.getElementById('b-website').value;
+
+    // Get fresh Turnstile token
+    let turnstileToken = '';
+    if (window.turnstile && window._turnstileWidgetId !== null && window._turnstileWidgetId !== undefined) {
+      turnstileToken = window.turnstile.getResponse(window._turnstileWidgetId) || '';
+    }
+    if (!turnstileToken) {
+      submitBtn.disabled = false;
+      submitText.textContent = 'Submit Booking';
+      spinner.style.display = 'none';
+      formError.textContent = 'Please complete the verification challenge.';
+      formError.style.display = 'block';
+      return;
+    }
 
     // Save booking via API
     try {
       const apiRes = await fetch('/api/submit-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, phone, date: rawDate, time, type }),
+        body: JSON.stringify({ name, phone, date: rawDate, time, type, turnstileToken, website: honeypot }),
       });
-      if (!apiRes.ok) throw new Error('Insert failed');
+      if (!apiRes.ok) {
+        const errData = await apiRes.json().catch(() => ({}));
+        throw new Error(errData.error || 'Insert failed');
+      }
+      // Reset Turnstile so user can submit again if needed
+      if (window.turnstile && window._turnstileWidgetId !== null && window._turnstileWidgetId !== undefined) {
+        window.turnstile.reset(window._turnstileWidgetId);
+      }
     } catch (insertError) {
       console.error('Booking insert error:', insertError);
       submitBtn.disabled = false;
       submitText.textContent = 'Submit Booking';
       spinner.style.display = 'none';
-      formError.textContent = 'Could not save your booking. Please try again.';
+      formError.textContent = insertError.message || 'Could not save your booking. Please try again.';
       formError.style.display = 'block';
       return;
     }
@@ -783,6 +814,44 @@
         .catch(err => console.warn('SW registration failed:', err));
     });
   }
+</script>
+
+<!-- Cloudflare Turnstile (loaded after we fetch the public site key) -->
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onTurnstileLoad&render=explicit" async defer></script>
+<script>
+  window._turnstileWidgetId = null;
+  window._turnstileSiteKey = null;
+  let _turnstileReady = false;
+
+  window.onTurnstileLoad = function() {
+    _turnstileReady = true;
+    tryRenderTurnstile();
+  };
+
+  function tryRenderTurnstile() {
+    if (!_turnstileReady || !window._turnstileSiteKey) return;
+    const container = document.getElementById('turnstile-container');
+    if (!container || window._turnstileWidgetId !== null) return;
+    window._turnstileWidgetId = window.turnstile.render(container, {
+      sitekey: window._turnstileSiteKey,
+      theme: 'light',
+    });
+  }
+
+  (async () => {
+    try {
+      const r = await fetch('/api/config');
+      if (r.ok) {
+        const cfg = await r.json();
+        if (cfg.turnstileSiteKey) {
+          window._turnstileSiteKey = cfg.turnstileSiteKey;
+          tryRenderTurnstile();
+        }
+      }
+    } catch (e) {
+      console.warn('Could not load Turnstile config:', e);
+    }
+  })();
 </script>
 
 </body>

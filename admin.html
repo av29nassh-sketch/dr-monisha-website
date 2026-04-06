@@ -326,9 +326,73 @@
       /* Toolbar: stack search full width */
       #search-wrap { max-width: 100% !important; flex: 1 1 100% !important; }
     }
+
+    /* Admin password gate */
+    body.locked > header,
+    body.locked > main,
+    body.locked > footer { display: none !important; }
+    #admin-gate {
+      position: fixed; inset: 0; z-index: 200;
+      background: #fdf5f2;
+      display: flex; align-items: center; justify-content: center;
+      padding: 24px;
+    }
+    #admin-gate .gate-card { max-width: 420px; width: 100%; font-family: 'DM Sans', sans-serif; }
+    #admin-gate h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 700; color: #1a1a2e;
+      margin: 0 0 0.5rem;
+    }
+    #admin-gate p.subtitle {
+      font-size: 0.9rem; color: #6b6b8a; margin: 0 0 2rem; line-height: 1.6;
+    }
+    #admin-gate label.eyebrow {
+      display: block; font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: #6b6b8a; margin-bottom: 0.6rem;
+    }
+    #admin-gate input {
+      width: 100%; background: transparent; border: none;
+      border-bottom: 1.5px solid rgba(26,40,112,0.2);
+      padding: 0.85rem 0; font-family: 'DM Sans', sans-serif;
+      font-size: 1rem; color: #1a1a2e;
+      transition: border-color 0.3s ease;
+    }
+    #admin-gate input:focus { outline: none; border-bottom-color: #1a2870; }
+    #admin-gate .gate-error {
+      color: #c17b6e; font-size: 0.8rem; min-height: 1.2em; margin: 1rem 0 0;
+    }
+    #admin-gate button {
+      width: 100%; margin-top: 1.25rem;
+      background: #1a2870; color: #fff;
+      padding: 0.95rem 2rem; border: none; border-radius: 0.5rem;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600; font-size: 0.95rem; cursor: pointer;
+      box-shadow: 0 4px 16px rgba(26,40,112,0.25);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    #admin-gate button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(26,40,112,0.32);
+    }
   </style>
 </head>
-<body class="bg-canvas">
+<body class="locked bg-canvas">
+
+<!-- ════════════════ ADMIN PASSWORD GATE ════════════════ -->
+<div id="admin-gate">
+  <div class="gate-card">
+    <p style="font-family:'DM Sans',sans-serif;font-size:0.7rem;letter-spacing:0.22em;text-transform:uppercase;color:#1a2870;margin:0 0 1rem;">— Admin</p>
+    <h1>Dr. Monisha</h1>
+    <p class="subtitle">Private dashboard. Enter the admin password to continue.</p>
+    <form id="gate-form">
+      <label class="eyebrow" for="gate-password">Password</label>
+      <input id="gate-password" type="password" autocomplete="current-password" autofocus required>
+      <p id="gate-error" class="gate-error">&nbsp;</p>
+      <button type="submit">Enter Dashboard</button>
+    </form>
+  </div>
+</div>
 
 <!-- ─── HEADER ─── -->
 <header style="position:sticky;top:0;z-index:50;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);background:rgba(253,245,242,0.9);border-bottom:1px solid rgba(26,40,112,0.07);">
@@ -485,6 +549,45 @@
 </div>
 
 <script>
+  // ── Admin auth helper ──────────────────────────────────────────────────────
+  const TOKEN_KEY = 'monisha_admin_token';
+  function getAdminToken() {
+    return sessionStorage.getItem(TOKEN_KEY) || '';
+  }
+  async function adminFetch(path, options = {}) {
+    const headers = Object.assign({}, options.headers || {}, {
+      'x-admin-token': getAdminToken(),
+    });
+    const r = await fetch(path, Object.assign({}, options, { headers }));
+    if (r.status === 401) {
+      sessionStorage.removeItem(TOKEN_KEY);
+      lockAdmin();
+      throw new Error('Session expired — please log in again');
+    }
+    return r;
+  }
+  function lockAdmin() {
+    document.body.classList.add('locked');
+    const gate = document.getElementById('admin-gate');
+    if (gate) gate.style.display = 'flex';
+    setTimeout(() => {
+      const inp = document.getElementById('gate-password');
+      if (inp) inp.focus();
+    }, 50);
+  }
+  function unlockAdmin() {
+    document.body.classList.remove('locked');
+    const gate = document.getElementById('admin-gate');
+    if (gate) gate.style.display = 'none';
+  }
+  function adminLogout() {
+    sessionStorage.removeItem(TOKEN_KEY);
+    const inp = document.getElementById('gate-password');
+    if (inp) inp.value = '';
+    lockAdmin();
+  }
+  window.adminLogout = adminLogout;
+
   // ── Supabase ────────────────────────────────────────────────────────────────
   const SUPABASE_URL = 'https://nqzuvafvrsdmmvcabgiv.supabase.co';
   const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xenV2YWZ2cnNkbW12Y2FiZ2l2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3MDcyNjIsImV4cCI6MjA4ODI4MzI2Mn0.3VLd4pMzvNlJWVCF2ZNtFwhaPDgY1TA0pDPd8cOZac4';
@@ -568,7 +671,7 @@
       }
 
       // Save token to Supabase via server API (uses service role key)
-      await fetch('/api/save-fcm-token', {
+      await adminFetch('/api/save-fcm-token', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ token }),
@@ -600,7 +703,7 @@
             serviceWorkerRegistration: reg,
           });
           if (newToken) {
-            await fetch('/api/save-fcm-token', {
+            await adminFetch('/api/save-fcm-token', {
               method: 'POST',
               headers: { 'Content-Type': 'application/json' },
               body: JSON.stringify({ token: newToken }),
@@ -624,7 +727,7 @@
 
   // ── Storage ────────────────────────────────────────────────────────────────
   async function getBookings() {
-    const res = await fetch('/api/get-bookings');
+    const res = await adminFetch('/api/get-bookings');
     if (!res.ok) { console.error('Failed to fetch bookings:', await res.text()); return []; }
     const data = await res.json();
     return data.map(b => ({
@@ -641,10 +744,10 @@
   }
   async function updateBookingStatus(id, status) {
     try {
-      const res = await fetch('/api/update-booking', {
+      const res = await adminFetch('/api/update-booking', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status }),
+        body: JSON.stringify({ id, status, action: 'update-status' }),
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({ error: `HTTP ${res.status}` }));
@@ -1046,7 +1149,7 @@
 
   // ── Delete single booking ──────────────────────────────────────────────────
   async function deleteBooking(id) {
-    const res = await fetch('/api/update-booking', {
+    const res = await adminFetch('/api/update-booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'delete', id }),
@@ -1062,7 +1165,7 @@
 
   // ── Clear rejected ─────────────────────────────────────────────────────────
   async function clearRejected() {
-    const res = await fetch('/api/update-booking', {
+    const res = await adminFetch('/api/update-booking', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ action: 'clear-rejected' }),
@@ -1083,28 +1186,76 @@
     });
   }
 
-  // Real-time updates — fires whenever a booking is inserted/updated/deleted
-  db.channel('bookings-changes')
-    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'bookings' }, () => {
-      soundNotify();
-      renderBookings();
-    })
-    .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'bookings' }, () => {
-      renderBookings();
-    })
-    .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'bookings' }, () => {
-      renderBookings();
-    })
-    .subscribe();
+  function bootAdmin() {
+    // Real-time updates — fires whenever a booking is inserted/updated/deleted
+    db.channel('bookings-changes')
+      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'bookings' }, () => {
+        soundNotify();
+        renderBookings();
+      })
+      .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'bookings' }, () => {
+        renderBookings();
+      })
+      .on('postgres_changes', { event: 'DELETE', schema: 'public', table: 'bookings' }, () => {
+        renderBookings();
+      })
+      .subscribe();
 
-  document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeDialog();
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeDialog();
+    });
+
+    initHeader();
+    updateWaToggleLabel();
+    renderBookings();
+    setupPushNotifications();
+  }
+
+  // ── Gate handler ───────────────────────────────────────────────────────────
+  let _adminBooted = false;
+  document.addEventListener('DOMContentLoaded', async () => {
+    const form = document.getElementById('gate-form');
+    const errEl = document.getElementById('gate-error');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const pw = document.getElementById('gate-password').value;
+      errEl.textContent = '';
+      if (!pw) { errEl.textContent = 'Enter a password'; return; }
+      sessionStorage.setItem(TOKEN_KEY, pw);
+      try {
+        const r = await fetch('/api/get-bookings', { headers: { 'x-admin-token': pw } });
+        if (r.status === 401) {
+          sessionStorage.removeItem(TOKEN_KEY);
+          errEl.textContent = 'Incorrect password';
+          document.getElementById('gate-password').value = '';
+          document.getElementById('gate-password').focus();
+          return;
+        }
+        if (!r.ok) { errEl.textContent = 'Server error — try again'; return; }
+        unlockAdmin();
+        if (!_adminBooted) { _adminBooted = true; bootAdmin(); }
+      } catch (e) {
+        errEl.textContent = 'Network error — try again';
+        sessionStorage.removeItem(TOKEN_KEY);
+      }
+    });
+
+    // If we already have a token from a previous session, try to use it
+    const existing = getAdminToken();
+    if (existing) {
+      try {
+        const r = await fetch('/api/get-bookings', { headers: { 'x-admin-token': existing } });
+        if (r.ok) {
+          unlockAdmin();
+          if (!_adminBooted) { _adminBooted = true; bootAdmin(); }
+          return;
+        }
+        sessionStorage.removeItem(TOKEN_KEY);
+      } catch {}
+    }
+    lockAdmin();
   });
-
-  initHeader();
-  updateWaToggleLabel();
-  renderBookings();
-  setupPushNotifications();
 </script>
 
 <script>
