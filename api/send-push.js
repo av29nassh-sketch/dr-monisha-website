@@ -76,14 +76,20 @@ module.exports = async (req, res) => {
   const dateStr     = booking.date || '';
   const timeStr     = booking.time || '';
 
+  const title = `New ${consultType} Booking`;
+  const body  = `${booking.name} — ${dateStr} at ${timeStr}`;
+
   const message = {
-    data: {
-      title: `New ${consultType} Booking`,
-      body:  `${booking.name} — ${dateStr} at ${timeStr}`,
-      url:   '/admin.html',
-    },
+    notification: { title, body },
+    data: { title, body, url: '/admin.html' },
     webpush: {
       headers: { Urgency: 'high' },
+      notification: {
+        icon:  '/icons/icon-192x192.png',
+        badge: '/icons/icon-192x192.png',
+        requireInteraction: true,
+      },
+      fcm_options: { link: '/admin.html' },
     },
     tokens,
   };

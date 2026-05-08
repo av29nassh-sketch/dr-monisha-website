@@ -779,6 +779,9 @@
       }
     } catch (insertError) {
       console.error('Booking insert error:', insertError);
+      if (window.turnstile && window._turnstileWidgetId !== null && window._turnstileWidgetId !== undefined) {
+        window.turnstile.reset(window._turnstileWidgetId);
+      }
       submitBtn.disabled = false;
       submitText.textContent = 'Submit Booking';
       spinner.style.display = 'none';
