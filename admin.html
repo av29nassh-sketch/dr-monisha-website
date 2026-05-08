@@ -417,6 +417,7 @@
     <!-- Right: Date + website link -->
     <div style="display:flex;align-items:center;gap:1rem;">
       <span id="header-date" style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:#6b6b8a;"></span>
+      <span id="push-status" title="Push notification status" style="font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:500;padding:0.2rem 0.65rem;border-radius:9999px;background:rgba(107,107,138,0.1);color:#6b6b8a;">🔔 …</span>
       <!-- WhatsApp app toggle -->
       <button id="wa-toggle" onclick="toggleWaApp()"
         style="display:inline-flex;align-items:center;gap:0.4rem;font-family:'DM Sans',sans-serif;font-size:0.78rem;font-weight:500;color:#1a2870;background:rgba(26,40,112,0.07);border:none;padding:0.4rem 0.9rem;border-radius:9999px;cursor:pointer;transition:background 0.18s ease;"
@@ -658,6 +659,8 @@
     try {
       const permission = await Notification.requestPermission();
       if (permission !== 'granted') {
+        const badge = document.getElementById('push-status');
+        if (badge) { badge.textContent = '🔔 Blocked'; badge.style.background = 'rgba(239,68,68,0.10)'; badge.style.color = '#991b1b'; }
         console.log('Notification permission denied.');
         return;
       }
@@ -707,8 +710,12 @@
       // on each admin.html load (which happens above). No explicit refresh
       // listener needed.
 
+      const badge = document.getElementById('push-status');
+      if (badge) { badge.textContent = '🔔 On'; badge.style.background = 'rgba(16,185,129,0.12)'; badge.style.color = '#065f46'; }
       console.log('FCM push notifications enabled.');
     } catch (err) {
+      const badge = document.getElementById('push-status');
+      if (badge) { badge.textContent = '🔔 Off'; badge.style.background = 'rgba(239,68,68,0.10)'; badge.style.color = '#991b1b'; badge.title = String(err); }
       console.warn('FCM setup failed:', err);
     }
   }

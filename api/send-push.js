@@ -105,9 +105,15 @@ module.exports = async (req, res) => {
   const sent   = result.responses.filter(r => r.success).length;
   const failed = result.responses.filter(r => !r.success).length;
 
-  // Cleanup invalid tokens
+  // Only delete tokens that FCM explicitly says are invalid/unregistered.
+  // Never delete on transient errors (network, quota, internal) — that wipes valid tokens.
+  const DEAD_TOKEN_CODES = new Set([
+    'messaging/registration-token-not-registered',
+    'messaging/invalid-registration-token',
+    'messaging/invalid-argument',
+  ]);
   const invalidTokens = result.responses
-    .map((r, i) => (!r.success ? tokens[i] : null))
+    .map((r, i) => (!r.success && DEAD_TOKEN_CODES.has(r.error?.code) ? tokens[i] : null))
     .filter(Boolean);
 
   if (invalidTokens.length > 0) {
